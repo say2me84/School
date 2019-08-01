@@ -1,0 +1,39 @@
+<?
+	 if(is_array($this->emp_grades_list) && count($this->emp_grades_list) > 0)
+	 { ?>
+<ul id="department-list">
+  
+    <li class="heading"> <?=LNG_CURRENTLY_ASSIGNED?> </li>
+  
+     
+	 <? 
+	 foreach($this->emp_grades_list as $grades_list) { ?>
+	  <li class="listeven">
+        <div class="department-name"><?=$emp_subject_list['ename']?>
+          (<?=$emp_subject_list['deptname']?>)</div>
+        <div class="remove"><a href="#" onclick="getajax('<?=BASE_PATH?>employee/removeemployee/subject_id/<?=$this->subject_id?>/?id=<?=$emp_subject_list['id']?>', '','department-select')"><?=LNG_REMOVE?></a></div>
+      </li>
+	 <? } ?>
+
+</ul>
+<?
+	 } else { ?>
+<p class="flash-msg">No class assigned yet.</p>
+<? } ?>
+<div class="label-field-pair">
+  <label for="department_name"><?=LNG_GRADE?></label>
+  <div class="text-input-bg"><select id="class_assignment_grade_id" name="class_assignment_grade_id" onchange="getajax('<?=BASE_PATH?>employee/updatebatch', '?grade_id='+this.value+'&amp;emp_id=<?=$this->emp_id?>','employee-list')"><option value=""><?=LNG_SELECT_GRADE?></option>
+
+<?
+		foreach($this->glist as $glist) { ?>
+		<option value="<?=$glist['id']?>"><?=$glist['grade_name']?></option>
+	  <? } ?>
+	  </select>
+  </div>
+</div>
+<div id="employee-list"></div>
+<div class="extender"></div>
+
+
+
+

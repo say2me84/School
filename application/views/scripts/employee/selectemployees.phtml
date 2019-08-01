@@ -1,0 +1,12 @@
+ <div class="label-field-pair">
+      <label for="subject_name"><?=LNG_EMPLOYEES?></label>
+        <div class="text-input-bg">
+		<select onchange="getajax('<?=BASE_PATH?>employee/selectgrades','?emp_id='+this.value,'department-select');" name="grades_assignment_emp_id" id="grades_assignment_emp_id">
+		<option value=""><?=LNG_SELECT_EMPLOYEE?></option>
+		
+	   <?
+		foreach($this->emplist as $empname) { ?>
+		<option value="<?=$empname['id']?>"><?=$empname['name']?></option>
+	  <? } ?>
+		</select>
+</div>

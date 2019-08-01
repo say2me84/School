@@ -1,0 +1,61 @@
+
+<div class="students-table">
+<? if(isset($this->userdetail) && count($this->userdetail) > 0) { ?>
+  <table align="center" cellpadding="1" cellspacing="1" width="100%">
+    <tbody><tr class="tr-head">
+      <td>
+        <?=LNG_SLNO?>
+      </td>
+      <td>
+       <?=LNG_NAME?>
+      </td>
+      <td>
+        <?=LNG_USERNAME?>
+      </td>
+	   <td>
+        <?=LNG_SCHOOLNAME?>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <? $i=1; 
+  foreach($this->userdetail as $userdetail) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        <td class="col-1">
+          <? echo $i; ?>
+        </td>
+
+        <td class="col-2">
+          <a href="<?=BASE_PATH?>user/profile/profileid/<?=$userdetail['id']?>"><?=$userdetail['first_name']?> <?=$userdetail['middle_name']?> <?=$userdetail['last_name']?></a>
+        </td>
+
+        <td class="col-3"><?=$userdetail['username']?></td>
+		<td class="col-3"><?=$userdetail['schoolname']?></td>
+
+        <td class="col-4">
+          <a href="<?=BASE_PATH?>user/profile/profileid/<?=$userdetail['id']?>"><?=LNG_VIEW_PROFILE?></a>
+        </td>
+      </tr>
+    <? $i++; } ?>
+     
+    
+  </tbody></table>
+  <? } else { ?>
+  No Recored Found
+  <? } ?>
+</div>

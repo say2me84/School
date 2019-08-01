@@ -1,0 +1,60 @@
+<link href="<?=CSS_URL?>user/all.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+<div id="content"> 
+ 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/hr_detail.png">
+  <h1><?=LNG_ALL_USERS?></h1>
+  <h3><?=LNG_DETAILS_ABOUT_USERS?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li><a href="<?=BASE_PATH?>user/create"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+</div>
+
+<div id="page-yield">
+
+  
+  <div class="all-user">
+  <div class="label-field-pair">
+  <div class="text-input-bg">
+  	<select onchange="getajax('<?=BASE_PATH?>user/listuserbyschool/','?school_id='+this.value,'user');" name="school_id" id="school_id">
+	<option value="">Select a school</option>
+	<? if(isset($this->schooldetail) && count($this->schooldetail) > 0) { ?>
+		<? foreach($this->schooldetail as $schooldetail) { ?>
+			<option value="<?=$schooldetail['id']?>"><?=$schooldetail['name']?></option>
+		<? } ?>
+	<? } ?>		
+	</select>
+  </div>
+    <img alt="Loader" id="loader" src="<?=IMAGES_URL?>load.gif?1313631718" style="display: none;" align="absmiddle" border="0">
+
+ </div>
+
+  </div></div>
+<div id="user">
+ 
+</div>
+  
+
+</div>
+
+      <div class="extender"></div>
+<?
+if($this->schoolid) {
+?>
+<script>
+document.getElementById("school_id").value = '<?=$this->schoolid?>';
+getajax('<?=BASE_PATH?>user/listuserbyschool/','?school_id=<?=$this->schoolid?>','user');
+</script>
+<? } ?>

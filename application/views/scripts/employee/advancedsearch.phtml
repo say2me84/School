@@ -1,0 +1,199 @@
+<?
+global $mySession;
+$db=new Db();
+?>
+<link href="<?=CSS_URL?>employee/advanced_search.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+  
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMP_ADMISSION?></h1>
+  <h3><?=LNG_ADVANCE_SEARCH?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+	<li style="width:125px;"><a href="<?=BASE_PATH?>employee/search"><?=LNG_SEARCH?></a></li>
+	<li><a href="<?=BASE_PATH?>employee/admission1"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+
+</div>
+<div id="page-yield">
+
+  <div id="search-form" style="text-align:left;">
+    <form action="<?=BASE_PATH?>employee/employeeslist" method="get">
+	<div><input id="search_order" name="search[order]" type="hidden"></div>
+      <div class="label-field-pair">
+        <label for="name"><?=LNG_NAME?></label>
+        <div class="text-input-bg">
+          <input id="employee_first_name" name="employee_first_name" size="30" type="text">
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_EMP_NO?></label>
+        <div class="text-input-bg">
+          <input id="employee_number" name="employee_number" size="30" type="text">
+        </div>
+      </div>
+      <div class="label_field_pair">
+        <label class="label_for_student"><?=LNG_GENDER?></label>
+        <div class="student_gender_value">
+          
+          <input checked="checked" id="search_gender_n" name="search_gender" value="" type="radio">
+		  <label class="label_for_gender">All</label>
+          
+          <input id="search_gender_0" name="search_gender" value="0" type="radio">
+		  <label class="label_for_gender">Male</label>
+          
+          <input id="search_gender_1" name="search_gender" value="1" type="radio">
+		  <label class="label_for_gender">Female</label>
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_BLOOD_GROUP?></label>
+        <div class="text-input-bg">
+          <select id="employee_blood_group" name="employee_blood_group">
+		  	<option value="1">Unknown</option>
+			<option value="2">A+</option>
+			<option value="3">A-</option>
+			<option value="4">B+</option>
+			<option value="5">B-</option>
+			<option value="6">O+</option>
+			<option value="7">O-</option>
+			<option value="8">AB+</option>
+			<option value="9">AB-</option>
+			</select>
+        </div>
+      </div>
+
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_MARTIAL_STATUS?></label>
+        <div class="text-input-bg">
+          <select id="employee_marital_status" name="employee_marital_status">
+		  	<option value="">Select</option>
+			<option value="1">Single</option>
+			<option value="2">Married</option>
+			<option value="3">Divorced</option>
+		</select>
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_COUNTRY?></label>
+        <div class="text-input-bg">
+		<?
+			$qry="select * from countries";
+			$country=$db->runQuery("$qry");
+		?>
+          <select id="employee_country" name="employee_country">
+			<option value="">Select</option>
+			<?				
+			foreach($country as $countrylist)
+			{
+				?>
+				<option value="<?=$countrylist['id']?>"><?=$countrylist['name']?></option>
+				<?
+			}
+			?>
+			</select>
+        </div>
+      </div>
+	  <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_DEPARTMENT?></label>
+        <div class="text-input-bg">
+        <?
+			$qry="select * from employee_departments where schoolid='".$mySession->user['schoolid']."'";
+			$department=$db->runQuery("$qry");
+		?>
+		  <select id="employee_department" name="employee_department">
+		  	<option value="">Select</option>
+			<?				
+			foreach($department as $departmentlist)
+			{
+				?>
+			<option value="<?=$departmentlist['id']?>"><?=$departmentlist['name']?></option>
+				<?
+			}
+			?>
+			</select>
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_CATEGORY?></label>
+        <div class="text-input-bg">
+        <?
+			$qry="select * from employee_categories where schoolid='".$mySession->user['schoolid']."'";
+			$category=$db->runQuery("$qry");
+		?>
+		  <select id="employee_category" name="employee_category">
+		  	<option value="">Select</option>
+			<?				
+			foreach($category as $categorylist)
+			{
+				?>
+			<option value="<?=$categorylist['id']?>"><?=$categorylist['name']?></option>
+				<?
+			}
+			?>
+			</select>
+        </div>
+      </div>
+      
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_POSITION?></label>
+        <div class="text-input-bg">
+        <?
+			$qry="select * from employee_positions where schoolid='".$mySession->user['schoolid']."'";
+			$position=$db->runQuery("$qry");
+		?>
+		 <select id="employee_position" name="employee_position">
+			<option value="">Select</option>
+			<?				
+			foreach($position as $positionlist)
+			{
+				?>
+			<option value="<?=$positionlist['id']?>"><?=$positionlist['name']?></option>
+				<?
+			}
+			?>
+		</select>
+        </div>
+      </div>
+      
+
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_JOINING_DATE?></label>
+        <div class="text-input-bg">
+		<input id="employee_joining_date" name="employee_joining_date" size="30" type="text"> 
+		<img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('employee_joining_date'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar">
+	
+		<?=LNG_TO_S?> 
+	
+		<input id="employee_joining_date_to" name="employee_joining_date_to" size="30" type="text">
+    		<img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('employee_joining_date_to'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+	  </div>
+	  
+      <div class="label-field-pair">
+        <label for="student_admission_no"><?=LNG_DOB?></label>
+        <div class="text-input-bg">
+		<input id="employee_dob" name="employee_dob" size="30" type="text"> 
+		<img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('employee_dob'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar">
+		<?=LNG_TO_S?> 
+		<input id="employee_dob_to" name="employee_dob_to" size="30" type="text">
+		<img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('employee_dob_to'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+      </div>
+      
+
+
+      <input class="submit" id="search_submit" name="commit" value="<?=LNG_SEARCH?>" type="submit">
+    </form>
+  </div>
+
+
+
+  
+</div> </div>
+
+      <div class="extender"></div>
+    

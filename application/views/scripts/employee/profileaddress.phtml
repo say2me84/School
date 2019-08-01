@@ -1,0 +1,26 @@
+<?
+global $mySession;
+$detail = $this->detail; ?>
+<table width="700">
+<tr class="odd left"><td><?=LNG_HOME_ADDRESS?></td><td class="right"><?=$detail['home_address_line1']?>&nbsp;<?=$detail['home_address_line2']?></td></tr>
+<tr class="even left"><td><?=LNG_CITY?></td><td class="right"><?=$detail['home_city']?></td></tr>
+<tr class="odd left"><td><?=LNG_STATE?></td><td class="right"><?=$detail['home_state']?></td></tr>
+<tr class="even left"><td><?=LNG_COUNTRY?></td><td class="right"><?=$detail['countryname']?></td></tr>
+<tr class="odd left"><td><?=LNG_PIN?></td><td class="right"><?=$detail['home_pin_code']?></td></tr>
+<tr class="even left"><td><?=LNG_OFFICE_ADDRESS?></td><td class="right"><?=$detail['office_address_line1'].' '.$detail['office_address_line2']?>&nbsp;</td></tr>
+<tr class="odd left"><td><?=LNG_CITY?></td><td class="right"> <?=$detail['office_city']?></td></tr>
+<tr class="even left"><td><?=LNG_STATE?></td><td class="right"> <?=$detail['office_state']?></td></tr>
+<tr class="odd left"><td><?=LNG_COUNTRY?></td><td class="right"><?=$detail['officecountryname']?></td></tr>
+<tr class="even left"><td><?=LNG_PIN?></td><td class="right"><?=$detail['office_pin_code']?></td></tr>
+</table>
+<div class="extender"></div>
+<div class="edit-pdf-group">
+<? if($mySession->user['usertype']!='T') { ?>
+<div class="edit">
+<a href="<?=BASE_PATH?>employee/edit2/profileid/<?=$detail['id']?>"><?=LNG_EDIT?></a>
+</div>
+<? } ?>
+<?php /*?><div class="pdf">
+<a href="/employee/profile_pdf/11" class="user_button" target="_blank"> PDF Report</a>
+</div><?php */?>
+</div>

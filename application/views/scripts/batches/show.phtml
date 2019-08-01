@@ -1,0 +1,80 @@
+<link href="<?=CSS_URL?>batches/show.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1><?=LNG_GRADES?></h1>
+  <h3><?=LNG_BATCHES?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    
+     <?php /*?> <li><a href="<?=BASE_PATH?>examgroups/index/batchid/1">Exams</a> </li><?php */?>  
+
+    <li><a href="<?=BASE_PATH?>batches/edit/gradeid/<?=$this->batchdetail['grade_id']?>/batchid/<?=$this->batchdetail['id']?>"><?=LNG_EDIT?></a></li>
+    <li><a href="<?=BASE_PATH?>batches/destroy/gradeid/<?=$this->batchdetail['grade_id']?>/batchid/<?=$this->batchdetail['id']?>" onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', 'y+QApAfdoJNc/WoznkxrUJos4+Vkz+nw80Mz/W9KRyk='); f.appendChild(s);f.submit(); };return false;"><?=LNG_DELETE?></a></li>
+
+
+    
+  </ul>
+</div>
+<div id="page-yield">
+
+  <div class="box">
+    <div class="bread_crumb">
+      <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+      <a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->batchdetail['grade_id']?>"><?=$this->batchdetail['grade_name']?></a> &raquo;
+      <?=LNG_BATCH?> <?=$this->batchdetail['name']?>
+    </div>
+
+<? if(isset($this->studentlist) && count($this->studentlist) > 0) { ?>
+    <table id="listing" width="100%">
+	
+      <tr class="tr-head">
+        <td><?=LNG_SLNO?></td>
+        <td><?=LNG_NAME?></td>
+        <td><?=LNG_ADMISSION_NO?></td>
+      </tr>
+      
+      
+     <? $i=1; 
+	  foreach($this->studentlist as $studentlist) {
+	   $m=$i%2;
+			if($m==0)
+			{
+				$class="tr-even";	
+			}else{
+				$class="tr-odd";	
+			}
+
+   		?>    
+        <tr class="<? echo $class; ?>">
+          <td class="col-1"><? echo $i; ?></td>
+          <td class="col-2"><a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>">
+		  <?=$studentlist['first_name']?> <?=$studentlist['middle_name']?> <?=$studentlist['last_name']?>
+		  </a></td>
+          <td class="col-3"><?=$studentlist['admission_no']?></td>
+        </tr>
+		<? $i++; } ?>
+      
+     </table>
+<? } else { ?>
+<div> no student available in this class</div>
+<? } ?>
+    <div id="extender"></div>
+  </div>
+</div>
+
+ </div>
+
+      <div class="extender"></div>
+    

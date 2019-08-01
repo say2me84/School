@@ -1,0 +1,132 @@
+<?  global $mySession;
+$db = new Db();
+?>
+<div id="calendar">
+<div id="calendar-legend">
+<div id="legend-entry">
+<div id="legend-symbol"> <div style="width:12px;height:12px;background:#000000; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;"></div></div>
+<div id="legend-text"><?=LNG_EVENTS?></div>
+</div>
+<div id="legend-entry">
+<div id="legend-symbol"> <div style="width:12px;height:12px;background:#0C6C92; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;"></div></div>
+<div id="legend-text"><?=LNG_EXAMINATIONS?></div>
+</div>
+<div id="legend-entry">
+<div id="legend-symbol"> <div style="width:12px;height:12px;background:#00b400; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;"></div></div>
+<div id="legend-text"><?=LNG_HOLIDAYS?></div>
+</div>
+<?php /*?><div id="legend-entry">
+<div id="legend-symbol"> <div style="width:12px;height:12px;background:#b40000; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;"></div></div>
+<div id="legend-text">Dues</div>
+</div><?php */?>
+</div>
+<br>
+<?
+  tframe_pre();
+  ?>
+
+<div id="head-month">
+<div class="header">
+<div class="prev">
+<a href="#" onclick="getajax('<?=BASE_PATH?>calendar/show?nextmonth=<?=date('Y-m-d',mktime(0,0,0,$this->m-1,1,$this->y))?>','','calendar'); return false;">&lt;</a>
+</div>
+<div class="month">
+<?=date('F',mktime(0,0,0,$this->m,1,$this->y))?> <?=$this->y?>
+</div>
+<div class="next">
+<a href="#" onclick="getajax('<?=BASE_PATH?>calendar/show?nextmonth=<?=date('Y-m-d',mktime(0,0,0,$this->m+1,1,$this->y))?>','','calendar'); return false;">&gt;</a>
+</div>
+<div class="extender"></div>
+</div>
+</div>
+<?
+  tframe_post();
+  ?>
+  <br />
+<?
+  tframe_pre();
+  ?>
+<table id="calendar-table" align="center" width="100%">
+<tbody>
+<tr class="week">
+<td><span><?=LNG_SUNDAY?></span></td>
+<td><span><?=LNG_MONDAY?></span></td>
+<td><span><?=LNG_TUESDAY?></span></td>
+<td><span><?=LNG_WEDNESDAY?></span></td>
+<td><span><?=LNG_THURSDAY?></span></td>
+<td><span><?=LNG_FRIDAY?></span></td>
+<td><span><?=LNG_SATURDAY?></span></td>
+</tr>
+<tr class="blank"></tr>
+<tr class="day">
+<?
+$weekday = date('w',mktime(0,0,0,$this->m,1,$this->y));
+$lastday = date('d',mktime(0,0,-1,($this->m+1),1,$this->y));
+$d = -$weekday+1;
+for($x=0; $x<42; $x++) { ?>
+<?
+
+if($x%7==0) { echo '</tr><tr class="day">'; }
+?>
+<td class="">
+<?
+if($d > 0 && $d <= $lastday) { 
+$fd = $this->y.'-'.$this->m.'-'.str_pad($d,2,0,STR_PAD_LEFT);
+	$qry = "SELECT * FROM `events` WHERE `start_date` <= '".$fd." 23:59:59' and `end_date`>='".$fd." 00:00:00' and is_holiday='0' and is_exam ='0' and schoolid='".$mySession->user['schoolid']."'";
+	$e_eventdetail = $db->runQuery($qry);
+	
+	$qry = "SELECT * FROM `events` WHERE `start_date` <= '".$fd." 23:59:59' and `end_date`>='".$fd." 00:00:00' and is_holiday='1' and schoolid='".$mySession->user['schoolid']."'";
+	$h_eventdetail = $db->runQuery($qry);
+	
+	$qry = "SELECT * FROM `events` WHERE `start_date` <= '".$fd." 23:59:59' and `end_date`>='".$fd." 00:00:00' and is_exam='1' and schoolid='".$mySession->user['schoolid']."' ";
+	$x_eventdetail = $db->runQuery($qry);
+	
+	
+?><div class="link">
+<? if($mySession->user['usertype']=='S') { ?>
+<a href="<?=BASE_PATH?>event/index/eventdate/<?=$this->y?>-<?=$this->m?>-<?=str_pad($d,2,0,STR_PAD_LEFT)?>">Add</a>
+
+<? } ?><span><?=$d;?></span></div>
+	<? if((is_array($e_eventdetail) && count($e_eventdetail) > 0) || (is_array($h_eventdetail) && count($h_eventdetail) > 0) || (is_array($x_eventdetail) && count($x_eventdetail) > 0)) { ?>
+	<div class="link-group">
+		<?
+	    if(is_array($e_eventdetail) && count($e_eventdetail) > 0) { ?>
+			
+			<a onmouseover="getajax('<?=BASE_PATH?>calendar/showeventtooltip/day/<?=$fd?>', '','tooltip_header')" onclick="getajax('<?=BASE_PATH?>calendar/showlist/eventid/<?=$fd?>', '','tooltip_header')" href="#" class="event"><div style="width:12px;height:12px;background:#00b400; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;"></div></a>
+			
+			
+	    <? } ?>
+		<?
+	    if(is_array($h_eventdetail) && count($h_eventdetail) > 0) { ?>
+			
+			<a onmouseover="getajax('<?=BASE_PATH?>calendar/showholidayeventtooltip/day/<?=$fd?>', '','tooltip_header')" onclick="getajax('<?=BASE_PATH?>calendar/showlist/eventid/<?=$fd?>', '','tooltip_header')" href="#" class="event"><div style="width:12px;height:12px;background:#00b400; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;"></div></a>
+			
+			
+	    <? } ?>
+		
+		<?
+	    if(is_array($x_eventdetail) && count($x_eventdetail) > 0) { ?>
+			
+			<a onmouseover="getajax('<?=BASE_PATH?>calendar/showexameventtooltip/day/<?=$fd?>', '','tooltip_header')" onclick="getajax('<?=BASE_PATH?>calendar/showlist/eventid/<?=$fd?>', '','tooltip_header')" href="#" class="event"><div style="width:12px;height:12px;background:#00b400; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;"></div></a>
+			
+			
+			
+	    <? } ?>
+	</div>
+	<? } ?>
+<?  } 
+?>
+</td>
+<?
+$d++;
+}
+?></tr>
+
+</tbody>
+</table>
+<?
+  tframe_post();
+  ?>
+<div id="modal-box" style="display:none;"></div>
+</div>
+

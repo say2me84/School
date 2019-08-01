@@ -1,0 +1,78 @@
+
+<div class="students-table">
+<? if((isset($this->studentlist) && count($this->studentlist) > 0) || (isset($this->alumnistudentlist) && count($this->alumnistudentlist) > 0)) { ?>
+ <?
+  tframe_pre();
+  ?>
+  <table align="center" cellpadding="1" cellspacing="1" width="100%">
+    <tbody><tr class="tr-head">
+     
+      <td>
+       <?=LNG_NAME?>
+      </td>
+      <td>
+        <?=LNG_ADM_NO?>
+      </td>
+      <td>
+		<?=LNG_SCHOOL?>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+	<? if(isset($this->studentlist) && count($this->studentlist) > 0) { ?>
+  <? $i=1; 
+  foreach($this->studentlist as $studentlist) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        
+
+        <td class="col-4">
+          <?=$studentlist['sname']?>
+        </td>
+
+        <td class="col-3">
+          <?=str_pad($studentlist['admission_no'],6,0,STR_PAD_LEFT)?>
+        </td>
+
+        <td class="col-2">
+          <?=$studentlist['schoolname']?>
+        </td>
+      </tr>
+    <? $i++; } ?>
+	<? } ?>
+	
+    
+  </tbody></table>
+ <?
+  tframe_pre();
+  ?>
+  
+  <? }else {
+	?>
+		<p class="flash-msg"> <?=LNG_NO_STUDENT_OF_THIS_ID_NUMBER?> </p>
+	<?
+}
+	?>
+</div>
+
+<input type="hidden" name="studentid" value="<?=$studentlist['id']?>" />
+<script>
+jQuery(function() { 
+<? if(count($this->studentlist) > 0) { ?> 
+	jQuery("#export_span").removeClass("cls_hide");
+<? } else { ?>
+	jQuery("#export_span").addClass("cls_hide");
+<? } ?>
+});
+</script>

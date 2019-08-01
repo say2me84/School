@@ -1,0 +1,62 @@
+<?
+$detail = $this->detail;
+?>
+<link href="<?=CSS_URL?>user/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/hr_detail.png">
+  <h1><?=LNG_SECRETARY_PROFILE?></h1>
+  <h3><?=LNG_SECRETARY_INFORMATION?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+
+  <div id="inner-tab-menu">
+    <ul>
+		<li style="width:140px;">
+			<a href="<?=BASE_PATH?>user/userchangepassword/profileid/<?=$detail['id']?>">
+				<?=LNG_CHANGE_PASSWORD?>
+			</a>
+		</li>
+	</ul>
+  </div>
+
+
+<div id="page-yield">
+
+  
+
+  <div id="profile_view" style="text-align:left;">
+	<div class="profile_info_label"><?=LNG_SCHOOL?></div>
+    <div class="profile_info_text"><?=$detail['schoolname']?></div>
+	
+    <div class="profile_info_label2"><?=LNG_USERNAME?></div>
+    <div class="profile_info_text2"><?=$detail['username']?></div>
+
+    <div class="profile_info_label"><?=LNG_NAME?></div>
+    <div class="profile_info_text"><?=$detail['first_name']?> <?=$detail['last_name']?></div>
+
+
+    <div class="profile_info_label2"><?=LNG_EMAIL?></div>
+    <div class="profile_info_text2"><?=$detail['email']?></div>
+    <div class="extender"></div>
+  </div>
+
+  
+    <div class="submit-buttons" style="text-align:left;">
+          <a href="<?=BASE_PATH?>user/edit/profileid/<?=$detail['id']?>" class="user_button" style="width:120px;"><?=LNG_EDIT_PROFILE?></a>      
+	      <a href="<?=BASE_PATH?>user/userchangepassword/profileid/<?=$detail['id']?>" class="user_button" style="width:150px;"><?=LNG_CHANGE_PASSWORD?></a>      
+    </div>
+  
+</div> </div>
+
+      <div class="extender"></div>
+    

@@ -1,0 +1,66 @@
+<?
+if($this->mode==0) { 
+$string = '<label class="head_label">'.LNG_ATTENDANCE_FOR.' <span>'.$this->studentdetail[0]['name'].'</span></label>
+
+<div id="ajax-edit">
+  </br>
+<form action="" class="edit_attendance" id="edit_attendance" method="post" onsubmit="if(chkvali()) { getajax(\''.BASE_PATH.'attendances/edit/attid/'.$this->attid.'/profileid/'.$this->profileid.'/periodid/'.$this->periodid.'/mode/update\',\'?\'+Form.serialize(this),\'modal-box\',2); } else { return false; } return false" >
+  <div style="margin:0;padding:0;display:inline"></div>
+   <div id="form-errors"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+		<td><div class="label-field-pair">
+		  <label for="reason"> '.LNG_REASON_FOR_ABSENCE.'</label>
+		  <div class="text-input-bg">'.$this->form->attendance_reason.'</div>
+		</div></td>
+	  </tr>
+	  <tr>
+		<td><div class="label-checkbox-pair">
+        <label for="forenoon">'.$this->form->forenoon.'</label>
+
+      </div></td>
+	  </tr>
+	  <tr>
+		<td><div class="label-checkbox-pair">
+        <label for="forenoon">'.$this->form->afternoon.'</label>
+
+      </div></td>
+	  </tr>
+	  <tr>
+		<td><table width="150" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+				<td><input class="submit-button" id="attendance_submit" name="commit" type="submit" value="Update" style="margin-left:0px" /></td>
+				<td><a href="#" onclick="if (confirm(\'Are you sure?\')) { getajax(\''.BASE_PATH.'attendances/edit/attid/'.$this->attid.'/mode/delete\',\'\',\'modal-box\',2); } "><input class="submit-button" id="attendance_submit" name="commit" type="button" value="Delete"  style="margin-left:5px" /></a></td>
+			  </tr>
+			</table>
+			</td>
+	  </tr>
+	</table>
+	
+     
+	  
+     
+  <div class="extender"></div>
+    
+   </form>
+  
+</div>';
+$string = jschars($string);
+/*\n<div id=\"form-errors\"></div>\n<label class=\"head_label\">Edit attendance for <span><?=$this->studentdetail[0]['name']?></span></label>\n\n<div id=\"ajax-edit\">\n  <br/>\n  <form action=\"#\" id=\"edit_attendance_<?=$this->attid?>\" method=\"post\" ><div style=\"margin:0;padding:0;display:inline\"></div>\n  <div class=\"label-field-pair\">\n      <label for=\"reason\"> Reason for absence</label>\n      <div class=\"text-input-bg\"><input id=\"attendance_reason\" name=\"attendance_reason\" size=\"30\" type=\"text\" value=\"<?=$this->attdetail[0]['reason']?>\" /></div>\n    </div>\n <div class=\"label-checkbox-pair\"><label for=\"forenoon\"><input type=\"checkbox\" value=\"1\" name=\"forenoon\" id=\"forenoon\" <? if($this->attdetail[0]['forenoon']==1) { ?>checked=\"checked\"<? } ?> class=\"MB_focusable\">Forenoon</label></div><div class=\"label-checkbox-pair\"><label for=\"afternoon\"><input type=\"checkbox\" value=\"1\" name=\"afternoon\" id=\"afternoon\" <? if($this->attdetail[0]['afternoon']==1) { ?>checked=\"checked\"<? } ?> class=\"MB_focusable\">Afternoon</label></div>\n  <div class=\"extender\"></div>\n    <input class=\"submit-button\" id=\"attendance_submit\" name=\"commit\" type=\"button\" value=\"Update\" onclick=\"if(document.getElementById('forenoon').checked){ fnoon=1; } else { fnoon=0; } if(document.getElementById('afternoon').checked){ anoon=1; } else { anoon=0; } getajax('<?=BASE_PATH?>attendances/edit/attid/<?=$this->attid?>/mode/update/afternoon/'+anoon+'/forenoon/'+fnoon+'/attendance_reason/'+document.getElementById('attendance_reason').value,'','modal-box',2)\" />\n  </form>\n    <div id=\"delete-button\"><a href=\"#\" onclick=\"if (confirm('Are you sure?')) { getajax('<?=BASE_PATH?>attendances/edit/attid/<?=$this->attid?>/mode/delete','','modal-box',2)}\"> Delete</a></div>\n\n</div>\n*/
+?>
+Element.update("modal-box", "<?=$string?>");
+Modalbox.show($('modal-box'), {title: '', width: 500});
+<?
+} elseif($this->mode==1) {
+?>
+Element.update("attendance-student-<?=$this->attdetail[0]['student_id']?>-periodid-<?=$this->attdetail[0]['period_table_entry_id']?>", "\n\n\n\n\n  <a class=\"present\" href=\"#\" onclick=\"getajax('<?=BASE_PATH?>attendances/new/profileid/<?=$this->attdetail[0]['student_id']?>/periodid/<?=$this->attdetail[0]['period_table_entry_id']?>','','modal-box',1)\" >0</a>\n\n<div class=\"date\"><span><?=getDayName($this->perioddetail[0]['day']).' '.$this->perioddetail[0]['daydigit']?> <div> <?=$this->studentdetail[0]['name']?></div></span>\n</div>");
+Modalbox.hide();
+<?
+} elseif($this->mode==2) {
+?>
+Element.update("attendance-student-<?=$this->attdetail[0]['student_id']?>-periodid-<?=$this->attdetail[0]['period_table_entry_id']?>", "\n\n\n\n\n  <a class=\"absent\" href=\"#\" onclick=\"getajax('<?=BASE_PATH?>attendances/edit/attid/<?=$this->attid?>','','modal-box',2)\">X</a>\n\n<div class=\"date\"><span><?=getDayName($this->perioddetail[0]['day']).' '.$this->perioddetail[0]['daydigit']?>  <div> <?=$this->studentdetail[0]['name']?></div></span>\n</div>");
+
+Modalbox.hide();
+<?
+}
+?>

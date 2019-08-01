@@ -1,0 +1,84 @@
+<?
+
+$starttime = explode(":",$this->timings[0]['start_time']);
+$endtime = explode(":",$this->timings[0]['end_time']);
+if($this->timings[0]['is_break']==1) {
+	$isbreakchk = 'checked=\"checked\"';
+} else {
+	$isbreakchk = '';
+}
+
+if($this->showtype==0) {
+$string="
+<label class=\"head_label\"> ".LNG_EDIT_CLASSTIMINGS_FOR." <span> ".$this->batchdetail[0]['batchname']." </span></label>
+<div id=\"ajax-edit\">
+  <form action=\"\" class=\"edit_class_timing\" id=\"edit_class_timing_1\" method=\"post\" onsubmit=\"getajax('".BASE_PATH."classtimings/edit/id/".$this->param['id']."', '?'+Form.serialize(this),'modal-box','2')\">
+    <div style=\"margin:0;padding:0;display:inline\">
+     <input id=\"class_timing_batch_id\" name=\"batch_id\" type=\"hidden\" value=\"".$this->param['batch_id']."\" />
+	 <input name=\"mode\" type=\"hidden\" value=\"update\" />
+     </div>
+    <div id=\"form-errors\"></div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_NAME."</label>
+      <div class=\"text-input-bg\">
+       ".$this->form->name."
+      </div>
+    </div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_START_TIME." </label>
+      <div class=\"time-select-field\">
+        ".$this->form->start_time_1."
+        :
+        ".$this->form->start_time_2."
+      </div>
+    </div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_END_TIME." </label>
+      <div class=\"time-select-field\">
+        ".$this->form->end_time_1."
+        :
+        ".$this->form->end_time_2."
+      </div>
+    </div>
+    <div class=\"label-checkbox-pair\">
+      <label>
+      <input name=\"class_timing[is_break]\" type=\"hidden\" value=\"".$this->timings[0]['is_break']."\" />
+      <input id=\"class_timing_is_break\" name=\"class_timing[is_break]\" type=\"checkbox\" ".$isbreakchk." value=\"1\" />
+      ".LNG_IS_A_BREAK."</label>
+    </div>
+	<div class=\"label-checkbox-pair\">";
+	 $m=0;
+	  foreach($this->weekdayarray as $wdarray) {
+		  $chked="";
+		  if(in_array($wdarray['id'],$this->pentry)) { $chked = "checked=\"checked\""; }
+		  $string .= "<label for=\"selweekday".$m."\">
+		  <input id=\"selweekday".$m."\" name=\"selweekday[]\" type=\"checkbox\" value=\"".$wdarray['id']."\" ".$chked."  />
+		  ".getDayName($wdarray['weekday'])."</label>";
+		 $m++;
+	   }
+    $string .= "</div>
+    <input class=\"submit-button\" name=\"commit\" type=\"submit\" value=\"".LNG_SAVE."\" />
+  </form>
+</div>";
+$string = jschars($string);
+?>
+Element.update("modal-box", "<?=$string?>");
+<? if($this->mode==0) { ?>
+	Modalbox.show($('modal-box'), {title: '', width: 500});
+	<?
+	}
+} else { ?>
+<?
+
+$string = $this->classtiminghtml;
+
+$string = jschars($string);
+//Element.update("form-errors", "");
+?>
+Element.update("class-timings-list", "<?=$string?>");
+<? if($this->showtype==1) { ?>
+Modalbox.hide();
+<? } ?>
+<? 
+}
+?>

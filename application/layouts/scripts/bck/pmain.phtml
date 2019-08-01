@@ -1,0 +1,109 @@
+<?
+global $mySession;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php	
+	if(!empty($this->pagetitle)){
+		$pgt = $this->pagetitle;
+	} elseif(!empty($mySession->user['myschool'])) {
+		$pgt  = $mySession->user['myschool'];
+	} else {
+		$pgt  = 'School Portal';
+	}
+?>
+<title><?=$pgt?></title>
+<link rel="icon" href="<?=IMAGES_URL?>favicon.ico" type="image/ico" />
+    <link rel="shortcut icon" href="<?=IMAGES_URL?>favicon.ico" type="image/ico" />
+
+    <link href="<?=CSS_URL?>application.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+	<link href="<?=CSS_URL?>_styles/ui.all.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+	
+		
+    <link href="<?=CSS_URL?>modalbox.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+    <link href="<?=CSS_URL?>popup.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+	<script src="<?=JS_URL?>jquery-1.5.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+	 
+   <script src="<?=JS_URL?>cache/javascripts/all.js?<?=UPDATE_KEY?>" type="text/javascript"></script> 
+   
+ 
+    <script src="<?=JS_URL?>scripts/anylinkmenu.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+<script src="<?=JS_URL?>scripts/nicetitle.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+<script src="<?=JS_URL?>droplicious.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+
+    <?php /*?><script src="<?=JS_URL?>fckeditor/fckeditor.js?<?=UPDATE_KEY?>" type="text/javascript"></script><?php */?>
+
+    <script src="<?=JS_URL?>builder.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+
+    <script src="<?=JS_URL?>modalbox.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+
+
+
+    <script src="<?=JS_URL?>calendar_date_select/calendar_date_select.js?<?=UPDATE_KEY?>" type="text/javascript"></script>
+
+<link href="<?=CSS_URL?>calendar_date_select/red.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+	
+<script>
+function getajax(urlval,param,elm_id,popupbox)
+		{
+			params = param.replace("?","");
+			if ( params ) {
+				// If it's a function
+				if ( jQuery.isFunction( params ) ) {
+					// We assume that it's the callback
+					callback = params;
+					params = undefined;
+					urlval=urlval+param;
+				// Otherwise, build a param string
+				} else if ( typeof params === "object" ) {
+					params = jQuery.param( params, jQuery.ajaxSettings.traditional );
+					type = "POST";
+				}
+			}
+			
+			if(urlval!='')
+			{
+				
+				document.getElementById(elm_id).innerHTML="<img src='<?=IMAGES_URL?>load.gif' border='0'>";
+				jQuery.ajax({ url: urlval,
+				type: "POST",
+				data : params,
+				success: function(data){			
+					if(popupbox==2) {
+						eval(data);
+					} else if(popupbox==1) {
+						jQuery("#"+elm_id).html(data);
+						Modalbox.show($(elm_id), {title: '', width: 500});
+					} else {
+						jQuery("#"+elm_id).html(data);
+					}
+				}});
+			}
+		}
+</script>
+</head>
+<body id="bodyid">
+<? include("pheader.phtml"); ?>
+<div id="content_wrapper">
+<div id="errorDiv" >
+<?php  
+	if(isset($mySession->errorMsg)){ 
+		echo errorMsg($mySession->errorMsg);
+		unset($mySession->errorMsg); 
+	} 
+	if(isset($mySession->sucMsg)){ 
+		echo sucessMsg($mySession->sucMsg);
+		unset($mySession->sucMsg); 
+	} 
+	if(isset($mySession->warningMsg)){ 
+		echo warningMsg($mySession->warningMsg);
+		unset($mySession->warningMsg); 
+	}
+	?>
+</div>
+<? echo $this->layout()->content; ?></div>
+<? include("footer.phtml"); ?>
+</body>
+</html>

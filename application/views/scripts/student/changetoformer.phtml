@@ -1,0 +1,59 @@
+
+<link href="<?=CSS_URL?>student/change_to_former.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>admission/admission_page_logo.jpg">
+  <h1><?=LNG_STUDENTS?></h1>
+  <h3><?=LNG_LEAVING_SCHOOL?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <div id="student-details">
+    <h3><? echo $this->studentdetail['stname']; ?> </h3>
+    <h4>Adm no : <? echo $this->studentdetail['admission_no'];?></h4>
+    <h4>Class : <?=$this->studentdetail['grade_name']?></h4>
+  </div>
+
+  <div class="extender"> </div>
+
+  <div id="remove-student" style="text-align:left;">
+    
+    <p><?=LNG_REMOVE_STUDENT_TEXT1?></p>
+
+    <form action="<?=BASE_PATH?>student/changetoformer/studentid/<?=$this->studentdetail['id']?>" method="post" >
+		
+      <div class="label-field-pair">
+        <label for="remove_descr"><?=LNG_REASON_FOR_LEAVING?></label>
+        <div class="text-input-bg"><input id="remove_status_description" name="remove_status_description" size="30" type="text"></div>
+      </div>
+
+      <div id="submit-button">
+	  <input type="hidden" name="mode" value="former" />
+        <input name="commit" value="<?=LNG_REMOVE?>" type="submit">
+      </div>
+
+    </form>
+  </div><br>
+  <br>
+  <div id="tc-generate"></div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    
+	
+	<?php /*?><div id="remove-student">
+<h4>Student deleted successfully!</h4>
+<br>
+<br>
+<a href="/student/generate_tc_pdf/1003" class="user_button" target="_blank">Generate TC</a></div><?php */?>

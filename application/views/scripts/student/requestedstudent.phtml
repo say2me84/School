@@ -1,0 +1,73 @@
+<?
+//echo"<pre>";print_r($this->studentdetail);exit;
+?>
+<link href="<?=CSS_URL?>student/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_STUDENT_INFO?></h1>
+  <h3><?=LNG_STUDENT_PROFILE?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+
+
+<div id="page-yield">
+  <div id="student_profile_heading">
+
+    <div id="profile_picture_display">
+      
+        <img alt="Default_student" src="<?=FILE_URL?>upload/photo/<?=$StudentData['photo_file_name']?>?<?=UPDATE_KEY?>">
+      	
+    </div>
+
+    <div id="student_main_info">
+      <h3> <?=$this->studentdetail['first_name'].' '.$this->studentdetail['middle_name'].' '.$this->studentdetail['last_name']?>  </h3>
+      <h4> <?=LNG_GRADE?> : <?=$this->studentdetail['grade_name']?>  </h4>
+      <h4> <?=LNG_BATCH?> : <?=$this->studentdetail['batchname']?></h4>
+      <h4> <?=LNG_ADM_NO?> : <? echo $this->studentdetail['admission_no'];?></h4>
+	 
+		<? if(!empty($this->studentdetail['birth_certificate']) && file_exists('upload/document/'.$StudentData['birth_certificate'])) { ?>
+		 <br /><h4><a href="<?=FILE_URL?>upload/document/<?=$this->studentdetail['birth_certificate']?>" target="_blank">Birth Certificate</a></h4>
+		<? } ?>
+    </div>
+
+    <div class="extender"> </div>
+
+  </div>
+
+  <div id="new_profile_info_top">
+    <div class="profile_top_banner"><img alt="Topbanner" src="<?=IMAGES_URL?>master_student/profile/topbanner.png?<?=UPDATE_KEY?>"></div>
+    <table width="700">
+      <tbody><tr class="odd left"><td><?=LNG_ADMISSION_DATE?></td><td class="right"><? echo $this->studentdetail['ad_dt'];?></td></tr>
+      <tr class="even left"><td><?=LNG_DOB?></td><td class="right"><? echo $this->studentdetail['dob_dt'];?></td></tr>
+     <tr class="odd left">
+	 	<td>
+			<? if($this->studentdetail['passport_or_id']==1){
+			?>
+				Passport
+			<?
+			}else{
+			?>
+				ID
+			<?
+			} ?>
+		</td>
+		<td class="right"><? echo $this->studentdetail['student_passport_no'];?></td></tr>
+	  
+      <tr class="odd left"><td><?=LNG_NATIONALITY?></td><td class="right"><? if($this->studentdetail['nationality_id'] == 1)echo "Indian";?></td></tr>
+      <tr class="even left"><td><?=LNG_RELIGION?></td><td class="right"><? echo $this->studentdetail['religion'];?></td></tr>
+      <tr class="odd left"><td><?=LNG_ADDRESS?></td><td class="right"><? echo $this->studentdetail['address_line1'];?></td></tr>
+
+      <tr class="even left"><td><?=LNG_PHONE?></td><td class="right"><? echo $this->studentdetail['phone1'];?></td></tr>
+	  <tr class="even left"><td><?=LNG_PARENTS_GUARDIANS?></td><td class="right"><? echo $this->studentdetail['Gaurdian'];?></td></tr>
+	  <tr class="even left"><td><?=LNG_RELATION?></td><td class="right"><? echo $this->studentdetail['relation'];?></td></tr>
+
+    </tbody></table>
+</div>
+</div> </div>
+
+      <div class="extender"></div>
+    

@@ -1,0 +1,105 @@
+<?
+global $mySession;
+//echo"<pre>";print_r($this->elist);exit;
+$elist= $this->elist;
+?>
+
+<link href="<?=CSS_URL?>student/guardians.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+     
+      <div id="content"> 
+     
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>reminder/reminder_small.png">
+  <h1><?=LNG_MESSAGES?></h1>
+  <h3><?=LNG_SEND_MESSAGE_TO_CLASS_TEACHER?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    
+      <li><a href="<?=BASE_PATH?>reminder"><?=LNG_INBOX?></a></li>
+    <li><a href="<?=BASE_PATH?>reminder/sentreminder"><?=LNG_SENT?></a></li>
+    <li><a href="<?=BASE_PATH?>reminder/createreminder"><?=LNG_CREATE?></a></li>
+  </ul>
+</div>
+
+<div id="page-yield">
+	
+	<? if(count($mySession->user['userstudentid']) > 1) {		
+		?>
+			<form method="post" action="<?=BASE_PATH?>student/studentmarks"><div style="margin: 0pt; padding: 0pt; display: inline;"><input type="hidden" value="BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=" name="authenticity_token"></div>
+				<div class="label-field-pair">
+				  <label for="timetable_entry_class_id"><?=LNG_SELECT_A_STUDENT?></label>
+				   <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+				  <div class="text-input-bg">
+				  <select onchange="window.location='<?=BASE_PATH?>reminder/sendtoteacher/studentid/'+this.value;" name="timetable_entry[grade_id]" id="timetable_entry_class_id">					
+					<? foreach($this->studentlist as $studentlist) { ?>
+						<option value="<?=$studentlist['id']?>"<? if(@$studentlist['id']==$this->studentid) { ?> selected="selected"<? } ?>><?=$studentlist['first_name']?> <?=$studentlist['middle_name']?></option>
+					<? } ?>
+				
+				</select>
+				  </div>
+				</div>
+			  </form>
+			  <div class="extender"> </div>		  
+		<? 		
+	} ?>
+  <div id="student_profile_heading">
+		<div id="student_main_info">
+		  <span class="name"> <? echo $this->elist['stu_name']; ?>  </span>
+		  <span class="course"> <?=LNG_BATCH?>: <?=$this->elist['grade_name']?>&nbsp;<?=$this->elist['batchname']?> </span>&nbsp;
+		  <?
+		  	if($this->elist['employee_id']==0){
+			?>
+			<span class="adm"> <?=LNG_SEND_TO?> : <? echo $this->sec['sec_name'];?> </span>
+			<?
+			}else{
+			?>
+			<span class="adm"> <?=LNG_SEND_TO?> : <? echo $this->elist['ename'];?> </span>
+			<?
+			}
+		  ?>
+		  	
+		</div>
+    <div class="extender"> </div>
+  </div>
+
+  <div id="reply-form" align="center" >
+  <form method="post" action="<?=BASE_PATH?>reminder/sendtoteacher">
+        <input type="hidden" name="mode" value="sendmsg" />
+		 <?
+		  	if($this->elist['employee_id']==0){
+			?>
+			<input type="hidden" name="recipientid" value="<?=$this->sec['id']?>" />
+			<?
+			}else{
+			?>
+			<input type="hidden" name="recipientid" value="<?=$this->elist['empid']?>" />
+			<?
+			}
+		  ?>
+		
+        <div class="message" style="width:700px;">
+	        <div class="label-field-pair">           
+				<div class="text-area-bg">
+					<textarea name="sendtoteacher" id="sendtoteacher" style="width:550px;"></textarea>
+				</div>
+    	    </div>
+          <div class="extender"></div>
+          <div>
+			<input type="submit" value="<?=LNG_SEND_MESSAGE?>" name="commit" class="button">
+        </div>
+        </div>
+        
+      </form>
+	  </div>
+  <div class="extender"></div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

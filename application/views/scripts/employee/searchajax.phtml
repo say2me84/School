@@ -1,0 +1,35 @@
+<?
+if(is_array($this->emplist) && count($this->emplist) > 0) { ?>
+<?
+  tframe_pre();
+  ?>
+ <div id="printmiddiv">
+<table id="listing" width="100%">
+  <tbody><tr class="tr-head">
+    <td><?=LNG_NAME?></td>
+    <td><?=LNG_EMP_NO?></td>
+    <td><?=LNG_DEPT?></td>
+	<td><?=LNG_OPERATIONS?></td>
+  </tr>
+<?
+foreach($this->emplist as $emplist) { ?>
+  <tr class="tr-odd">
+    <td class="col-3"><a href="<?=BASE_PATH?>employee/profile/profileid/<?=$emplist['id']?>"><?=$emplist['name']?></a></td>
+     <td class="col-3"><?=$emplist['employee_number']?></td>
+     <td class="col-3"><?=$emplist['deptname']?></td>
+	  <td class="col-3"><a href="#" onclick="if (confirm('Are you sure to delete employee?')) { getajax('<?=BASE_PATH?>employee/employeeslist/mode/delete/profileid/<?=$emplist['id']?>/', '?department_id=<?=$emplist['employee_department_id']?>','employee_list'); } "><?=LNG_DELETE?></a></td>
+</tr>
+<? }?>
+
+</tbody></table>
+</div>
+<?
+  tframe_post();
+  ?>
+<? 
+} else {
+	?>
+		<p class="flash-msg"> <?=LNG_NO_EMPLOYEE_IN_THIS_DEPARTMENT?> </p>
+	<?
+}
+	?>

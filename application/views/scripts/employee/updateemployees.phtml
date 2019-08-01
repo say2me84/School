@@ -1,0 +1,17 @@
+<?
+if(is_array($this->emp_list) && count($this->emp_list) > 0) { 
+?>
+<ul id="department-list" style="text-align:left">  
+ <li class="heading"> <?=LNG_ASSIGN_NEW?> </li>   
+<? foreach($this->emp_list as $emp_list) { ?>       
+      <li class="listeven">
+        <div class="department-name"><?=$emp_list['ename']?></div>        
+        
+          <div class="remove"><a href="#" onclick="getajax('<?=BASE_PATH?>employee/assignemployee/subject_id/<?=$this->subject_id?>/?employeeid=<?=$emp_list['id']?>','','department-select')"><?=LNG_ASSIGN?></a></div>
+      </li>  
+ <? } ?>
+</ul>
+<? } else {  ?>
+<p class="flash-msg"> <?=LNG_NO_EMPLOYEES_IN_DEPARTMENT?></p>
+<? 
+} ?>

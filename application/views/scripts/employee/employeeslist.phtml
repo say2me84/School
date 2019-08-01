@@ -1,0 +1,91 @@
+<script>
+function gotoprint()
+{
+	obj_win = window.open('about:blank', 'new_win','toolbars=no,maximize=no,scrollbars=yes,menubar=no,width=900,height=680,directories=no,resizable=0,screenX=0,screenY=0,left=0,top=0'  ) ; 
+ //alert obj_win;
+	obj_win.document.write('<html><title>My School</title><link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" rel="stylesheet" type="text/css" /><head>');
+
+	obj_win.document.write('</head>');
+	obj_win.document.write('<style type="text/css">   </style>');
+	obj_win.document.write('<body><div style="width:850px; " >');
+
+	obj_win.document.write(document.getElementById('printmiddiv').innerHTML);
+
+	obj_win.document.write("</div></body></html>");
+
+	obj_win.document.close();
+
+
+
+	obj_win.focus();
+
+	obj_win.print();
+
+	obj_win.close();
+}
+</script>
+<link href="<?=CSS_URL?>employee/search.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMPLOYEE_SEARCH?></h1>
+  <h3><?=LNG_EMPLOYEE_DETAILS?></h3>
+  <div id="app-back-button">
+  <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+	<li style="width:125px;"><a href="<?=BASE_PATH?>employee/advancedsearch"><?=LNG_ADVANCE_SEARCH?></a></li>
+	<li style="width:125px;"><a href="<?=BASE_PATH?>employee/search"><?=LNG_SEARCH?></a></li>
+	<li><a href="<?=BASE_PATH?>employee/admission1"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+
+</div>
+
+<div id="page-yield">
+<form method="post" action="">
+<?
+if(is_array($this->emplist) && count($this->emplist) > 0) { ?>
+<?
+  tframe_pre();
+  ?>
+ <div id="printmiddiv">
+<table id="listing" width="100%">
+  <tbody><tr class="tr-head">
+    <td><?=LNG_NAME?></td>
+    <td><?=LNG_EMP_NO?></td>
+    <td><?=LNG_DEPT?></td>
+	<td><?=LNG_OPERATIONS?></td>
+  </tr>
+<?
+foreach($this->emplist as $emplist) { ?>
+  <tr class="tr-odd">
+    <td class="col-3"><a href="<?=BASE_PATH?>employee/profile/profileid/<?=$emplist['id']?>"><?=$emplist['name']?></a></td>
+     <td class="col-3"><?=$emplist['employee_number']?></td>
+     <td class="col-3"><?=$emplist['deptname']?></td>
+	  <td class="col-3"><a href="#" onclick="if (confirm('Are you sure to delete employee?')) { getajax('<?=BASE_PATH?>employee/employeeslist/mode/delete/profileid/<?=$emplist['id']?>/', '?department_id=<?=$emplist['employee_department_id']?>'); } "><?=LNG_DELETE?></a></td>
+</tr>
+<? }?>
+
+</tbody></table>
+</div>
+<?
+  tframe_post();
+  ?>
+<? 
+} else {
+	?>
+		<p class="flash-msg"> <?=LNG_NO_EMPLOYEE_IN_THIS_DEPARTMENT?> </p>
+	<?
+}
+	?>
+	<div><input type="hidden" name="wherecondition" id="wherecondition" value="<?=$this->wherecondition?>"></div>
+		<div class="submit-button">
+			<input type="button" class="submit-button" style="float:right; margin-right:10px; margin-left:0px;" name="commit" onclick="this.form.action='<?=BASE_PATH?>employee/exportxls/'; this.form.submit()" value="<?=LNG_EXPORT?>">
+			<input type="button" value="Print" name="print" style="margin-right:15px; float:right" class="submit-button" onclick="gotoprint()" />
+		</div>
+	</form>
+</div> </div>
+
+      <div class="extender"></div>

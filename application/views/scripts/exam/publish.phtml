@@ -1,0 +1,11 @@
+<?
+if($this->status=='schedule') {  
+$string = '<small>'.LNG_SCHEDULED_PUBLISHED.'
+<a onclick="getajax(\''.BASE_PATH.'exam/publish/examgroupid/'.$this->examgroupid.'?status=result\', \'\',\'publish-notice-'.$this->examgroupid.'\',\'2\')" href="#">'.LNG_PUBLISH_EXAM_RESULT.'</a><span id="publish-notice-'.$this->examgroupid.'"></span></small>';
+} else {
+$string = '<small>'.LNG_EXAM_RESULT_PUBLISHED.'<span id="publish-notice-'.$this->examgroupid.'"></span></small>';
+}
+$string = jschars($string);
+?>
+Element.update("examstatus_td_<?=$this->examgroupid?>", "<?=$string?>");
+

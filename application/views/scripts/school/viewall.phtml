@@ -1,0 +1,79 @@
+<link href="<?=CSS_URL?>user/all.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>admission/multiple_school_logo.png">
+  <h1><?=LNG_VIEW_SCHOOLS?></h1>
+  <h3><?=LNG_SCHOOL_DETAILS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+	<div id="page-yield">
+	<? if(is_array($this->sdetail) && count($this->sdetail) > 0) { ?>
+	<table width="100%" cellspacing="1" cellpadding="1" align="center" id="listing">
+      <tbody><tr class="tr-head">
+        <td>
+          <?=LNG_SLNO?>
+        </td>
+        <td>
+          <?=LNG_NAME?>
+        </td>
+        <td>
+         <?=LNG_PHONENO?>
+        </td>
+        <td>
+        <?=LNG_OPERATIONS?>
+        </td>
+		
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <? $i=1; 
+	  	foreach($this->sdetail as $sdetail) { 
+	  ?>
+        <tr class="tr-odd">
+          <td class="col-1">
+            <? echo $i; ?>.
+          </td>
+          <td class="col-4">
+      		<a href="<?=BASE_PATH?>school/show/schoolid/<?=$sdetail['id']?>"><? echo $sdetail['name']?></a>
+          </td>
+          <td class="col-3">
+            <? echo $sdetail['phno']?>
+          </td>
+		<td class="col-3">
+            	<small>
+					<a href="<?=BASE_PATH?>school/edit/schoolid/<?=$sdetail['id']?>"><?=LNG_EDIT?></a>
+					&nbsp;|&nbsp;
+					<a href="#" onclick="if(confirm('Are you sure to delete school')) { window.location='<?=BASE_PATH?>school/remove/schoolid/<?=$sdetail['id']?>'; } else { return flase; }"><?=LNG_DELETE?></a>
+					&nbsp;|&nbsp;
+					<? if($sdetail['status']==1) { ?>
+					<a href="<?=BASE_PATH?>school/changestatus/schoolid/<?=$sdetail['id']?>/status/disable"><?=LNG_DISABLE?></a>
+					<? } else { ?>
+					<a href="<?=BASE_PATH?>school/changestatus/schoolid/<?=$sdetail['id']?>/status/enable"><?=LNG_ENABLE?></a>
+					<? } ?>
+				</small>
+          </td>
+		 
+			
+        </tr>
+      	<? $i++; } ?>
+    </tbody></table>
+	<? } ?>
+	
+	</div> 
+</div>
+
+      <div class="extender"></div>

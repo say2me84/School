@@ -1,0 +1,64 @@
+<?
+	global $mySession;
+	
+?>
+
+<link href="<?=CSS_URL?>timetable/view.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_timetable.png">
+  <h1><?=LNG_TIMETABLE?></h1>
+  <h3><?=LNG_SELECT_BATCH_TO_VIEW?></h3>
+  
+    <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+  
+</div>
+
+<div id="page-yield">
+
+  
+
+  <form method="post" action="<?=BASE_PATH?>timetable/view"><div style="margin: 0pt; padding: 0pt; display: inline;"><input type="hidden" value="BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=" name="authenticity_token"></div>
+    <div class="label-field-pair">
+      <label for="timetable_entry_class_id"><?=LNG_SELECT_A_BATCH?></label>
+       <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+      <div class="text-input-bg">
+      <select onchange="getajax('<?=BASE_PATH?>timetable/updatetimetableview','?batch_id='+this.value,'timetable_view');" name="timetable_entry[grade_id]" id="timetable_entry_class_id">
+	  <?
+	  if($mySession->user['userstudentid']){
+	  ?>	  	
+		<? foreach($this->studentlist as $studentlist) { ?>
+				<option value="<?=$studentlist['id']?>"<? if(@$studentlist['id']==$this->studentid) { ?> selected="selected"<? } ?>><?=$studentlist['first_name']?> <?=$studentlist['middle_name']?></option>
+			<? } ?>
+	  <?
+	  } else {
+	  ?>
+	  	<option value=""><?=LNG_SELECT_A_BATCH?></option>
+		<? if(isset($this->batchlist) && count($this->batchlist) > 0) { ?>
+			<? foreach($this->batchlist as $batchlist) { ?>
+				<option value="<?=$batchlist['id']?>"><?=$batchlist['code']?> <?=$batchlist['name']?></option>
+			<? } ?>
+		<? } ?>
+	  <?
+	  }
+	  ?>	  
+	</select>
+      </div>
+    </div>
+  </form>
+
+  <div class="extender"> </div>
+
+  <div id="timetable_view"> </div>
+</div> </div>
+
+      <div class="extender"></div>

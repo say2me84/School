@@ -1,0 +1,231 @@
+<? global $mySession;
+$db=new Db(); ?> 
+<?
+/*echo"<pre>";
+print_r($this->cb);
+exit;*/
+?>
+<script>
+function gotoprint()
+{
+	obj_win = window.open('about:blank', 'new_win','toolbars=no,maximize=no,scrollbars=yes,menubar=no,width=900,height=680,directories=no,resizable=0,screenX=0,screenY=0,left=0,top=0'  ) ; 
+ //alert obj_win;
+	obj_win.document.write('<html><title>My School</title><link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" rel="stylesheet" type="text/css" /><head>');
+
+	obj_win.document.write('</head>');
+	obj_win.document.write('<style type="text/css">   </style>');
+	obj_win.document.write('<body><div style="width:850px; " >');
+	obj_win.document.write(document.getElementById('printmiddiv2').innerHTML);
+	obj_win.document.write(document.getElementById('printmiddiv').innerHTML);
+
+	obj_win.document.write("</div></body></html>");
+
+	obj_win.document.close();
+
+
+
+	obj_win.focus();
+
+	obj_win.print();
+
+	obj_win.close();
+}
+</script>
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+ <div id="side_bar">
+        <div id="sidebar_news_area">
+        </div>
+      </div>
+
+      <div id="content"> 
+<div id="content-header">
+
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1>Admission</h1>
+  <h3>Fees Structure</h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;">
+	<img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li style="width:120px;">
+		<a href="<?=BASE_PATH?>student/profile/studentid/<?=$this->cb['id']?>">Student profile</a>
+	</li>
+  </ul>
+</div>
+<div id="page-yield">
+	<div id="student_profile_heading">
+
+    <div id="student_main_info">
+	<div id="printmiddiv2">
+      <span class="name"> <? echo $this->cb['stname']; ?> </span>
+      <span class="class"> Class <? echo $this->cb['class_name']; ?> &amp; Batch: <? echo $this->cb['batch_name']; ?> </span>
+      <span class="adm"> Adm no : <? echo $this->cb['admission_no'];?> </span>
+	  </div>
+    </div>
+	
+    <div class="extender"> </div>
+  </div>
+
+<div class="add_sub">
+   <a href="#" onclick="getajax('<?=BASE_PATH?>student/feescreate/studentid/<?=$this->studentid?>','','modal-box',1)">Add New Fees</a>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <a href="#" onclick="getajax('<?=BASE_PATH?>student/feescreatetemplate/studentid/<?=$this->studentid?>','','modal-box',1)">Add Fees Tempalte</a>
+  </div>
+
+   <form action="<?=$this->url(array('controller'=>'student','action'=>'feesstructure'),null,true);?>" method="post"><div style="margin:0;padding:0;display:inline"><input name="studentid" value="<?=$this->studentid?>" type="hidden"></div>
+<?
+  tframe_pre();
+  ?>
+   <div id="printmiddiv">
+	<table width="100%" id="class-timings-list">
+
+  <tbody>
+
+  <tr class="tr-head">
+ 
+   <td>&nbsp;</td>
+	<td>Name</td>
+    <td>No. of Installments</td>
+    <td>Installment Amount</td>
+
+  </tr>
+
+  	<?
+		$i=1;
+	foreach($this->slist as $slist){
+		$m=$i%2;
+		if($m==0)
+		{
+			$class="tr-even";
+		}else{
+			$class="tr-odd";
+		}
+	 ?>
+
+   <tr class="<? echo $class; ?>" id="class-timing-1">
+
+   	  <td class="col-1" style="30px"><input type="checkbox"  name="chk[]" value="b_<?=$slist['id']?>" checked="checked" /></td>   
+	  <td class="col-3" style="300px"><?=$slist['catname']?></td>
+      <td class="col-2" style="70px"><?=$slist['noofinst']?></td>
+
+      <? 
+	  $qry="select *, DATE_FORMAT(dueon, '%M %d, %Y') as dueondt from `fees_studentdetail` where fstid='".$slist['id']."'"; 
+	  $installment=$db->runQuery("$qry");
+	  ?>
+
+      <td class="col-4" style="width:300px;">
+
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <? $i=1;
+		  	foreach($installment as $inst){
+		  ?>
+		  <tr>
+			<td><?=$inst['inst']?></td>
+			<td><?=$inst['dueondt']?></td>
+		  </tr>
+		  <?
+		   $i++; }
+		  ?>
+		</table>
+	  </td>
+
+	  
+
+    </tr>
+
+	<? $i++; } 
+
+	$k = 0;
+
+	foreach($mySession->StudentInst as $slist) {
+
+		$m=$i%2; 
+
+		if($m==0)
+
+		{
+
+			$class="tr-even";	
+
+		}else{
+
+			$class="tr-odd";	
+
+		}
+
+	 ?>
+
+   <tr class="<? echo $class; ?>" id="class-timing-1">
+
+      <td class="col-1" style="30px"><input type="checkbox" name="chk[]" value="s_<?=$k?>" /></td>
+
+	  <td class="col-2" style="300px"><?=$slist['catname']?></td>
+
+      <td class="col-3" style="70px"><?=$slist['noofinst']?></td>
+
+     
+
+      <td class="col-4" style="300px">
+
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+		  <? $t=1;
+
+		  	foreach($slist['inst'] as $inst){
+
+		  ?>
+
+		  <tr>
+
+			<td><?=$inst['inst']?></td>
+
+			<td><?=$inst['dueon']?></td>
+
+		  </tr>
+
+		  <?
+
+		    $t++; }		   
+
+		  ?>
+
+		</table>
+
+
+
+	  </td>
+
+	  
+
+    </tr>
+
+	<? $i++; $k++; }?>
+
+	</tbody></table>
+	</div>
+<?
+  tframe_post();
+  ?>
+	<div class="save-proceed-button" style="width:550px;text-align:left;">
+
+      <div style="width:180px; float:right;text-align:left;"><input name="commit" value="Submit" style="margin-left:10px;" type="submit"></div>
+
+      <div class="submit-button2">
+  <input type="button" value="Print" name="print" class="submit-button" onclick="gotoprint()" />
+  </div>
+
+      </div>
+
+  </form>
+
+  </div>
+
+ </div>
+
+<div id="modal-box" style="display: none;"></div>
+
+      <div class="extender"></div>

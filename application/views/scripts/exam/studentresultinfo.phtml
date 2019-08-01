@@ -1,0 +1,62 @@
+<?
+$db = new Db();
+$examscore = $this->examscore;
+?>
+<link href="<?=CSS_URL?>exam/generated_report4.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+
+  
+    <div style="margin-left:100px; font-size:13px; font-weight:bold; height:18px;"><? echo $this->studentinfo[0]['name']; ?></div>
+   
+    <div id="score-table">
+	<?
+  tframe_pre();
+  ?>
+
+    <table id="listing" width="100%">
+      <tbody><tr class="tr-head">
+        <td><?=LNG_SUBJECT?></td>
+        <? foreach($this->examgroup as $examgroup){ ?>
+          <td><?=$examgroup['name']?></td>
+        <? } ?>
+                  
+        <td><?=LNG_TOTAL?></td>
+      </tr>
+      <?
+	  $i=1;
+	  $markstotal = 0;
+	  $maxtotal = 0;
+	  foreach($this->subjects as $subjects) {
+	  if($i%2) { $class = 'tr-odd';} else { $class = 'tr-even'; }
+	  ?>
+        <tr class="<?=$class?>">
+          <td class="col-2"><?=$subjects['name']?></td>
+            
+           <?
+		    $subjecttotal = 0;
+			
+		    foreach($this->examgroup as $examgroup){ 
+		    $subjecttotal = $subjecttotal+$examscore[$subjects['id']][$examgroup['id']]['marks'];
+			$maxtotal = $maxtotal + $examscore[$subjects['id']][$examgroup['id']]['maxmarks'];
+			$markstotal = $markstotal + $examscore[$subjects['id']][$examgroup['id']]['marks'];
+		   ?>
+          	<td class="col-3"><?=$examscore[$subjects['id']][$examgroup['id']]['marks']?> / <?=$examscore[$subjects['id']][$examgroup['id']]['maxmarks']?></td>
+        	<? } ?>
+		
+            <td class="col-1"><?=$subjecttotal?></td>
+        </tr>
+      <? $i++; 
+	  } ?>
+       
+    </tbody></table>
+	<?
+  tframe_post();
+  ?>
+    </div>
+    
+      
+      <h4><?=LNG_TOTAL_MARKS?> = <?=$markstotal?>/<?=$maxtotal?> | <?=LNG_AGGREGATE_PERCENT?> = <?=($markstotal/$maxtotal)*100?></h4>
+    
+    <div class="extender"></div>
+
+    

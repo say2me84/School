@@ -1,0 +1,86 @@
+<? if($this->batchid) { 
+$db = new Db();
+?>
+<link href="<?=CSS_URL?>timetable/edit2.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      
+      
+
+
+<script type="text/javascript">
+
+var selected_divs = new Array();
+
+function update_selected_divs(id) {
+  var exists_in_list = 0;
+  for (x in selected_divs)
+    if(id == selected_divs[x]){
+      exists_in_list = 1;
+      selected_divs.splice(x, 1)
+      $('drop_' + id).className = "drop";
+    }
+  if(!exists_in_list){
+    $('drop_' + id).className = "selected_div";
+    selected_divs.push(id);
+  }
+}
+
+function clear_selected_divs() {
+  selected_divs = [];
+}
+
+function make_ajax_calls(tte_id, emp_sub_id){
+
+    if (selected_divs.length == 0) {
+        new Ajax.Updater('timetable', '<?=BASE_PATH?>timetable/updatemultipletimetableentries2', {asynchronous:true, evalScripts:true, parameters:'emp_sub_id=' + emp_sub_id + '&tte_ids=' + tte_id + '&batch_id=<?=$this->batchid?>'})
+    }
+    else if (selected_divs.length == 1) {
+        new Ajax.Updater('timetable', '<?=BASE_PATH?>timetable/updatemultipletimetableentries2', {asynchronous:true, evalScripts:true, parameters:'emp_sub_id=' + emp_sub_id + '&tte_ids=' + tte_id + '&batch_id=<?=$this->batchid?>'})
+        if (selected_divs[0] == tte_id) selected_divs.pop();
+    }
+    else {
+        var exists_in_list = 0;
+        for (x in selected_divs)
+            if(tte_id == selected_divs[x])
+              exists_in_list = 1;
+        if (exists_in_list) {
+            tte_list = selected_divs.join(',');
+            new Ajax.Updater('timetable', '<?=BASE_PATH?>timetable/updatemultipletimetableentries2', {asynchronous:true, evalScripts:true, parameters:'emp_sub_id=' + emp_sub_id + '&tte_ids=' + tte_list + '&batch_id=<?=$this->batchid?>'})
+            selected_divs = [];
+        }
+        else
+            new Ajax.Updater('timetable', '<?=BASE_PATH?>timetable/updatemultipletimetableentries2', {asynchronous:true, evalScripts:true, parameters:'emp_sub_id=' + emp_sub_id + '&tte_ids=' + tte_id + '&batch_id=<?=$this->batchid?>'})
+    }
+}
+</script>
+
+
+<? if($this->needweekday==1) { ?>
+	<h4>You need to be set weekday before set time-table - <a href="<?=BASE_PATH?>weekday/index/batchid/<?=$this->batchid?>">Click here</a></h4>
+<? } elseif($this->needclasstiming==1) { ?>
+<h4>You need to be set class timing before set time-table - <a href="<?=BASE_PATH?>classtimings/index/batchid/<?=$this->batchid?>">Click here</a></h4>
+<? } else { ?>
+  <div id="timetable">
+   
+<?=$this->timetablehtml?>
+
+  </div>
+  <div id="subjects-select">
+ 
+   
+      <div class="text-input-bg">
+        
+  
+    <select id="timetable_entries_subject_id" name="timetable_entries[subject_id]" onchange="getajax('<?=BASE_PATH?>timetable/updateemployees','?subject_id='+this.value,'employee-list');" style="width:180px"><option value=""><?=LNG_SELECT_SUBJECTS?></option>
+<?
+foreach($this->subjectarray as $subjectarray) { ?>
+<option value="<?=$subjectarray['id']?>"><?=$subjectarray['name']?></option>
+<? } ?>
+</select>
+      </div>
+  <div id="employee-list"></div>
+  </div>
+<? } ?>
+<? } ?>
+
+
+    

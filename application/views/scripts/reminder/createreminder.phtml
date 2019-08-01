@@ -1,0 +1,304 @@
+<?
+global $mySession;
+$detail= $this->detail;
+?>
+
+<link href="<?=CSS_URL?>reminder/create_reminder.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+     
+      <div id="content"> 
+      
+<script>
+  function add_recipient(recipient) {
+    var recipient_list = new Array();
+    if($('recipients').value != '')
+      recipient_list = $('recipients').value.split(',');
+    else
+      recipient_list = [];
+
+    var recipient_exists = false;
+
+    for(i=0; i<recipient_list.length; i++)
+      if(recipient_list[i] == recipient)
+        recipient_exists = true;
+
+    if(!recipient_exists) {
+      recipient_list.push(recipient);
+    }
+    $('recipients').value = recipient_list.join();
+    recipients = $('recipients').value;
+new Ajax.Request('/reminder/update_recipient_list', {asynchronous:true, evalScripts:true, parameters:'recipients='+recipients + '&authenticity_token=' + encodeURIComponent('3P02ZpqmNqieh/nSgWabSIYeZR2H55JH5E53QazEY/E=')})
+  }
+
+  function add_all_recipient(recipient) {
+    var recipient_list = new Array();
+    if($('recipients').value != '')
+      recipient_list = $('recipients').value.split(',');
+    else
+      recipient_list = [];
+
+    var new_list = recipient.split(',');
+
+    for(i=0;i<new_list.length;i++)
+    {
+      var recipient_exists = false;
+      for(j=0; j<recipient_list.length; j++)
+        if(recipient_list[j] == new_list[i])
+          recipient_exists = true;
+      if(!recipient_exists) recipient_list.push(new_list[i]);
+    }
+
+    $('recipients').value = recipient_list.join();
+    recipients = $('recipients').value;
+new Ajax.Request('/reminder/update_recipient_list', {asynchronous:true, evalScripts:true, parameters:'recipients='+recipients + '&authenticity_token=' + encodeURIComponent('3P02ZpqmNqieh/nSgWabSIYeZR2H55JH5E53QazEY/E=')})
+  }
+
+
+  function remove_recipient(recipient) {
+    recipients = $('recipients').value;
+    var recipient_list = new Array();
+    recipient_list = $('recipients').value.split(',');
+
+    for(i=0; i<recipient_list.length; i++)
+      if (recipient_list[i] == recipient)
+    {
+      recipient_list.splice(i,1);
+      break;
+    }
+
+    $('recipients').value = recipient_list.join();
+    recipients = $('recipients').value;
+new Ajax.Request('/reminder/update_recipient_list', {asynchronous:true, evalScripts:true, parameters:'recipients='+recipients + '&authenticity_token=' + encodeURIComponent('3P02ZpqmNqieh/nSgWabSIYeZR2H55JH5E53QazEY/E=')})
+
+
+
+  }
+</script>
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>reminder/reminder_small.png">
+  <h1><?=LNG_MESSAGES?></h1>
+  <h3><?=LNG_CREATE_NEW?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    
+      <li><a href="<?=BASE_PATH?>reminder"><?=LNG_INBOX?></a></li>
+    
+
+    <li><a href="<?=BASE_PATH?>reminder/sentreminder"><?=LNG_SENT?></a></li>
+    <li><a href="<?=BASE_PATH?>reminder/createreminder"><?=LNG_CREATE?></a></li>
+  </ul>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <div class="create-options">
+
+
+    
+  </div>
+  <form action="<?=BASE_PATH?>reminder/sendreminder" method="post" name="myform" >
+  <div style="margin: 0pt; padding: 0pt; display: inline;">
+  <input name="authenticity_token" value="3P02ZpqmNqieh/nSgWabSIYeZR2H55JH5E53QazEY/E=" type="hidden"></div>
+   <? if($mySession->user['usertype']=='A'){ ?>
+   <div>
+<script>
+	function reminder_to(value){
+		if(value=='1')
+		{
+			document.getElementById('reminder_to_seleced').style.display='block';
+			document.getElementById('reminder_to_management_staff').style.display='none'
+		}
+		else if(value=='2')
+		{
+			document.getElementById('reminder_to_seleced').style.display='none';
+			document.getElementById('reminder_to_management_staff').style.display='block';
+		}
+		else
+		{
+			document.getElementById('reminder_to_seleced').style.display='none';
+			document.getElementById('reminder_to_management_staff').style.display='none';
+		}
+			
+	}
+</script>
+	<div id="form">
+      <div class="reminder_select">
+		<label style="white-space: nowrap;">
+			<input type="radio" name="reminder" id="reminder_to_0" value="0" checked="checked" onclick="reminder_to('0')">
+				<?=LNG_ALL?>
+		</label>		
+		<label style="white-space: nowrap;">
+			<input type="radio" name="reminder" id="reminder_to_1" value="1" onclick="reminder_to('1')"><?=LNG_SELECTED?>
+		</label>
+		<label style="white-space: nowrap;">
+			<input type="radio" name="reminder" id="reminder_to_2" value="2" onclick="reminder_to('2')">
+				<?=LNG_SELECTED_MANAGEMENT_STAFF?>
+		</label>
+	</div>
+	
+	<div id="reminder_to_seleced" style="display:none;">
+		<div class="text-input-bg">
+			 <select name="school_id" id="school_id" >
+			<option value=""><?=LNG_SELECT_A_SCHOOL?></option>
+			<? if(isset($this->schooldetail) && count($this->schooldetail) > 0) { ?>
+				<? foreach($this->schooldetail as $schooldetail) { ?>
+					<option value="<?=$schooldetail['id']?>"><?=$schooldetail['name']?></option>
+				<? } ?>
+			<? } ?>		
+			</select>
+		</div> 
+	 <div id="on_select_school"></div>
+	 </div>
+			
+			<div id="reminder_to_management_staff" style="display:none;">
+          
+			<div class="label-field-pair">
+			<label for="department"><?=LNG_SELECT_MANAGEMENT?></label>
+			 <div class="text-area-bg">
+				<select multiple="multiple"  class="text-mul-bg" name="staff">
+					<? foreach($this->slist as $slist) { ?>
+						<option value="<?=$slist['id']?>"><?=$slist['name']?>(<?=$slist['sname']?>)</option>
+					<? } ?>				
+				</select>			
+			  </div>
+			</div> 
+        	 <div class="extender"></div>
+			
+			<div class="label-field-pair">
+			 <label for="department"><?=LNG_SELECT_STAFF_NAME?></label>
+			  <div class="text-area-bg">
+				<select multiple="multiple"  class="text-mul-bg" name="staff">
+					<? foreach($this->elist as $elist) { ?>
+					<option value="<?=$elist['id']?>"><?=$elist['name']?></option>
+					<? } ?>
+				</select>
+			  </div>
+			</div>
+
+        </div>
+      	<div class="extender"></div>
+	
+	</div></div>
+	<? }else{
+	?>
+	<div id="form">
+      
+      <input id="recipients" name="recipients" value="" type="hidden">      
+        <div class="to-options">
+          <a href="#"><?=LNG_CREATE_REMINDER_TO_STAFF?></a>
+        </div>
+      <div class="extender"></div>
+      
+        <div id="select-employee-department">
+			<div class="label-field-pair">
+			  <label for="department"><?=LNG_SELECT_MANAGEMENT?></label>
+				  <div class="text-area-bg">
+					<select multiple="multiple"  class="text-mul-bg" name="management[]">
+						<option value="1">Supper Administrator</option>
+						<? foreach($this->slist as $slist) { ?>
+						<option value="<?=$slist['id']?>"><?=$slist['name']?></option>
+						<? } ?>
+					</select>	
+				  </div>
+			</div> 
+         <div class="extender"></div>
+			<div class="label-field-pair">
+			  <label for="department">Select Staff Name</label>
+			  <div class="text-area-bg">
+				<select multiple="multiple"  class="text-mul-bg" name="staff[]">
+					<? foreach($this->elist as $elist) { ?>
+					<option value="<?=$elist['id']?>"><?=$elist['name']?></option>
+					<? } ?>					
+				</select>			
+			  </div>
+			</div>
+        </div>
+      
+
+      <div class="label-field-to">
+        <div id="to_users">
+          
+        </div>
+      </div>
+      <div class="extender"></div>
+
+
+      <div class="to-options">
+        <a href="#"><?=LNG_CREATE_REMINDER_TO_GUARDIAN?></a>
+      </div>
+      <div class="extender"></div>
+      <div id="select-student-course">
+		<div class="label-field-pair">
+		  <label for="department">Select Class</label>
+		  <div class="text-area-bg">
+		  
+		<script>  
+		function slst()
+		{
+		oSelect = document.getElementById ('stulst');
+		var iNumSelected = 0;
+		
+		var mnycls = '';
+		   for (var iCount=0; oSelect.options[iCount]; iCount++) {
+				if (oSelect.options[iCount].selected == true) {
+					iNumSelected ++;
+					mnycls = mnycls +'|'+ oSelect[iCount].value; 
+				}
+		   }
+		   document.getElementById('stuvals').value = mnycls;
+		}		   
+		</script>	
+		
+		<input type="hidden" name="stuvals" id="stuvals"  />		
+			<select multiple="multiple"  class="text-mul-bg" id="stulst" onchange="slst();getajax('<?=BASE_PATH?>reminder/selectstudentcourse','?cls_id='+document.getElementById('stuvals').value,'student-list');" >
+		<?	if(is_array($detail) && count($detail) > 0){
+				foreach($detail as $list)
+				{
+					echo '<option value="'.$list['id'].'" > '.$list['grade_name'].'-'.$list['name'].' </option>';
+				}
+		} ?>
+			</select>		
+		  </div>		  
+		</div>
+
+
+<div id="student-list"></div>
+      </div>
+      <div class="label-field-to">
+        <div id="to_users2"></div>
+      </div>
+    </div>
+	<? } ?>
+    <div class="message">
+      <div id="recipient-list"></div>
+      <div class="label-field-pair">
+        <label for="subject"><?=LNG_SUBJECT?></label>
+        <div class="text-input-bg"><input id="reminder_subject" name="reminder[subject]" size="30" type="text"></div>
+      </div>
+      <div class="label-field-pair">
+        <label for="student_grade"><?=LNG_MESSAGE?></label>
+        <div class="text-area-bg"><textarea cols="25" id="reminder_body" name="reminder[body]" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="extender"></div>
+      <div id="submitbutton">
+        <input class="button" name="commit" value="Send" type="submit">
+      </div>
+    </div>
+
+
+    
+  </form>
+  <div class="extender"></div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

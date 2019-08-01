@@ -1,0 +1,52 @@
+
+<div id="side_bar">
+<div id="sidebar_news_area">
+</div>
+</div>
+<div id="content">
+<div id="content-header">
+<img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+<h1><?=LNG_EXAMS?></h1>
+<h3><?=LNG_GROUPING?></h3>
+<div id="app-back-button">
+<a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313586643" border="0"></a>
+</div>
+</div>
+<div id="page-yield">
+<div class="box">
+<h4><?=LNG_CONNECT_EXAMS?></h4>
+<div id="list_content">
+<div id="list">
+<form action="<?=BASE_PATH?>exam/grouping/batchid/<?=$this->batchid?>" method="post">
+<input type="hidden" name="batchid" id="batchid" value="<?=$this->batchid?>" />
+<?
+if(is_array($this->elist) && count($this->elist) >0) {
+$i=0;
+foreach($this->elist as $elist) {
+$m = $i%2;
+if($m==0) {
+	$class='name_listodd';
+} else {
+	$class='name_listeven';
+}
+?><div class="<?=$class?>">
+	<li>
+		<label>
+		<input type="checkbox" id="exam_grouping_exam_group_ids_" name="exam_group_ids[]" value="<?=$elist['id']?>" <? if($elist['gid']) { ?> checked="checked" <? } ?>>
+			<div class="att_list_names"> 
+				<?=$elist['name']?>
+			</div>
+		</label>
+	</li>
+</div>
+<? $i++;
+ }
+} ?>
+<input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+</form>
+</div>
+</div> <div class="extender"></div>
+</div>
+</div>
+</div>
+<div class="extender"></div>

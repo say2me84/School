@@ -1,0 +1,99 @@
+<link href="<?=CSS_URL?>employee/admission4.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+   <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1>Select reporting manager</h1>
+  <h3>Step 4</h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+<script> function update_reporting_manager(id) { $('employee_reporting_manager_id').value = id; } </script>
+
+<div id="page-yield">
+
+  <div id="form_content">
+    <form action="<?=BASE_PATH?>employee/admission4/3" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="authenticity_token" value="nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=" type="hidden"></div>
+      <div id="current-changed-manager">
+
+
+        <div id="changed-manager-outer">
+          <div id="changed-manager">Selected  Manager&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+          <div id="changed-manager-name"><span class="not-selected">(not selected)</span></div>
+          <div id="update-button"><input name="commit" value="Save &amp; Proceed" type="submit"></div>
+          <div class="extender"></div>
+        </div>
+      </div>
+
+      <input id="employee_reporting_manager_id" name="reporting_manager_id" type="hidden">
+
+    </form>
+
+    <div id="search-options">
+      <div id="search-outer">
+        <div id="search-label">Search by name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+        <div id="search-text-box"><input autocomplete="off" id="query" name="query" type="text"></div>
+
+        <img alt="Loader" id="loader" src="<?=IMAGES_URL?>load.gif?<?=UPDATE_KEY?>" style="display: none;" align="absmiddle" border="0">
+        <div class="extender"></div>
+      </div>
+
+
+      <script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('employee_reporting_manager_id', 0.1, function(element, value) {new Ajax.Updater('changed-manager-name', '/employee/update_reporting_manager_name', {asynchronous:true, evalScripts:true, parameters:'employee_reporting_manager_id='+escape($('employee_reporting_manager_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script>
+
+      <div id="advanced-options">
+        <div class="employee-search-options"><select id="employee_department_id" name="department_id"><option value="">Select department</option>
+<option value="1">Fedena Admin</option>
+<option value="2">Computor Science</option></select></div>
+        <div class="employee-search-options"><select id="employee_category_id" name="category_id"><option value="">Select category</option>
+<option value="1">Fedena Admin</option>
+<option value="2">Teaching</option></select></div>
+        <div class="employee-search-options"><select id="employee_position_id" name="position_id"><option value="">Select position</option>
+<option value="1">Fedena Admin</option>
+<option value="2">Senior Teacher</option></select></div>
+        <div class="employee-search-options"><select id="employee_grade_id" name="grade_id"><option value="">Select grade</option>
+<option value="1">Fedena Admin</option></select></div>
+        <div class="extender"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('query', 0.1, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '/employee/select_reporting_manager', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&employee_department_id='+escape($('employee_department_id').value) + '&employee_category_id='+escape($('employee_category_id').value) + '&employee_position_id='+escape($('employee_position_id').value) + '&employee_grade_id='+escape($('employee_grade_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('employee_department_id', 0.1, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '/employee/select_reporting_manager', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&employee_department_id='+escape($('employee_department_id').value) + '&employee_category_id='+escape($('employee_category_id').value) + '&employee_position_id='+escape($('employee_position_id').value) + '&employee_grade_id='+escape($('employee_grade_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('employee_category_id', 0.1, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '/employee/select_reporting_manager', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&employee_department_id='+escape($('employee_department_id').value) + '&employee_category_id='+escape($('employee_category_id').value) + '&employee_position_id='+escape($('employee_position_id').value) + '&employee_grade_id='+escape($('employee_grade_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('employee_position_id', 0.1, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '/employee/select_reporting_manager', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&employee_department_id='+escape($('employee_department_id').value) + '&employee_category_id='+escape($('employee_category_id').value) + '&employee_position_id='+escape($('employee_position_id').value) + '&employee_grade_id='+escape($('employee_grade_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+new Form.Element.Observer('employee_grade_id', 0.1, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '/employee/select_reporting_manager', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&employee_department_id='+escape($('employee_department_id').value) + '&employee_category_id='+escape($('employee_category_id').value) + '&employee_position_id='+escape($('employee_position_id').value) + '&employee_grade_id='+escape($('employee_grade_id').value) + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=') + '&authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')})})
+//]]>
+</script>
+  </div>
+
+
+  <div id="information"></div>
+
+ </div> </div>
+
+      <div class="extender"></div>
+    

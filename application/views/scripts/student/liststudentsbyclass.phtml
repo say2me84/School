@@ -1,0 +1,120 @@
+
+
+<div class="students-table">
+<? if((isset($this->studentlist) && count($this->studentlist) > 0) || (isset($this->alumnistudentlist) && count($this->alumnistudentlist) > 0)) { ?>
+  <?
+  tframe_pre();
+  ?>
+  <div id="printmiddiv">
+  <table align="center" cellpadding="1" cellspacing="1" width="100%" style="background: #c3d9ff;">
+    <tbody>
+	<tr class="tr-head">     
+      <td>
+       <?=LNG_NAME?>
+      </td>
+      <td>
+        <?=LNG_ADM_NO?>
+      </td>
+      <td>
+		<?=LNG_BATCH?>
+      </td>
+	  <td>
+		<?=LNG_YEAR?>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+	  <td></td>
+    </tr>
+	<? if(isset($this->studentlist) && count($this->studentlist) > 0) { ?>
+  <? $i=1; 
+  foreach($this->studentlist as $studentlist) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        
+
+        <td class="col-4">
+          <a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>"><?=$studentlist['sname']?></a>
+        </td>
+
+        <td class="col-3">
+          <?=str_pad($studentlist['admission_no'],6,0,STR_PAD_LEFT)?>
+        </td>
+
+        <td class="col-3">
+          <?=$studentlist['gname']?>-<?=$studentlist['bname']?>
+        </td>
+		
+		<td class="col-4">
+          <?=$studentlist['batch_yr']?>
+        </td>
+      </tr>
+    <? $i++; } ?>
+	<? } ?>
+	<? if(isset($this->alumnistudentlist) && count($this->alumnistudentlist) > 0) { ?>
+	
+      <? $i=1; 
+  foreach($this->alumnistudentlist as $studentlist) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        
+
+        <td class="col-2">
+          <a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>"><?=$studentlist['sname']?></a>
+        </td>
+
+        <td class="col-3">
+          <?=str_pad($studentlist['admission_no'],6,0,STR_PAD_LEFT)?>
+        </td>
+
+        <td class="col-4">
+          <?=$studentlist['gname']?>-<?=$studentlist['bname']?>
+        </td>
+		
+		<td class="col-4">
+          <?=$studentlist['gname']?>-<?=$studentlist['bname']?>
+        </td>
+      </tr>
+    <? $i++; } ?>
+	<? } ?>
+    
+  </tbody></table>
+  </div>
+  <?
+  tframe_post();
+  ?>
+  
+  <? }else {
+	?>
+		<p class="flash-msg"> <?=LNG_NO_STUDENTS_IN_SELECTED_BATCH?> </p>
+	<?
+}
+	?>
+</div>
+
+<script>
+jQuery(function() { 
+<? if(count($this->studentlist) > 0) { ?> 
+	jQuery("#export_span").removeClass("cls_hide");
+<? } else { ?>
+	jQuery("#export_span").addClass("cls_hide");
+<? } ?>
+});
+</script>

@@ -1,0 +1,64 @@
+
+<script>
+function chk_valid()
+{
+	if(document.getElementById("search_batchid").value=='')
+	{
+		alert("Please select a class");
+		return false;
+	}
+	return true;
+}
+</script>
+  <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1><?=LNG_TRANSFER_STUDENT?></h1>
+  <h3><?=LNG_TRANSFER_STUDENT?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+<div class="label-field-pair-select-class" style="width:700px;">
+<form action="<?=BASE_PATH?>configuration/transferstudent2" class="new_subject" id="new_subject" method="post" onsubmit="return chk_valid()">
+ <label for="student-detail-select-class"><?=LNG_SELECT_A_GRADE?></label>
+    <div class="text-input-bg">
+	<select onchange="getajax('<?=BASE_PATH?>configuration/batchlistcombo/','?gradeid='+this.value+'&search_year='+document.getElementById('search_year').value,'batchlist');" name="search_gradeid" id="search_gradeid">
+	<option value=""><?=LNG_SELECT_A_GRADE?></option>
+	<? if(isset($this->batchlist) && count($this->batchlist) > 0) { ?>
+		<? foreach($this->batchlist as $batchlist) { ?>
+			<option value="<?=$batchlist['id']?>"><?=$batchlist['grade_name']?></option>
+		<? } ?>
+	<? } ?>
+	</select></div>
+	
+	 <label for="student-detail-select-class"><?=LNG_SESSION_START_YEAR?></label>
+    <div class="text-input-bg">
+	<select name="search_year" id="search_year" onchange="if(document.getElementById('search_gradeid').value!='') { getajax('<?=BASE_PATH?>student/batchlistcombo/','?gradeid='+document.getElementById('search_gradeid').value+'&search_year='+this.value,'batchlist'); }">
+	<? 
+	$yy = date("Y");
+	for($i=$yy; $i > ($yy-2); $i--){ ?>
+	<option value="<?=$i?>"><?=$i?></option>
+	<? } ?>
+	</select></div>
+	<div class="extender"></div>
+	<label for="student-detail-select-class"><?=LNG_SELECT_A_BATCH?></label>
+    <div class="text-input-bg" id="batchlist">
+	<select name="search_batchid" id="search_batchid">
+		<option value=""><?=LNG_SELECT_A_BATCH?></option>
+	
+	</select></div>
+ 	<div class="submit-button" style="float:left; width:220px">
+      <input type="submit" class="submit-button" name="commit" value="<?=LNG_SUBMIT?>">
+    </div>
+</form>
+</div>
+
+
+
+ <div id="students"> </div>
+
+</div>
+</div>

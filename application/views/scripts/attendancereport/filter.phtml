@@ -1,0 +1,54 @@
+<link href="<?=CSS_URL?>attendance_reports/filter.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>attendence/attendence.png">
+  <h1>Attendance Report</h1>
+  <h3>Filtered Report</h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+<div id="page-yield">
+  
+  <div class="label-field-pair">
+    <label>
+      Total no. of working days : 18<br>
+      Filtered: Below 
+    </label>
+  </div>
+  <table id="listing" align="center" width="80%">
+    <tbody><tr class="tr-head">
+      <td>
+        Name
+      </td>
+      <td>
+        Total
+      </td>
+      <td>
+        Percentage(%)
+      </td>
+    </tr>
+    <tr class="blank"></tr>
+    
+  </tbody></table>
+  <form action="<?=BASE_PATH?>attendancereport/filterreportpdf" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="authenticity_token" value="VaaL5pEMHXZdwLM7ggXNlWlkfKeQgvZa7zPeFSrTXCc=" type="hidden"></div>
+    <input id="filter_batch" name="filter[batch]" value="1" type="hidden">
+    <input id="filter_start_date" name="filter[start_date]" value="2011-08-24" type="hidden">
+    <input id="filter_end_date" name="filter[end_date]" value="2011-09-16" type="hidden">
+    
+    <input id="filter_range" name="filter[range]" value="Below" type="hidden">
+    <input id="filter_value" name="filter[value]" value="" type="hidden">
+    <input class="submit_button" name="commit" value="PDF Report" type="submit">
+  </form>
+
+  <div class="extender"></div>
+</div> </div>
+
+      <div class="extender"></div>
+    

@@ -1,0 +1,11 @@
+
+<select id="exam_group_id" name="exam_group_id">
+	<option value=""><?=LNG_SELECT_EXAM_GROUP?></option>
+	<?
+	foreach($this->elist as $elist) { ?>
+	<option value="<?=$elist['id']?>"><?=$elist['name']?></option>
+	<?
+	} 
+	?>
+	
+</select>

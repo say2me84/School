@@ -1,0 +1,67 @@
+<? 
+
+if($this->mode==0) {
+
+$string = "<div id=\"grading-levels-form\">
+  <h4 style=\"margin:0px;\">".LNG_GRADE." ".$this->detail['grade_name']."</h4>
+  <form action=\"\" class=\"new_subject\" id=\"new_subject\" method=\"post\" onsubmit=\"getajax('".BASE_PATH."subjects/subjecttemplate/mode/add/','?'+Form.serialize(this),'modal-box',2)\">
+   
+    <input id=\"batchid\" name=\"gradeid\" type=\"hidden\" value=\"".$this->gradeid."\" />
+    <input id=\"subject_elective_group_id\" name=\"elective_group_id\" type=\"hidden\" />
+    <div id=\"form-errors\"></div>
+    <div class=\"label-field-pair\">
+      <label for=\"student_class\">".LNG_SELECT_GRADE."
+		<img border=\"0\" align=\"absmiddle\" style=\"display: none;\" src=\"".IMAGES_URL."\loader.gif?".UPDATE_KEY."\" id=\"loader\" alt=\"Loader\">
+   		</label>
+   		<div class=\"text-input-bg\">
+ 		<select onchange=\"getajax('".BASE_PATH."subjects/subjecttemplate','?gradeid='+this.value,'subject_template_div');\" name=\"grade_id\" id=\"grade_id\" style=\"width:150px; height:27px;\">
+  			<option value=\"\">".LNG_SELECT_A_GRADE."</option>";
+			  foreach($this->glist as $glist) { 
+	$string .= "<option value=\"".$glist['id']."\">".$glist['grade_name']."</option>";
+			 } 
+			
+    $string .= "</select></div></div><div id=\"subject_template_div\"></div>
+   
+    <input class=\"submit_button\" id=\"subject_submit\" name=\"commit\" type=\"submit\" value=\"Save\" />
+  </form>
+</div>";
+$string = jschars($string);
+?>
+Element.update("modal-box", "<?=$string?>");
+Modalbox.show($('modal-box'), {title: '<?=LNG_ADD_NEW_SUBJECT?>', width: 500});
+<?
+} elseif($this->mode==1 || $this->mode==2) {
+
+$string = "<div class=\"add_sub\">
+    <a onclick=\"getajax('".BASE_PATH."subjects/new/gradeid/".$this->gradeid."','','modal-box',2);\" href=\"#\">".LNG_ADD_SUBJECT."</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+	<a onclick=\"getajax('".BASE_PATH."subjects/newslist/gradeid/".$this->gradeid."','','modal-box',2);\" href=\"#\">".LNG_ADD_SUBJECT_TEMPLATE."</a>
+  </div>
+  <ul id=\"category-list\">";
+   
+	foreach($this->slist as $slist) { 
+      $string .= "<li class=\"listeven\" id=\"subject-1\">
+        <div class=\"category-name\">".$slist['name']."</div>
+        <div class=\"opt\">
+          <div class=\"category-code\">".$slist['code']."</div>
+          <div class=\"category-edit\"><a onclick=\"getajax('".BASE_PATH."subjects/edit/subjectid/".$slist['id']."','?gradeid=".$this->gradeid."','modal-box','2');\" href=\"#\">Edit</a> </div>
+          <div class=\"category-delete\">         
+            
+            
+              <a onclick=\"if(confirm('Are you sure?')) { new getajax('".BASE_PATH."subjects/new/mode/delete/subjectid/".$slist['id']."', '?gradeid=".$this->gradeid."','modal-box','2'); }\" href=\"#\">Delete</a>
+            
+          </div>
+          
+        </div>
+      </li>";
+  
+	} 
+  $string .= "</ul>";
+  $string = jschars($string);
+  ?>
+  Element.update("subjects", "<?=$string?>");
+  <? if($this->mode==1) { ?>
+  Modalbox.hide();
+  <? } ?>
+<?
+}?>

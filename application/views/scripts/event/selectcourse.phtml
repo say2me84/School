@@ -1,0 +1,26 @@
+<?
+if(is_array($this->cblist) && count($this->cblist) >0) { ?>
+<form method="post" action="<?=BASE_PATH?>event/courseevent/eventid/<?=$this->eventid?>">
+<ul id="category-list" style="text-align:left;">
+  <? $t= 0;
+  foreach($this->cblist as $rlist) { 
+  if($t%2==0) { $cls='listodd'; } else { $cls='listeven'; }?>    
+  <li class="<?=$cls?>">
+    <div class="category-box">
+<input type="checkbox" value="<?=$rlist['id']?>" name="batch_id[]" id="select_options_batch_id_">
+      </div>
+    <div class="category-name" style="width:300px">
+       <?=$rlist['cname']?> - <?=$rlist['name']?>
+    </div>
+  </li>
+  <? $t++;
+  } ?>  
+</ul>
+      <input type="submit" value="Create" name="commit" class="create">
+</form>
+<? 
+} else { ?>
+	There is no more batches
+<?
+}
+?>

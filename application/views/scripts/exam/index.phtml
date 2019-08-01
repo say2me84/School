@@ -1,0 +1,91 @@
+<?
+global $mySession;
+?>
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="Exam" src="<?=IMAGES_URL?>examination/show_exam.png">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_HOME?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <div class="box2">
+  
+    <? if($mySession->user['usertype']=='S') { ?>
+     <?php /*?> <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>gradinglevels"><?=LNG_SET_GRADING_LEVELS?></a> </div>
+        <div class="link-descr"><?=LNG_EXAM_TXT2?></div>
+      </div><?php */?>
+    
+    
+    
+    
+      <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>examgroups/index"><?=LNG_EXAM_MANAGEMENT?></a>  </div>
+        <div class="link-descr"><?=LNG_EXAM_TXT3?></div>
+      </div>
+    
+    
+     <?php /*?> <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>additionalexam/createadditionalexam">Additional Exams</a></div>
+        <div class="link-descr">Create additional exams,Edit results</div>
+      </div><?php */?>
+    
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/examwisereport"><?=LNG_EXAM_WISE_REPORT?></a></div>
+      <div class="link-descr"><?=LNG_EXAM_TXT4?></div>
+    </div>
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/subjectwisereport"><?=LNG_SUBJECT_WISE_REPORT?></a> </div>
+      <div class="link-descr"><?=LNG_EXAM_TXT5?></div>
+    </div>
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/finalreporttype"><?=LNG_GROUPED_EXAM_REPORT?></a></div>
+      <div class="link-descr"><?=LNG_EXAM_TXT6?></div>
+    </div>
+	
+	<div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/generatefinal"><?=LNG_GENERATE_FINAL_RESULT?></a></div>
+      <div class="link-descr"><?=LNG_GENERATES_FINAL_RESULT_OF_SEMESTER?></div>
+    </div>
+    <div class="extender"></div>
+ 	
+	<? } else { ?>
+	
+	 <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>examgroups/index"><?=LNG_EXAM_MANAGEMENT?></a>  </div>
+        <div class="link-descr"><?=LNG_EXAM_TXT3?></div>
+      </div>
+   
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/examwisereport"><?=LNG_EXAM_WISE_REPORT?></a></div>
+      <div class="link-descr"><?=LNG_EXAM_TXT4?></div>
+    </div>
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/subjectwisereport"><?=LNG_SUBJECT_WISE_REPORT?></a> </div>
+      <div class="link-descr"><?=LNG_EXAM_TXT5?></div>
+    </div>
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>exam/grouping"><?=LNG_GROUPED_EXAM_REPORT?></a></div>
+      <div class="link-descr"><?=LNG_EXAM_TXT6?></div>
+    </div>
+    <div class="extender"></div>
+ 	<? } ?>
+  </div>
+</div>
+
+ </div>
+
+      <div class="extender"></div>

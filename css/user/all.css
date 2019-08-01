@@ -1,0 +1,109 @@
+
+#users {
+    height : auto;
+    padding : 80px 0 0 10px;
+    width : 960px;
+}
+
+.users {
+    background : #fff url(../../images/student_details/ajax_result_underline.jpg) bottom left no-repeat;
+    float : left;
+    padding : 10px 0px 10px 0;
+    text-decoration : none;
+    width : 204px;
+}
+.users a {
+    color : #000;
+    font-weight : bold;
+    text-decoration : none;
+}
+.users a:hover {
+    text-decoration : underline;
+    color:#d00;
+}
+.users-on-one-line{
+    background:#FFFFFF url(../../images/student_details/ajax_result_underline.jpg) repeat-x scroll left bottom;
+    margin-bottom:20px;
+    overflow:auto;
+    width:816px;
+}
+.label-field-pair{
+  width:300px;
+  float:left;
+}
+#student_user,#employee_user{
+  width:300px;
+  float:left;
+}
+#user_no_result{
+    color:#d00;
+    font-weight: bold;
+    width:200px;
+    margin: 0px auto;
+}
+.all-user{
+    margin-left:200px;
+    overflow: hidden;
+}
+img{
+    padding-top:10px;
+}
+
+table{
+    background: #c3d9ff;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    padding:20px;
+}
+tr.tr-head{
+    background: #fff;
+    color:#990a10;
+    font-weight:bold;
+    text-align:left;
+}
+.tr-head td{
+    padding-left:10px;
+
+}
+.tr-odd{
+    background: #fff;
+    text-align:center;
+    padding:50px;
+    color:#27292b;
+    font-weight:600;
+    font-size:14px;
+}
+.tr-even{
+    background: #f1f6ff;
+    text-align:center;
+    padding:50px;
+    color:#27292b;
+    font-weight:600;
+    font-size:14px;
+}
+td.col-1{
+    width:10%;
+    padding: 5px;
+}
+td.col-2{
+    width:40%;
+    text-align:left;
+    padding: 5px;
+    padding-left:10px;
+}
+td a{
+    text-decoration:none;
+    color:#27292b;
+}
+td a:hover{
+    color:#990a10;
+    text-decoration:underline;
+}
+td.col-3{
+    width:13%;
+    padding: 5px;
+}
+td.col-4{
+    width:30%;
+    padding: 5px;
+}

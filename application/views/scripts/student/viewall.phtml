@@ -1,0 +1,128 @@
+<script>
+function gotoprint()
+{
+	obj_win = window.open('about:blank', 'new_win','toolbars=no,maximize=no,scrollbars=yes,menubar=no,width=900,height=680,directories=no,resizable=0,screenX=0,screenY=0,left=0,top=0'  ) ; 
+ //alert obj_win;
+	obj_win.document.write('<html><title>My School</title><link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" rel="stylesheet" type="text/css" /><head>');
+
+	obj_win.document.write('</head>');
+	obj_win.document.write('<style type="text/css">   </style>');
+	obj_win.document.write('<body><div style="width:850px; " >');
+
+	obj_win.document.write(document.getElementById('printmiddiv').innerHTML);
+
+	obj_win.document.write("</div></body></html>");
+
+	obj_win.document.close();
+
+
+
+	obj_win.focus();
+
+	obj_win.print();
+
+	obj_win.close();
+}
+</script>
+
+<link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<?
+global $mySession;
+if($mySession->setlanguage!=2) {
+	$ln_default_left = 'left';
+	$ln_default_right = 'right';
+} else {
+	$ln_default_left = 'right';
+	$ln_default_right = 'left';
+}
+?>
+<div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_STUDENT_DETAILS?></h1>
+  <h3><?=LNG_VIEW_DETAILS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li style="width:125px;"><a href="<?=BASE_PATH?>student/advancedsearch"><?=LNG_ADVANCE_SEARCH?></a></li>
+  
+    <li style="width:135px;"><a href="<?=BASE_PATH?>student/searchfromother"><?=LNG_SEARCH_FROM_OTHER?></a></li>
+  </ul>
+</div>
+<div id="page-yield">
+<form action="" class="new_subject" id="new_subject" method="post" onsubmit="getajax('<?=BASE_PATH?>student/liststudentsbyclass/','?'+Form.serialize(this),'students'); return false">
+ 
+  <div class="label-field-pair-select-class" style="float:<?=$ln_default_left?>; width:180px; padding-<?=$ln_default_right?>:5px; border-<?=$ln_default_right?>:1px solid #E1E1E1">
+    <label for="student-detail-select-class"><?=LNG_SELECT_A_GRADE?></label>
+	<div class="extender"></div>
+    <div class="text-input-bg">
+	<select onchange="getajax('<?=BASE_PATH?>student/batchlistcombo/','?gradeid='+this.value+'&search_year='+document.getElementById('search_year').value,'batchlist');" name="search_gradeid" id="search_gradeid">
+	<option value=""><?=LNG_SELECT_A_GRADE?></option>
+	<? if(isset($this->batchlist) && count($this->batchlist) > 0) { ?>
+		<? foreach($this->batchlist as $batchlist) { ?>
+			<option value="<?=$batchlist['id']?>"><?=$batchlist['grade_name']?></option>
+		<? } ?>
+	<? } ?>
+	</select></div>
+    <div class="extender"></div>
+	
+	 <label for="student-detail-select-class"><?=LNG_SESSION_START_YEAR?></label>
+	 <div class="extender"></div>
+    <div class="text-input-bg">
+	<select name="search_year" id="search_year" onchange="if(document.getElementById('search_gradeid').value!='') { getajax('<?=BASE_PATH?>student/batchlistcombo/','?gradeid='+document.getElementById('search_gradeid').value+'&search_year='+this.value,'batchlist'); }">
+	<? 
+	$yy = date("Y");
+	for($i=$yy; $i > ($yy-2); $i--){ ?>
+	<option value="<?=$i?>"><?=$i?></option>
+	<? } ?>
+	
+	</select></div>
+	<div class="extender"></div>
+	<label for="student-detail-select-class"><?=LNG_SELECT_A_BATCH?></label>
+	<div class="extender"></div>
+    <div class="text-input-bg" id="batchlist">
+	<select name="search_batchid" id="search_batchid">
+	<option value=""><?=LNG_SELECT_A_BATCH?></option>
+	
+	</select></div>
+	<div class="extender"></div>
+	<label for="student-detail-select-class"><?=LNG_SELECT_A_RELIGION?></label>
+	<div class="extender"></div>
+    <div class="text-input-bg">
+	<select name="search_religion" id="search_religion">
+	<option value=""><?=LNG_SELECT_A_RELIGION?></option>
+	<option value="1">Islam</option>
+	<option value="2">Hindu</option>
+	
+	</select></div>
+	<div class="extender"></div>
+	
+  </div>
+  <div style="float:<?=$ln_default_left?>; width:780px; margin-<?=$ln_default_left?>:5px; ">
+  <div class="label-field-pair-select-class" style="height:40px; width:750px">
+  <label for="student-detail-select-class" style="width:100px"><?=LNG_KEYWORD?></label>
+    <div class="label-field-pair text-input-bg" style="width:150px;">
+	<input type="text" name="search_keyword" id="search_keyword" value="">
+	
+	</div>
+	<label for="student-detail-select-class">&nbsp;</label>
+   
+	<div class="submit-button" style="float:left; width:320px">
+      <input type="submit" class="submit-button" name="commit" value="<?=LNG_FILTER?>">
+	  <span class="cls_hide" id="export_span"><input type="button" class="submit-button" name="commit" onclick="this.form.action='<?=BASE_PATH?>student/exportxls/'; this.form.submit()" value="<?=LNG_EXPORT?>" />
+		<input type="button" value="Print" name="print" class="submit-button" onclick="gotoprint()" />
+	  </span>
+    </div>
+	<div class="extender"></div>
+	</div>
+<div class="extender"></div>
+  <div id="students"> </div>
+  </div>
+  <div class="extender"></div>
+</form>
+</div> </div>
+
+      <div class="extender"></div>

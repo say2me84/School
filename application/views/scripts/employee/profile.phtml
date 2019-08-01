@@ -1,0 +1,157 @@
+<?
+global $mySession;
+$detail= $this->detail;
+
+?>
+<link href="<?=CSS_URL?>employee/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+
+
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMP_PROFILE?></h1>
+  <h3><?=LNG_DETAILS?></h3>
+  <div id="app-back-button">
+   <a href="#" onclick="history.back(); return false;">
+   <img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+
+<div id="nav">
+  <ul>
+    <li>
+      <a href="#" class="drops" id="link_one"><?=LNG_PROFILE?></a>
+      <ul id="box_one" class="scriptaculously" style="overflow: visible; display: none;">
+        <li><a href="#" onclick="getajax('<?=BASE_PATH?>employee/profilegeneral/profileid/<?=$detail['id']?>', '','profile-infos'); "><?=LNG_GENERAL?></a></li>
+        <li><a href="#" onclick="getajax('<?=BASE_PATH?>employee/profilepersonal/profileid/<?=$detail['id']?>', '','profile-infos'); "><?=LNG_PERSONAL?></a></li>
+        <li><a href="#" onclick="getajax('<?=BASE_PATH?>employee/profileaddress/profileid/<?=$detail['id']?>', '','profile-infos'); "><?=LNG_ADDRESS?></a></li>
+        <?php /*?><li><a href="#" onclick="getajax('<?=BASE_PATH?>employee/profilecontact/profileid/<?=$detail['id']?>', '','profile-infos'); ">Contact</a></li>
+        <li><a href="#" onclick="getajax('<?=BASE_PATH?>employee/profilebank_details/profileid/<?=$detail['id']?>', '','profile-infos'); ">Bank Info</a></li>
+        <li><a href="#" onclick="getajax('profile-infos', '/employee/profileadditional_details/profileid/<?=$detail['id']?>', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')}); return false;">Additional Info</a></li><?php */?>
+      </ul>
+    </li>
+
+    
+      
+       <?php /*?> <li>
+          <a href="#" class="drops" id="link_two">Salary</a>
+          <ul id="box_two" class="scriptaculously" style="overflow: visible; display: none;">
+            <li><a href="#" onclick="new Ajax.Updater('profile-infos', '/employee/profile_payroll_details/profileid/3', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')}); return false;">Payroll</a></li>
+            <li><a href="#" onclick="new Ajax.Updater('profile-infos', '/employee/view_payslip/profileid/3', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')}); return false;">Payslip</a></li>
+          </ul>
+        </li><?php */?>
+      
+    
+
+
+    
+      
+        <?php /*?><li>
+          <a href="#" class="drops" id="link_three">Leaves</a>
+          <ul id="box_three" class="scriptaculously" style="overflow: visible; display: none;">
+            <li><a href="#" onclick="new Ajax.Updater('profile-infos', '/employee/view_attendance/profileid/3', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('nhTGd+k/mRvkMld6cK7gV4wLMuCJrQvRE3EsJlLoNFI=')}); return false;">Attendance</a></li>
+          </ul>
+        </li>
+<?php */?>
+      
+    <? if($mySession->user['usertype']=='S') { ?> 
+    <li>
+      <a href="<?=BASE_PATH?>employee/remove/profileid/<?=$detail['id']?>"><?=LNG_DELETE?></a>
+    </li>
+     <? } ?>  
+  </ul>
+
+</div>
+
+
+
+
+<div id="page-yield">
+
+  
+  
+  
+
+  <div id="employee_profile_heading">
+<? if($detail['photo_file_name']!='' && file_exists('upload/employeephoto/'.$detail['photo_file_name'])) { ?>
+    <div id="profile_picture_display">
+      
+        <img alt="Default_employee" src="<?=FILE_URL?>upload/employeephoto/<?=$detail['photo_file_name']?>?<?=UPDATE_KEY?>">
+      
+    </div><? } ?>
+
+    <div id="employee_main_info">
+      <h3> <?=$detail['name']?>  </h3>
+      <h4> Employee ID. : <?=$detail['id']?> </h4>
+    </div>
+
+    <div id="profile-general-info">
+
+
+    </div>
+    <div class="extender"></div>
+
+  </div>
+  
+
+
+
+  <div id="profile-infos">
+    
+
+<div class="profile_top_banner"><img alt="Topbanner" src="<?=IMAGES_URL?>master_student/profile/topbanner.png?<?=UPDATE_KEY?>"></div>
+
+<table width="700">
+  <tbody>
+  <tr class="odd left"><td><?=LNG_USERNAME?></td><td class="right"><?=$detail['username']?></td></tr>
+  <tr class="odd left"><td><?=LNG_JOINING_DATE?></td><td class="right"><?=$detail['jdate']?></td></tr>
+  <tr class="even left"><td><?=LNG_DEPT?></td><td class="right"><?=$detail['deptname']?></td></tr>
+  <tr class="odd left"><td><?=LNG_CATEGORY?></td><td class="right"><?=$detail['catname']?></td></tr>
+  <tr class="even left"><td><?=LNG_POSITION?></td><td class="right"><?=$detail['posname']?></td></tr>
+
+   <?php /*?><tr class="odd left"><td>Grade</td><td class="right"><?=$detail['gradename']?></td></tr>
+ <tr class="even left"><td>Job title</td><td class="right"><?=$detail['job_title']?></td></tr>
+
+  <tr class="odd left"><td>Manager</td><td class="right">
+      
+        <a href="<?=BASE_PATH?>employee/profile/profileid/3"></a>
+      
+  
+      <a href="<?=BASE_PATH?>employee/changereportingmanager/profileid/3">Change</a>
+    </td></tr><?php */?>
+  <tr class="odd left"><td><?=LNG_GENDER?></td><td class="right"><? if($detail['gender']=='F') { ?>Female<? } else {?>Male<? } ?></td></tr>
+  <tr class="even left"><td><?=LNG_STATUS?></td><td class="right"><? if($detail['status']=='1') { ?>Active<? } else {?>Deactive<? } ?></td></tr>
+  <tr class="odd left"><td><?=LNG_QUALIFICATION?></td><td class="right"><?=$detail['qualification']?></td></tr>
+  <tr class="even left"><td><?=LNG_TOTAL_EXP?></td><td class="right"><?=$detail['experience_year']?><?=LNG_YEARS?> <?=$detail['experience_month']?><?=LNG_MONTHS?></td></tr>
+  <tr class="odd left"><td><?=LNG_EXP_INFO?></td><td class="right"><?=$detail['experience_detail']?></td></tr>
+</tbody></table>
+  <div class="edit-pdf-group">
+    
+      <? if($mySession->user['usertype']!='T') { ?>
+	  <div class="edit">
+        <a href="<?=BASE_PATH?>employee/edit1/profileid/<?=$detail['id']?>"><?=LNG_EDIT?></a>
+      </div>
+      <? } ?>
+    
+      <?php /*?><div class="pdf">
+        <a href="<?=BASE_PATH?>employee/profilepdf/profileid/<?=$detail['id']?>" class="user_button" target="_blank">PDF Report</a>
+      </div><?php */?>
+    
+  </div>
+
+
+  </div>
+    <div class="extender"> </div>
+</div>
+ </div>
+
+      <div class="extender"></div>
+    

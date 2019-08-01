@@ -1,0 +1,98 @@
+<?
+global $mySession;
+$detail= $this->detail;
+$db = new Db();
+?>
+
+<link href="<?=CSS_URL?>reminder/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+<div id="content"> 
+<div id="content-header">
+	
+  <img src="<?=IMAGES_URL?>reminder/reminder_small.png" />
+  <h1><?=LNG_MESSAGES?></h1>
+  <h3><?=LNG_INBOX?></h3>
+  <div id="app-back-button">
+  <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    
+      <li><a href="<?=BASE_PATH?>reminder"><?=LNG_INBOX?></a></li>
+    
+    <li><a href="<?=BASE_PATH?>reminder/sentreminder"><?=LNG_SENT?></a></li>
+    <li><a href="<?=BASE_PATH?>reminder/createreminder"><?=LNG_CREATE?></a></li>
+  </ul>
+</div>
+
+
+
+
+<div id="page-yield">
+
+  
+
+
+
+  <div id="application-list">
+  <?
+  tframe_pre();
+  ?>  
+	<table id="listing" align="center" cellpadding="1" cellspacing="1" width="100%">
+      <tbody><tr class="tr-head">
+        <td>
+          <?=LNG_FROM?>
+        </td>
+        <td>
+          <?=LNG_MSG_SUBJECT?>
+        </td>
+        <td>
+          <?=LNG_DATE?>
+        </td>
+		<td>
+          <?=LNG_ACTION?>
+        </td>
+      </tr>
+      <tr><td></td></tr>
+<? $cnt = 2;  foreach($detail as $row)  { if($cnt%2==0) $cls = 'tr-rem-even'; else $cls = 'tr-rem-odd'; ?>
+      <tr class="<?=$cls?>" onmouseover="this.className='tr-rem-over';" onmouseout="this.className='<?=$cls?>';" onclick="window.location='<?=BASE_PATH?>reminder/viewreminder?msg_id=<?=$row['id']?>'" >
+      	<?
+	   $username = $row['first_name'].' '.$row['last_name'];
+		 if($row['usertype']=='P') {
+			$qry = "select concat(first_name,' ',last_name) as username from guardians where userid='".$row['sender']."'";
+			$getusername = $db->runQuery($qry);
+			$username = $getusername[0]['username'];
+		 }
+		 if($row['usertype']=='T') {
+			$qry = "select concat(first_name,' ',last_name) as username from employees where userid='".$row['sender']."'";
+			$getusername = $db->runQuery($qry);
+			$username = $getusername[0]['username'];
+		 }
+	  ?>
+	  <td <? if($row['is_read']) { ?>style="font-weight:normal"<? } ?>>
+			<?=$username?>
+        </td>
+        <td <? if($row['is_read']) { ?>style="font-weight:normal"<? } ?>>
+        	<?=$row['subject']?>
+        </td>
+        <td <? if($row['is_read']) { ?>style="font-weight:normal"<? } ?>>
+        	<?=$row['rdate']?>
+        </td>
+		<td <? if($row['is_read']) { ?>style="font-weight:normal"<? } ?>>
+        	<a href="<?=BASE_PATH?>reminder/deletereminderbyrecipient/reminderid/<?=$row['id']?>">Delete</a>
+        </td>
+      </tr>
+<? $cnt++;  }	?>
+
+      
+    </tbody></table>
+   <?
+  tframe_post();
+  ?> 
+  </div>
+</div> </div>
+
+      <div class="extender"></div>
+    

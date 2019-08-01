@@ -1,0 +1,299 @@
+<?
+
+	$db= new Db();
+
+	global $mySession;
+
+	?>
+
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+
+
+<?
+
+if($this->mode==0) { ?>
+
+<label class="head_label">Add new fees for <span>
+
+Common
+
+</span></label>
+
+<div id="ajax-create" >
+
+<script>
+
+gl_no = 1;
+
+
+
+function setinst(no)
+
+{
+
+	if(parseInt(gl_no) < parseInt(no)) {
+
+
+
+		t = parseInt(gl_no) +1;
+
+		
+
+		for(i=t; i <= no; i++)
+
+		{
+
+			//alert(document.getElementById("installmentdiv").innerHTML);
+
+			
+
+			jQuery('#installmentdiv').append('<div id="instrow_'+i+'" style="clear:both"><div style="float:left; width:30px" class="add_new_text">'+i+'. </div><div style="float:left; width:210px"><input type="text" class="addfees" name="inst_'+i+'" id="inst_'+i+'" value="" /></div><div style="float:left"><input type="text" class="addfees" name="duedate_'+i+'" id="duedate_'+i+'" /> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-1))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')+1))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div></div>');
+
+		}
+
+	} else {
+
+		t = parseInt(no) + 1;
+
+		
+
+		for(i=t; i <= gl_no; i++)
+
+		{
+
+			//alert(document.getElementById("installmentdiv").innerHTML);
+
+			
+
+			jQuery('#instrow_'+i).remove();
+
+		}
+
+	}
+
+	gl_no = no;
+
+	if(parseInt(no) > 7) {
+
+		jQuery('#installmentdiv').height(200);
+
+	}
+
+	
+
+}
+
+</script>
+
+  <form action="" method="post" onsubmit="getajax('<?=BASE_PATH?>student/feescreate/','?'+Form.serialize(this),'modal-box','2')">
+
+    <input id="batchid" name="batchid" value="<?=$this->batchid?>" type="hidden">
+
+	<input id="mode" name="mode" value="add" type="hidden">
+
+    <div id="form-errors"></div>
+
+   
+
+	
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+	  <tr>
+
+		<td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+		  <tr>
+
+			<td class="add_new_text">Categories</td>
+
+			<td><div class="input-field">
+
+				<select name="catlist" id="catlist">
+
+				<?
+
+				foreach($this->clist as $clist) { ?>
+
+					<option value="<?=$clist['id']?>"><?=$clist['name']?></option>
+
+				<? } ?>
+
+				</select>
+
+				
+
+			  </div>
+
+			 </td>
+
+			<td class="add_new_text">No of Inst.</td>
+
+			<td><select name="noofinst" id="noofinst" onchange="setinst(this.value)">
+
+			<? for($i=1; $i<25; $i++) { ?>
+
+				<option value="<?=$i?>"><?=$i?></option>	
+
+			<? } ?>
+
+			</select>
+
+		   </td>
+
+		  </tr>
+
+		</table>
+
+		</td>
+
+	  </tr>
+
+	  <tr>
+
+		<td>&nbsp;</td>
+
+	  </tr>
+
+	</table>
+
+	
+
+	 <?php /*?><div class="label-field-pair">
+
+      <label for="name" style="width:100px;">Categories</label>
+
+      <div class="time-select-field">
+
+				<select name="catlist" id="catlist" style="width:120px;">
+
+				<?
+
+				foreach($this->clist as $clist) { ?>
+
+					<option value="<?=$clist['id']?>"><?=$clist['name']?></option>
+
+				<? } ?>
+
+				</select>
+
+				
+
+			<select name="noofinst" id="noofinst" onchange="setinst(this.value)">
+
+			<? for($i=1; $i<25; $i++) { ?>
+
+				<option value="<?=$i?>"><?=$i?></option>	
+
+			<? } ?>
+
+			</select>
+
+	  </div>
+
+	</div><?php */?>
+
+	<div id="installmentdiv" style="overflow:auto">
+
+		<div id="instrow_1" style="clear:both"><div style="float:left; width:30px" class="add_new_text">1. </div>
+
+			<div style="float:left; width:210px">
+
+			<input type="text" name="inst_1" class="addfees" id="inst_1" value="" />
+
+			</div>
+
+			<div style="float:left"><input type="text" class="addfees" name="duedate_1" id="duedate_1" /> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-1))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')+1))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+
+		</div>
+
+		
+
+	</div>
+
+    <input class="submit-button MB_focusable" id="submit" name="commit" value="Save" type="submit">
+
+  </form>
+
+</div>
+
+<?
+
+} elseif($this->mode==1) { ?>
+
+<?
+
+	$slist = $mySession->StudentInst[count($mySession->StudentInst)-1];
+
+	
+
+		$m=$i%2; 
+
+		if($m==0)
+
+		{
+
+			$class="tr-even";	
+
+		}else{
+
+			$class="tr-odd";	
+
+		}
+
+	 
+
+   $string = "<tr class=\"".$class."\" id=\"class-timing-1\">
+
+      <td class=\"col-1\"><input type=\"checkbox\" name=\"chk[]\" value=\"s_".(count($mySession->StudentInst)-1)."\" /></td>
+
+	  <td class=\"col-2\">".$slist['catname']."</td>
+
+      <td class=\"col-3\">".$slist['noofinst']."</td>
+
+     
+
+      <td class=\"col-4\" style=\"width:100px;\">
+
+	  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
+
+		  $t=1;
+
+		  	foreach($slist['inst'] as $inst){
+
+		  
+
+		  $string .= "<tr>
+
+			<td>".$inst['inst']."</td>
+
+			<td>".$inst['dueon']."</td>
+
+		  </tr>";
+
+		  
+
+		    $t++; }		   
+
+		 
+
+		$string .= "</table>
+
+
+
+	  </td>
+
+	  
+
+    </tr>";
+
+	
+
+$string = jschars($string);
+
+?>
+jQuery("#page-yield #class-timings-list").append("<?=$string?>");
+Modalbox.hide();
+
+<? } ?>

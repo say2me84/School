@@ -1,0 +1,66 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+		<div id="sidebar_news_area">
+            <div class="sidebar_head">
+				<?=LNG_SEMESTER?>
+			</div>
+			<div>
+			<ul>
+					<li>
+						<a href="#">Semester 1</a>
+					</li>
+					<li>
+						<a href="#">Semester 2</a>
+					</li>
+					<li>
+						<a href="#">Semester 3</a>
+					</li>
+			</ul>
+			</div>
+        </div>
+	</td>
+    <td>
+	<div class="box">
+    <h3 align="center">
+		Exam Name
+	</h3>
+   
+	<div id="register">
+		 <div class="header">
+			<div class="month">
+			  <?=$this->studentinfo[0]['name']?>Student Name
+			</div>
+			<div class="extender"></div>
+		  </div>    
+    </div>
+		<table id="listing" align="center" cellpadding="1" cellspacing="1" width="100%">
+			  <tr class="tr-head">
+				<td><?=LNG_SUBJECT?></td>        
+				  <td><?=LNG_OBTAINED_MARKS?></td>
+				  <td><?=LNG_MAX_MARKS?></td>
+				  <td><?=LNG_PERCENTAGE?></td>
+				
+			  </tr>
+			  
+				<tr class="tr-odd">
+				  <td class="col-1"><?=$subjects['name']?></td>          
+					<td class="col-1"><?=$obt_marks?></td>            
+					<td class="col-1"><?=$max_marks?></td>            
+					<td class="col-1"><?=($obt_marks/$max_marks)*100?></td>          
+				</tr>
+				
+				<tr class="tr-head">
+				  <td><?=LNG_TOTAL_MARKS?></td>
+				  <td><?=$totalobt?></td>
+				  <td><?=$totalmax?></td>          
+				  <td><?=($totalobt/$totalmax)*100?></td>
+				</tr>      
+			</table>
+			<div class="extender"></div>
+			
+			<div class="extender"></div> 
+		  </div>
+			</td>
+		  </tr>
+		</table>

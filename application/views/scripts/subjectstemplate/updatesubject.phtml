@@ -1,0 +1,31 @@
+<?
+if($this->gradeid)
+{ ?>
+  <div class="add_sub">
+    <a onclick="getajax('<?=BASE_PATH?>subjects/new/gradeid/<?=$this->gradeid?>','','modal-box',2);" href="#"><?=LNG_ADD_SUBJECTS?></a>
+  </div>
+
+
+  <ul id="category-list">
+    
+    <?
+	foreach($this->slist as $slist) { ?>
+      <li class="listeven" id="subject-1">
+        <div class="category-name"><?=$slist['name']?></div>
+        <div class="opt">
+          <div class="category-code"><?=$slist['code']?></div>
+          <div class="category-edit"><a onclick="getajax('<?=BASE_PATH?>subjects/edit/subjectid/<?=$slist['id']?>','?gradeid=<?=$this->gradeid?>','modal-box',2);" href="#"><?=LNG_EDIT?></a> </div>
+          <div class="category-delete">            
+<a onclick="if(confirm('Are you sure?')) { new getajax('<?=BASE_PATH?>subjects/new/mode/delete/subjectid/<?=$slist['id']?>', '?batchid=<?=$this->batchid?>','modal-box','2'); }" href="#"><?=LNG_DELETE?></a>            
+          </div>
+          
+        </div>
+      </li>
+    <? 
+	} ?>
+  </ul>
+<? 
+} ?>
+ <?php /*?> <div class="add_sub">
+    <a href="<?=BASE_PATH?>batches/new/electives/1">New Elective Group</a>
+  </div><?php */?>

@@ -1,0 +1,64 @@
+<link href="<?=CSS_URL?>user/create.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png">
+  <h1><?=LNG_UPDATE_SECRETARY?></h1>
+  <h3><?=LNG_EDIT_SECRETARY?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <form action="<?=BASE_PATH?>user/edit/profileid/<?=$this->profileid?>" method="post">    
+
+    <div id="create_user_form">
+
+      <div id="necessary-field-notification"> <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+
+      <div class="label-field-pair">
+        <label for="user_username"><?=LNG_USERNAME?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg"> <?php echo $this->form->username?></div>
+      </div>
+
+      <div class="label-field-pair">
+        <label for="user_first_name"><?=LNG_FIRST_NAME?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg"> <?php echo $this->form->first_name?></div>
+      </div>
+
+      <div class="label-field-pair">
+        <label for="user_last_name"><?=LNG_LAST_NAME?></label>
+        <div class="text-input-bg"> <?php echo $this->form->last_name?></div>
+      </div>
+
+     <div class="label-field-pair">
+        <label for="user_email"><?=LNG_EMAIL?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg"> <?php echo $this->form->email?></div>
+      </div>
+
+      <div class="label-field-pair">
+        <label for="user_user_role"><?=LNG_SCHOOL?><span class="necessary-field">*</span></label>
+        <div class="text-input-bg"> <?php echo $this->form->school?> </div>
+      </div>
+
+      <div class="extender"></div>
+
+      <input class="user_submit_button" name="commit" value="<?=LNG_UPDATE?>" type="submit">
+      
+    </div>
+
+  </form>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

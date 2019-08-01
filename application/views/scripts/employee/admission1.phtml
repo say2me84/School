@@ -1,0 +1,207 @@
+<link href="<?=CSS_URL?>employee/admission1.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+
+<div id="content-header">
+  <img alt="" src="<?=IMAGES_URL?>HR/show_hr.png">
+  <h1><?=LNG_EMP_ADMISSION?></h1>
+  <h3><?=LNG_STEP1?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+  
+  
+
+  <form method="post" enctype="multipart/form-data" action="<?=BASE_PATH?>employee/admission1"><div style="margin: 0pt; padding: 0pt; display: inline;"></div>
+    
+    <div id="admission1_form" style="text-align:left;">
+
+      <div id="necessary-field-notification"> <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+      <span class="span-sub-heading"><?=LNG_GENERAL_DETAILS?></span>
+      <hr class="sub-heading">
+      <div class="label-field-pair">
+        <label for="employee_id"><?=LNG_EMP_NO?> <span class="necessary-field">*</span> </label>
+        <div class="text-input-bg">
+          
+            <?php echo $this->form->employee_number?>
+          </div>
+      </div>
+      <hr class="label-underline">
+	  
+	  <div class="label-field-pair">
+        <label for="employee_id"><?=LNG_USERNAME?> <span class="necessary-field">*</span> </label>
+        <div class="text-input-bg">
+          
+            <?php echo $this->form->employee_username?>
+          </div>
+      </div>
+      <hr class="label-underline">
+	  
+	  <div class="label-field-pair">
+        <label for="employee_id"><?=LNG_PASSWORD?> <span class="necessary-field">*</span> </label>
+        <div class="text-input-bg">
+          
+            <?php echo $this->form->employee_password?>
+          </div>
+      </div>
+      <hr class="label-underline">
+
+      <div class="label-field-pair">
+        <label for="employee_joining_date"><?=LNG_JOINING_DATE?> </label>
+        <div class="text-input-bg"><?php echo $this->form->employee_joining_date?> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('employee_joining_date'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_name"><?=LNG_FIRST_NAME?><span class="necessary-field">*</span> </label>
+        <div class="text-input-bg"><?php echo $this->form->employee_first_name?></div>
+      </div>
+      <?php /*?><hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_name">Middle Name</label>
+        <div class="text-input-bg"><?php echo $this->form->employee_middle_name?></div>
+      </div><?php */?>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_name"><?=LNG_LAST_NAME?> </label>
+        <div class="text-input-bg"><?php echo $this->form->employee_last_name?></div>
+      </div>
+      <hr class="label-underline"></hr>
+		<div class="label_field_pair">
+		<label class="label_for_employee_gender" for="master_student_gender"><?=LNG_GENDER?> <span class="necessary-field">*</span></label>
+		
+			<div class="employee_gender_value">
+				<?php echo $this->form->employee_gender?>
+			</div>
+		</div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="dob"><?=LNG_DOB?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg">
+		<div style="float:left"><?php echo $this->form->emp_date_of_birth?></div><div style="float:left; padding-left:5px; padding-top:10px">
+		 <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $('emp_date_of_birth'), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-70))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-10))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_department"><?=LNG_DEPT?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_department ?></div>
+      </div>
+      <hr class="label-underline">
+
+      <div class="label-field-pair">
+        <label for="employee_category"><?=LNG_CATEGORY?>  </label>
+        <div class="text-input-bg"><?php /*?><select onchange="new Ajax.Request('/employee/update_positions', {asynchronous:true, evalScripts:true, parameters:'category_id='+value + '&amp;authenticity_token=' + encodeURIComponent('BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=')})" name="employee[employee_category_id]" id="employee_employee_category_id"><option value="">Select</option>
+<option value="1">Fedena Admin</option></select><?php */?>
+		<?php echo $this->form->employee_category?>
+		</div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_position"><?=LNG_POSITION?> </label>
+        <div class="text-input-bg"><div id="positions1"> 
+				<?php echo $this->form->employee_position ?>
+		</div></div>
+      </div>
+    <?php /*?>  <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_grade">Grade</label>
+        <div class="text-input-bg"><?php echo $this->form->employee_grade_id ?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_job_title">Job Title</label>
+        <div class="text-input-bg"><?php echo $this->form->employee_job_title ?></div>
+      </div><?php */?>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_qualification"><?=LNG_QUALIFICATION?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_qualification ?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair-text-area">
+        <label for="employee_experience"><?=LNG_TOTAL_EXP?></label>
+        <div class="textarea-input-bg"><?php echo $this->form->employee_experience ?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_total-experience"><?=LNG_EXP_INFO?></label>
+        <div class="text-input-bg">
+			<?php echo $this->form->employee_experience_year ?> 
+			         
+		    <?php echo $this->form->employee_experience_month ?>
+		</div>
+      </div>
+      <hr class="label-underline">
+
+
+
+      <div class="label_field_pair">
+        <label for="employee_status" class="employee_status"><?=LNG_STATUS?></label>
+
+       <?php echo $this->form->employee_status ?>
+      </div>
+
+
+      <br>
+      <span class="span-sub-heading"><?=LNG_PERSONAL_DETAIL?></span>
+      <hr class="sub-heading">
+      <div class="label-field-pair">
+        <label for="employee_martial_status"><?=LNG_MARTIAL_STATUS?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_marital_status?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="children_count"><?=LNG_NO_OF_CHILD?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_children_count?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_father"><?=LNG_FATHER_NAME?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_father_name?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_mother"><?=LNG_MOTHER_NAME?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_mother_name?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_spouse"><?=LNG_SPOUSE_NAME?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_husband_name?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_blood"><?=LNG_BLOOD_GROUP?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_blood_group?></div>
+      </div>
+      <hr class="label-underline">
+      <div class="label-field-pair">
+        <label for="employee_nationality"><?=LNG_NATIONALITY?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_nationality_id?></div>
+      </div>
+      <hr class="label-underline">
+      <script>
+        (function($){$.fn.filestyle=function(options){var settings={width:250};if(options){$.extend(settings,options);};return this.each(function(){var self=this;var wrapper=$("&lt;div&gt;").css({"width":settings.imagewidth+"px","height":settings.imageheight+"px","background":"url("+settings.image+") 0 0 no-repeat","background-position":"right","display":"inline","position":"absolute","overflow":"hidden"});var filename=$('&lt;input class="file"&gt;').addClass($(self).attr("class")).css({"display":"inline","width":settings.width+"px"});$(self).before(filename);$(self).wrap(wrapper);$(self).css({"position":"relative","height":settings.imageheight+"px","width":settings.width+"px","display":"inline","cursor":"pointer","opacity":"0.0"});if($.browser.mozilla){if(/Win/.test(navigator.platform)){$(self).css("margin-left","-142px");}else{$(self).css("margin-left","-168px");};}else{$(self).css("margin-left",settings.imagewidth-settings.width+"px");};$(self).bind("change",function(){filename.val($(self).val());});});};})(jQuery);
+      </script>
+
+      <div class="label-field-pair">
+        <label for="master_student_image_file"><?=LNG_UPLOAD_USER_PHOTO?></label>
+        <div class="text-input-bg"><?php echo $this->form->employee_photo?></div>
+
+      </div>
+
+    </div>
+
+    <input type="submit" value="<?=LNG_SAVE_AND_PROCEED?>" name="commit" class="submit_button">
+  </form>
+
+</div> </div>
+
+      <div class="extender"></div>

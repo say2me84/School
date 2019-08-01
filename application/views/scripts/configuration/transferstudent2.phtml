@@ -1,0 +1,176 @@
+<?
+global $mySession;
+$db = new Db();
+?>
+<link href="<?=CSS_URL?>configuration/transfer.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1><?=LNG_TRANSFER_STUDENT?></h1>
+  <h3><?=LNG_TRANSFER_STUDENT?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<script language="javascript">
+function checkvali()
+{
+	if(document.getElementById("newbatch_id").value=='') {
+		alert("Please select <?=LNG_BATCH2?> to transfer");
+		return false;
+	}
+	var totalstudent = document.getElementById("totalstudent").value;
+	sel_student = 0;
+	for(i=1; i<=totalstudent;i++)
+	{
+		if(document.getElementById("chk"+i).checked==true) {
+			sel_student = 1;
+		}
+	}
+	if(sel_student==0) {
+		alert("please select aleast one student to transfer");
+		return false;
+	}
+	if(!confirm('Are you sure to transfer selected student to new class')) {
+		return false;
+	}	
+	return true;
+}
+</script>
+<div id="page-yield">
+<div class="">
+<form action="<?=BASE_PATH?>configuration/transferstudent2/" class="new_subject" id="new_subject" method="post" onsubmit="return checkvali();">
+<input type="hidden" name="search_batchid" id="search_batchid" value="<?=$this->batchid?>" />
+    <div>
+	<div id="student_profile_heading">
+
+
+
+    
+      
+      <span class="course"> <?=LNG_GRADE?> <?=$this->batchdetail['grade_name']?>&nbsp; &nbsp;<?=LNG_BATCH?>: <?=$this->batchdetail['name']?> </span>&nbsp;
+      <span class="course"> <?=LNG_START_DATE?> : <? echo $this->batchdetail['sdate'];?>, <?=LNG_END_DATE?> : <? echo $this->batchdetail['edate'];?> </span>
+ 
+
+    <div class="extender"> </div>
+
+  </div>
+  		
+		
+		<div id="st_studentlist">
+		<div><?=LNG_CLICK_ON_RESULT_TO_VIEW?></div>
+		<div class="extender"></div>
+		<?
+		$qry="select Group_concat(exam_group_id) as ids from `grouped_exams` where batch_id ='".$this->batchdetail['id']."' and schoolid='".$mySession->user['schoolid']."'"; 
+		$groupedexams = $db->runQuery($qry);
+	
+		if(is_array($groupedexams) && count($groupedexams) > 0 && @$groupedexams[0]['ids']!='') {
+			$where = " and id in (".$groupedexams[0]['ids'].")";
+		} else {
+			$where = " and batch_id ='".$this->batchdetail['id']."' and schoolid='".$mySession->user['schoolid']."'";
+		}
+		$qry="select * from `exam_groups` where result_published='1' and is_published='1' ".$where;
+		
+		$examgroup = $db->runQuery($qry);
+		$this->view->examgroup = $examgroup;
+		
+		$exid = array();
+		foreach($examgroup as $eg) {
+			$exid[] = $eg['id'];
+		}
+		$exids = '';
+		if(is_array($exid) && count($exid) > 0) {
+		$exids = implode(",",$exid);
+		}
+		?>
+		
+	<?
+  tframe_pre();
+  ?>	
+		<table align="center" cellpadding="1" cellspacing="1" width="100%">
+    <tbody><tr class="tr-head">
+      <td>
+        #
+      </td>
+      <td>
+       <?=LNG_NAME?>
+      </td>
+      <td>
+        <?=LNG_ADM_NO?>
+      </td>
+      <td>
+		<?=LNG_RESULT?>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <? $i=1; 
+  foreach($this->studentlist as $studentlist) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        <td class="col-1">
+          <? echo $i; ?>
+		  <input type="checkbox" name="chk[]" id="chk<?=$i?>" value="<?=$studentlist['id']?>" /> </td>
+
+        <td class="col-2">
+          <label for="chk<?=$i?>"><?=$studentlist['name']?></label>
+        </td>
+
+        <td class="col-3">
+          <a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>" target="_blank"><?=$studentlist['admission_no']?></a>
+        </td>
+
+        <td class="col-4" style="cursor:pointer" onclick="getajax('<?=BASE_PATH?>exam/studentresultinfo/student/<?=$studentlist['id']?>','','student_ex_info');">
+          <? getfinalresult($studentlist['id'],$this->batchdetail['id'],$exids); ?>
+        </td>
+      </tr>
+    <? $i++; } ?>
+     
+    
+  </tbody></table>
+  <?
+  tframe_post();
+  ?>
+
+		</div>
+		<div id="st_info">
+		<div><div style="float:left">
+		Selected student transfer to <?=LNG_BATCH2?>&nbsp;
+		<select name="newbatch_id" id="newbatch_id">
+		<option value=""><?=LNG_SELECT_A_BATCH?></option>
+			<?
+			foreach($this->newbatchlist as $newbatchlist) { ?>
+			<option value="<?=$newbatchlist['id']?>"><?=$newbatchlist['grade_name']?> - <?=$newbatchlist['name']?></option>
+			<? } ?>
+			</select>
+		 </div>
+		 <div style="float:left; width:20px">
+		 <input type="hidden" name="mode" value="transfer" />
+		 <input type="hidden" name="totalstudent" id="totalstudent" value="<?=count($this->studentlist)?>" />
+		 <input type="submit" class="submit-button" name="commit" value="<?=LNG_TRANSFER?>"></div>
+		</div>		
+		<div class="extender"></div>
+		<div id="student_ex_info">
+		</div>
+		</div>
+	</div>
+	 <div class="extender"></div>
+ 	
+</form>
+</div>
+
+
+
+ <div id="students"> </div>
+
+</div>

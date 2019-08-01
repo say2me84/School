@@ -1,0 +1,144 @@
+<?php 
+global $mySession;
+$StudentData = $this->studentdetail;
+?>
+<link href="<?=CSS_URL?>student/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?=CSS_URL?>employee/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_STUDENT_INFO?></h1>
+  <h3><?=LNG_STUDENT_PROFILE?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="nav">
+  <ul>
+    
+     <?php /*?> 
+        <li><a href="<?=BASE_PATH?>student/fees/1">Fees</a></li><?php */?>   
+	
+      <li><a href="<?=BASE_PATH?>student/guardians/studentid/<?=$this->studentdetail['id']?>"><?=LNG_GUARDIANS?></a></li>   
+	  
+	  		<li><a href="<?=BASE_PATH?>student/reports/studentid/<?=$this->studentdetail['id']?>">Reports</a></li>
+			  <li>
+				  <a href="<?=BASE_PATH?>student/feesstructure/studentid/<?=$this->studentdetail['id']?>" class="drops" id="link_one"><?=LNG_FEES?></a>
+				  <ul id="box_one" class="scriptaculously" style="overflow: visible; display: none;">
+				   <li><a href="<?=BASE_PATH?>student/feesstructure/studentid/<?=$this->studentdetail['id']?>"><?=LNG_FEES_STRUCTURE?></a></li>
+					<li><a href="<?=BASE_PATH?>student/feesreport/studentid/<?=$this->studentdetail['id']?>"><?=LNG_FEES_REPORT?></a></li>
+					<li><a href="<?=BASE_PATH?>student/payfees/studentid/<?=$this->studentdetail['id']?>"><?=LNG_PAY_FEES?></a></li>        
+				  </ul>
+				</li>
+			 
+	 <li>
+      <a href="#" class="drops" id="link_two"><?=LNG_MANAGE?></a>
+      <ul id="box_two" class="scriptaculously" style="overflow: visible; display: none;">
+       <? if($mySession->user['usertype']=='S' || $mySession->user['usertype']=='T') { ?>
+			<li><a href="<?=BASE_PATH?>student/addnote/studentid/<?=$this->studentdetail['id']?>">Add Note</a></li>
+			<? } ?>
+	 		<li><a href="<?=BASE_PATH?>student/notes/studentid/<?=$this->studentdetail['id']?>">Note</a></li>
+         <? if($mySession->user['usertype']=='S' || $mySession->user['usertype']=='T') { ?>
+		  <li><a href="<?=BASE_PATH?>student/remove/studentid/<?=$this->studentdetail['id']?>"><?=LNG_DELETE?></a></li>
+		 <? } ?> 
+      </ul>
+    </li>
+    
+  </ul>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <div id="student_profile_heading">
+
+    <div id="profile_picture_display">
+      
+        <img alt="Default_student" src="<?=FILE_URL?>upload/photo/<?=$StudentData['photo_file_name']?>?<?=UPDATE_KEY?>">
+      	
+    </div>
+
+    <div id="student_main_info">
+      <h3> <?=$StudentData['first_name'].' '.$StudentData['middle_name'].' '.$StudentData['last_name']?>  </h3>
+      <h4> <?=LNG_GRADE?> : <?=$StudentData['grade_name']?>  </h4>
+      <h4> <?=LNG_BATCH?> : <?=$StudentData['batchname']?></h4>
+      <h4> <?=LNG_ADM_NO?> : <? echo $StudentData['admission_no'];?></h4>
+	 
+		<? if(!empty($StudentData['birth_certificate']) && file_exists('upload/document/'.$StudentData['birth_certificate'])) { ?>
+		 <br /><h4><a href="<?=FILE_URL?>upload/document/<?=$StudentData['birth_certificate']?>" target="_blank">Birth Certificate</a></h4>
+		<? } ?>
+    </div>
+
+    <div class="extender"> </div>
+
+  </div>
+
+  <div id="new_profile_info_top">
+    <div class="profile_top_banner"><img alt="Topbanner" src="<?=IMAGES_URL?>master_student/profile/topbanner.png?<?=UPDATE_KEY?>"></div>
+    <table width="700">
+      <tbody><tr class="odd left"><td><?=LNG_ADMISSION_DATE?></td><td class="right"><? echo $StudentData['ad_dt'];?></td></tr>
+      <tr class="even left"><td><?=LNG_DOB?></td><td class="right"><? echo $StudentData['dob_dt'];?></td></tr>
+     <tr class="odd left">
+	 	<td>
+			<? if($StudentData['passport_or_id']==1){
+			?>
+				Passport
+			<?
+			}else{
+			?>
+				ID
+			<?
+			} ?>
+		</td>
+		<td class="right"><? echo $StudentData['student_passport_no'];?></td></tr>
+       <?php /*?><tr class="even left"><td>Gender</td><td class="right"><? if($StudentData['gender']=='m') { echo 'Male'; } else { echo 'Female'; }?></td></tr><?php */?>
+	  
+
+      <tr class="odd left"><td><?=LNG_NATIONALITY?></td><td class="right"><? if($StudentData['nationality_id'] == 1)echo "Indian";?></td></tr>
+      <?php /*?><tr class="even left"><td>Language</td><td class="right"><? echo $StudentData['language'];?></td></tr><?php */?>
+
+      <?php /*?><tr class="odd left"><td>Category</td><td class="right"><? echo $StudentData['student_category_id'];?></td></tr><?php */?>
+      <tr class="even left"><td><?=LNG_RELIGION?></td><td class="right"><? echo $StudentData['religion'];?></td></tr>
+      <tr class="odd left"><td><?=LNG_ADDRESS?></td><td class="right"><? echo $StudentData['address_line1'];?></td></tr>
+
+      <?php /*?><tr class="even left"><td>City</td><td class="right"><? echo $StudentData['city'];?></td></tr>
+      <tr class="odd left"><td>State</td><td class="right"><? echo $StudentData['state'];?></td></tr>
+      <tr class="even left"><td>Country</td><td class="right"><? echo $StudentData['country_id'];?></td></tr><?php */?>
+      <tr class="even left"><td><?=LNG_PHONE?></td><td class="right"><? echo $StudentData['phone1'];?></td></tr>
+      <?php /*?><tr class="even left"><td>Mobile</td><td class="right"><? echo $StudentData['phone2'];?></td></tr>
+      <tr class="odd left"><td>Email</td><td class="right"><? echo $StudentData['email'];?></td></tr><?php */?>
+      
+
+      
+      <?php /*?><tr class="even left"><td>In case of emergencies, contact :</td><td class="right">
+          <a href="<?=BASE_PATH?>student/guardians/studentid/<?=$this->studentdetail['id']?>"><?=$StudentData['Gaurdian']?></a>         
+            
+              <span>(<a href="<?=$this->url(array('controller'=>'student','action'=>'guardians','studentid'=>$this->studentdetail['id']),null,true)?>">Change immediate contact</a>)</span>
+            
+          </td></tr>
+      
+      
+        <tr class="even left"><td></td><td class="right">Previous Details</td></tr>
+        <tr class="odd left"><td>Previous Institution</td><td class="right">
+		<? if($StudentData['institution']) { ?>
+		<a href="<?=BASE_PATH?>student/showpreviousdetails/studentid/<?=$this->studentdetail['id']?>"><?=$StudentData['institution']?></a>
+		<? } else { ?>No Previous data 
+		<a href="<?=BASE_PATH?>student/previousdataedit/studentid/<?=$this->studentdetail['id']?>">(Add Previous Data)</a>
+		<? } ?>
+		</td></tr><?php */?>
+      
+    </tbody></table>
+    <? if($mySession->user['usertype']=='S') { ?>
+      <div class="buttons">
+        <a href="<?=BASE_PATH?>student/edit/studentid/<?=$this->studentdetail['id']?>" class="user_button"><?=LNG_EDIT?></a>
+
+        <?php /*?><a href="<?=BASE_PATH?>student/profile_pdf/1" class="user_button" target="_blank">PDF Report</a><?php */?>
+      </div>
+    <? } ?>
+  </div>
+</div> </div>
+
+      <div class="extender"></div>
+    

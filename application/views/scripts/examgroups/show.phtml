@@ -1,0 +1,167 @@
+<link href="<?=CSS_URL?>configuration/transfer.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?=CSS_URL?>exam_groups/show.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_SHOWING_EXAM_GROUPS?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+	
+	<? if($mySession->user['usertype']=='S') { ?>
+		<div id="inner-tab-menu">
+		  <ul>
+			  <li><a href="#" onclick="Element.show('loader'); new Ajax.Request('<?=BASE_PATH?>exam/publish/1?status=result', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'authenticity_token=' + encodeURIComponent('K3shzZH6++B7hEMkGYpq5KHrQxkUAUZY4LCxTTPsXvM=')}); return false;"><?=LNG_PUBLISH_RESULT?></a></li>    
+			  <li><a href="<?=BASE_PATH?>exams/new/examgroupid/<?=$this->examgroupid?>"><?=LNG_NEW?></a></li>
+		  </ul>
+		</div>
+	
+	<? } else { ?>
+			<div id="inner-tab-menu">
+		  		<ul>
+					<li><a href="<?=BASE_PATH?>exams/new/examgroupid/<?=$this->examgroupid?>"><?=LNG_NEW?></a></li>
+				</ul>
+			</div>
+	<? } ?>
+<div id="page-yield">
+
+  
+
+
+    <div class="bread_crumb">
+       <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->blist['grade_id']?>"><?=$this->blist['grade_name']?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->blist['id']?>/batchid/<?=$this->blist['id']?>"><?=LNG_BATCH?> <?=$this->blist['name']?></a> &raquo;
+        <a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$this->blist['id']?>/"><?=LNG_EXAMS?></a> &raquo;
+      <?=$this->examgroupdetail['name']?>
+    </div>
+
+    <div class="update_msg"><h4 style="margin:5px 0;"><span title="Click to edit" class="in_place_editor_field" id="exam_group_name_1_in_place_editor"><?=$this->examgroupdetail['name']?></span><script type="text/javascript">
+//<![CDATA[
+new Ajax.InPlaceEditor('exam_group_name_1_in_place_editor', '<?=BASE_PATH?>examgroups/setexamgroupname/examgroupid/<?=$this->examgroupid?>', {callback:function(form) { return Form.serialize(form) + '&authenticity_token=' + encodeURIComponent('K3shzZH6++B7hEMkGYpq5KHrQxkUAUZY4LCxTTPsXvM=') }})
+//]]>
+</script></h4><h4><span id="publish-notice-1"><img alt="Loader" id="loader" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" style="display: none;" align="absmiddle" border="0"></span></h4></div>
+    
+	<div id="st_studentlist">
+		<div style="font-size:13px; font-weight:600;"><?=LNG_CLICK_ON_SUBJECT_TO_ENTER_MARKS?></div>
+		<div class="extender"></div>
+<?
+  tframe_pre();
+  ?>
+    <table align="center" cellpadding="1" cellspacing="1" width="100%">
+    <tbody><tr class="tr-head">
+      <td>
+        <?=LNG_SUBJECT?>
+      </td>
+      <td>
+      <?=LNG_MAX_MARKS?>
+      </td>
+      <td>
+        <?=LNG_MIN_MARKS?>
+      </td>
+      <td>
+		<?=LNG_MANAGE?>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <? $i=1;
+		foreach($this->slist as $slist) {
+   $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+   ?>
+      <tr class="<? echo $class; ?>">
+        <td class="col-2" style="cursor:pointer;" onclick="getajax('<?=BASE_PATH?>exams/show/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>','','student_ex_info');">
+         <?=$slist['name']?><span><?=$slist['dtstart_time']?><br /><?=$slist['dtend_time']?></span>
+		   </td>
+
+        <td class="col-3">
+          <span title="Click to edit" class="in_place_editor_field" id="exam_maximum_marks_<?=$x?>_in_place_editor"><?=$slist['maximum_marks']?></span>
+		  <script type="text/javascript">
+			//<![CDATA[
+			new Ajax.InPlaceEditor('exam_maximum_marks_<?=$x?>_in_place_editor', '<?=BASE_PATH?>examgroups/setexammaximummarks/examid/<?=$slist['id']?>', {callback:function(form) { return Form.serialize(form)  }, cols:1})
+			//]]>
+			</script>
+        </td>
+
+        <td class="col-3">
+          <span title="Click to edit" class="in_place_editor_field" id="exam_minimum_marks_<?=$x?>_in_place_editor"><?=$slist['minimum_marks']?></span><script type="text/javascript">
+			//<![CDATA[
+			new Ajax.InPlaceEditor('exam_minimum_marks_<?=$x?>_in_place_editor', '<?=BASE_PATH?>examgroups/setexamminimummarks/examid/<?=$slist['id']?>', {callback:function(form) { return Form.serialize(form)  }, cols:1})
+			//]]>
+			</script>		  
+        </td>
+
+        <td class="col-4" style="cursor:pointer">
+        		<small><a href="<?=BASE_PATH?>exams/edit/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>/"><?=LNG_EDIT?></a></small>&nbsp;|&nbsp;
+                <small><a href="<?=BASE_PATH?>examgroups/show/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>" onclick="if (confirm('Are you sure you want to delete?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', 'mode'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;"><?=LNG_DELETE?></a></small>
+        </td>
+      </tr>
+    <? $i++; $x++; } ?>
+     
+    
+  </tbody></table>
+ <?
+  tframe_post();
+  ?>
+   </div>
+   <div id="st_info">
+				
+		
+		<div id="student_ex_info">
+		</div>
+		</div> 
+    
+      <?php /*?><table id="listing">
+        <tbody><tr class="tr-head">
+          <td><?=LNG_SUBJECT?></td>
+          <td><?=LNG_MAX_MARKS?></td>
+          <td><?=LNG_MIN_MARKS?></td>
+          <td><?=LNG_MANAGE?></td>
+        </tr>
+        <?
+		$x=1;
+		foreach($this->slist as $slist) { ?>
+            <tr class="tr-odd">
+              
+              <td class="col-2"><a href="<?=BASE_PATH?>exams/show/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>"><?=$slist['name']?></a></td>
+              <td class="col-1"><span title="Click to edit" class="in_place_editor_field" id="exam_maximum_marks_<?=$x?>_in_place_editor"><?=$slist['maximum_marks']?></span><script type="text/javascript">
+//<![CDATA[
+new Ajax.InPlaceEditor('exam_maximum_marks_<?=$x?>_in_place_editor', '<?=BASE_PATH?>examgroups/setexammaximummarks/examid/<?=$slist['id']?>', {callback:function(form) { return Form.serialize(form)  }, cols:1})
+//]]>
+</script></td>
+              <td class="col-1"><span title="Click to edit" class="in_place_editor_field" id="exam_minimum_marks_<?=$x?>_in_place_editor"><?=$slist['minimum_marks']?></span><script type="text/javascript">
+//<![CDATA[
+new Ajax.InPlaceEditor('exam_minimum_marks_<?=$x?>_in_place_editor', '<?=BASE_PATH?>examgroups/setexamminimummarks/examid/<?=$slist['id']?>', {callback:function(form) { return Form.serialize(form)  }, cols:1})
+//]]>
+</script></td>
+              <td class="col-1">
+                <small><a href="<?=BASE_PATH?>exams/edit/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>/"><?=LNG_EDIT?></a></small>
+                <small><a href="<?=BASE_PATH?>examgroups/show/examgroupid/<?=$this->examgroupid?>/examid/<?=$slist['id']?>" onclick="if (confirm('Are you sure you want to delete?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', 'mode'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;"><?=LNG_DELETE?></a></small>
+              </td>
+            </tr>
+         <? $x++;
+		 } ?>
+        
+      </tbody></table><?php */?>
+    
+
+    <div class="extender"></div>
+
+</div>
+ </div>
+
+      <div class="extender"></div>
+    

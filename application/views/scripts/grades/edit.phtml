@@ -1,0 +1,57 @@
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_GRADES?></h1>
+  <h3><?=LNG_EDIT?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <div class="box">
+    <div class="bread_crumb">
+        <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+        <?=LNG_EDIT?>
+        </div>
+
+
+    <form action="<?=BASE_PATH?>grades/edit/gradeid/<?=$this->gradeid?>" class="edit_class" id="edit_class_1" method="post"><div style="margin:0;padding:0;display:inline"><input name="_method" value="put" type="hidden"><input name="authenticity_token" value="y+QApAfdoJNc/WoznkxrUJos4+Vkz+nw80Mz/W9KRyk=" type="hidden"></div>
+
+      
+
+     <div class="label-field-pair">
+        <div class="label-container"><label for="class_class_name"><?=LNG_GRADE_NAME?></label></div>
+        <div class="input-container"><?php echo $this->form->grade_name?></div>
+      </div>
+
+     <?php /*?> <div class="label-field-pair">
+        <div class="label-container"><label for="class_section_name">Section name</label></div>
+        <div class="input-container"><?php echo $this->form->section_name?></div>
+      </div><?php */?>
+
+      <div class="label-field-pair">
+        <div class="label-container"><label for="class_code"><?=LNG_CODE?></label></div>
+        <div class="input-container"><?php echo $this->form->grade_code?></div>
+      </div>
+
+      <input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+
+    </form>
+    <div class="extender"></div>
+  </div>
+</div>
+ </div>
+
+      <div class="extender"></div>
+    

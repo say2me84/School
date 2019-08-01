@@ -1,0 +1,59 @@
+<div id="timetable">
+<?=$this->timetablehtml?>
+</div>
+
+<div id="period_list">
+<?php /*?><div class="linker">
+  <a href="#" onclick="getajax('<?=BASE_PATH?>classtimings/new/batch_id/<?=$this->batchid?>', '','modal-box','2');"><?=LNG_ADD?></a>
+</div><?php */?>
+<? if(isset($this->timings) && count($this->timings) > 0) { ?>
+
+<?php /*?><table id="class-timings-list" width="100%">
+  <tbody><tr class="tr-head">
+    <td><?=LNG_NAME?></td>
+    <td><?=LNG_START_TIME?></td>
+    <td><?=LNG_END_TIME?></td>
+    <td><?=LNG_OPERATIONS?></td>
+  </tr><?php */?>
+  <div >
+    <? $i=1; 
+	foreach($this->timings as $timings) { 
+		$m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-odd";	
+		}else{
+			$class="tr-even";	
+		}
+	 ?>
+	 <div class="periodname"><input type="checkbox" name="chkperiod" id="chkperiod<?=$i?>" value="<?=$timings['id']?>"  /><span class="name"><?=$timings['name']?></span><br /><span class="time"><?=$timings['start_time']?>-<?=$timings['end_time']?></span></div>
+   <?php /*?> <tr id="class-timing-1" class="<?php echo $class; ?>">
+      <td class="col-1"><?=$timings['name']?></td>
+      <td class="col-3"><?=$timings['start_time']?></td>
+      <td class="col-3"><?=$timings['end_time']?></td>
+      <td class="col-3">
+	  <small>
+	  <a href="#" onclick="getajax('<?=BASE_PATH?>classtimings/edit/batch_id/<?=$this->batchid?>/id/<?=$timings['id']?>', '','modal-box','2')">
+		  <?=LNG_EDIT?>
+	  </a> |
+    
+  
+    <a href="#" onclick="if (confirm('This will delete all timetable entried assosciated with this class timing , proceed with deletion?')) { getajax('<?=BASE_PATH?>classtimings/edit/mode/delete/batch_id/<?=$this->batchid?>/id/<?=$timings['id']?>', '','modal-box','2'); }; return false;">
+	<?=LNG_DELETE?>
+	</a>
+              </small></td>
+    </tr><?php */?>
+  <?php $i++; }?>
+  <input type="hidden" name="totalrec" id="totalrec" value="<?=count($this->timings)?>" />
+<?php /*?></tbody></table><?php */?>
+<?php }?>
+</div>
+<div>
+
+<div style="float:left; width:180px" class="period_button">
+      <a href="#" onclick="if(checktoedit()) { getajax('<?=BASE_PATH?>classtimings/edit/batch_id/<?=$this->batchid?>/id/'+editrecid, '','modal-box','2'); }"><span class="submit-button"><img src="<?=IMAGES_URL?>edit_icon.png" border="0" /></span></a>
+	  <span class="submit-button"><img src="<?=IMAGES_URL?>delete_icon.png" border="0" /></span>
+	  <a href="#" onclick="getajax('<?=BASE_PATH?>classtimings/new/batch_id/<?=$this->batchid?>', '','modal-box','2');"><span class="submit-button"><img src="<?=IMAGES_URL?>add_icon.png" border="0" /></span></a>
+    </div>
+</div>
+</div>

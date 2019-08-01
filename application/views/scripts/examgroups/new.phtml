@@ -1,0 +1,64 @@
+<link href="<?=CSS_URL?>exam_groups/new.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_NEW_EXAM?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+<div class="bread_crumb">
+        <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->blist['grade_id']?>"><?=$this->blist['grade_name']?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->blist['grade_id']?>/batchid/<?=$this->blist['id']?>"><?=LNG_BATCH?> <?=$this->blist['name']?></a> &raquo;
+        <a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$this->blist['id']?>/"><?=LNG_EXAMS?></a> &raquo;
+       <?=LNG_NEW_EXAM?>
+        </div>
+    
+    
+    <div class="box">
+
+   <div id="flash"></div>
+    <div id="exam-form">
+
+      
+      <form action="<?=BASE_PATH?>exam/updateexamform/batchid/<?=$this->blist['id']?>" method="post" >
+        <div class="label-field-pair">
+          <label for="exam_name"><?=LNG_NAME?></label>         
+          
+          <div class="text-input-bg"><input id="name" name="name" size="30" value="<?=$this->name?>" type="text"></div>
+        </div>
+        <div class="label-field-pair">
+          <label for="exam_type"><?=LNG_EXAM_TYPE?></label>
+          <div class="text-input-bg">
+		  <select id="exam_option_exam_type" name="exam_type">
+			  <option value="Marks"><?=LNG_MARKS?></option>
+				<option value="Grades"><?=LNG_GRADES?></option>
+				<option value="MarksAndGrades"><?=LNG_MARKS_AND_GRADES?></option>
+			</select></div>
+        </div>
+		<input id="mode" name="mode" size="30" value="new" type="hidden">
+        <input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+        </form>
+    </div>
+
+    <div class="extender"></div>
+
+
+  </div></div> </div>
+
+      <div class="extender"></div>
+    

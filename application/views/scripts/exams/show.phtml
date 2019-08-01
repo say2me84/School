@@ -1,0 +1,160 @@
+<?
+	if($this->examgroupdetail['is_published']==1) {
+	?> 
+<link href="<?=CSS_URL?>exam/generated_report4.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+
+  <div id="save_stu_score">
+		
+  </div>
+    <div style="margin-left:100px; font-size:15px; font-weight:bold; height:18px; color:#333333"><?=$this->edetail['name']?></div>
+	
+<form action="" onsubmit="getajax('<?=BASE_PATH?>exams/savescores/','?'+Form.serialize(this),'save_stu_score',2); return false" method="post">
+    <div id="score-table">
+ <?
+  tframe_pre();
+  ?>
+	<table id="listing" width="100%">
+      <tbody><tr class="tr-head">
+        <td><?=LNG_NAME?></td>
+       	<td><?=LNG_MARKS?></td>
+       	<td><?=LNG_REMARKS_ETC?></td>
+		<? if($this->examgroupdetail['exam_type']!='Marks') { ?>
+			<td><?=LNG_GRADE?></td>
+		<? } ?>
+      </tr>
+      <? 
+		$i=0;
+		$sids = array();
+		foreach($this->slist as $slist) { 
+		$m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+		$sids[] = $slist['sid'];
+		?>
+        <tr class="<?=$class?>">
+          <td class="col-2"><?=$slist['name']?></td>
+          	<td class="col-3">
+				<div class="label-field-pair" style="width:80px; height:20px; padding:0px;">
+				<div class="text-input-bg">
+				<input type="hidden" name="exam_<?=$slist['sid']?>_scoreid" id="exam_<?=$slist['sid']?>_scoreid" value="<?=$slist['id']?>" />
+				<input style="width:50px; margin:0px;" id="exam_<?=$slist['sid']?>_marks" name="exam_<?=$slist['sid']?>_marks" size="4" value="<?=$slist['marks']?>" type="text"></div></div>
+			</td>
+            <td class="col-1">
+				<div class="label-field-pair" style="width:150px; height:20px; padding:0px;">
+				<div class="text-input-bg">
+				<input style="width:120px; margin:0px;" id="exam_<?=$slist['sid']?>_remarks" name="exam_<?=$slist['sid']?>_remarks" size="40" value="<?=$slist['remarks']?>" type="text"></div></div>
+			</td>
+        </tr>
+      <? $i++; 
+	  } ?>
+       
+    </tbody></table>
+	<?
+  tframe_post();
+  ?>
+    </div>
+    
+      
+    <div id="sub-button">
+		<input type="hidden" name="examtype" id="examtype" value="<?=$this->examgroupdetail['exam_type']?>" />
+		<input type="hidden" name="sids" id="sids" value="<?=implode(",",$sids)?>" />
+		<input type="hidden" name="batchid" id="batchid" value="<?=$this->examgroupdetail['batch_id']?>" />
+		<input type="hidden" name="examid" id="examid" value="<?=$this->examid?>" />
+		<input type="hidden" name="examgroupid" id="examgroupid" value="<?=$this->examgroupid?>" />
+		
+		<input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+	</div>		
+</form>
+    
+    <div class="extender"></div>
+
+   <? }else{
+   ?>
+   	<div style="padding:38px 0 0 10px; font-size:16px; font-weight:600; color:#990A10;"><?=LNG_EXAM_SCHEDULE_NOT_PUBLISHED?> </div>
+   <?
+   } ?> 
+<?php /*?><link href="<?=CSS_URL?>exams/show.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<div id="side_bar">
+<div id="sidebar_news_area">
+</div>
+</div>
+<div id="content">
+<div id="content-header">
+<img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+<h1><?=LNG_EXAMS?></h1>
+<h3><?=LNG_RESULT_ENTRY?></h3>
+<div id="app-back-button">
+<a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313586643" border="0"></a>
+</div>
+</div>
+<div id="page-yield">
+<div >
+<div class="bread_crumb">
+ <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->blist['grade_id']?>"><?=$this->blist['grade_name']?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->blist['id']?>/batchid/<?=$this->blist['id']?>"><?=LNG_BATCH?> <?=$this->blist['name']?></a> &raquo;
+        <a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$this->blist['id']?>/"><?=LNG_EXAMS?></a> &raquo;
+		<a href="<?=BASE_PATH?>examgroups/show/examgroupid/<?=$this->examgroupid?>"><?=$this->examgroupdetail['name']?></a> &raquo;
+<?=$this->edetail['name']?>
+</div>
+<form action="<?=BASE_PATH?>exams/savescores/" method="post">
+<table id="listing" width="100%">
+<tbody><tr class="tr-head">
+<td><?=LNG_NAME?></td>
+<td><?=LNG_MARKS?></td>
+<td><?=LNG_REMARKS_ETC?></td>
+<? if($this->examgroupdetail['exam_type']!='Marks') { ?>
+<td><?=LNG_GRADE?></td>
+<? } ?>
+</tr>
+<? 
+$i=0;
+$sids = array();
+foreach($this->slist as $slist) { 
+$m=$i%2; 
+if($m==0)
+{
+	$class="tr-even";	
+}else{
+	$class="tr-odd";	
+}
+$sids[] = $slist['sid'];
+?>
+<tr class="<?=$class?>">
+<td class="col-2"><?=$slist['name']?></td>
+<td class="col-1"><div class="label-field-pair">
+<div class="text-input-bg">
+<input type="hidden" name="exam_<?=$slist['sid']?>_scoreid" id="exam_<?=$slist['sid']?>_scoreid" value="<?=$slist['id']?>" />
+<input id="exam_<?=$slist['sid']?>_marks" name="exam_<?=$slist['sid']?>_marks" size="4" value="<?=$slist['marks']?>" type="text"></div></div></td>
+<td class="col-2"><div class="label-field-pair2">
+<div class="text-input-bg2">
+<input id="exam_<?=$slist['sid']?>_remarks" name="exam_<?=$slist['sid']?>_remarks" size="40" value="<?=$slist['remarks']?>" type="text"></div></div></td>
+<? if($this->examgroupdetail['exam_type']!='Marks') { ?>
+<td class="col-1"><?=$slist['gname']?></td>
+<? } ?>
+</tr>
+<? $i++;
+} ?>
+
+</tbody></table>
+	<div id="sub-button">
+		<input type="hidden" name="examtype" id="examtype" value="<?=$this->examgroupdetail['exam_type']?>" />
+		<input type="hidden" name="sids" id="sids" value="<?=implode(",",$sids)?>" />
+		<input type="hidden" name="batchid" id="batchid" value="<?=$this->examgroupdetail['batch_id']?>" />
+		<input type="hidden" name="examid" id="examid" value="<?=$this->examid?>" />
+		<input type="hidden" name="examgroupid" id="examgroupid" value="<?=$this->examgroupid?>" />
+		
+		<input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+	</div>		
+</form>
+<div class="extender"></div>
+</div>
+</div>
+</div>
+<div class="extender"></div>
+<?php */?>

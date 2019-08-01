@@ -1,0 +1,17 @@
+<?
+if(is_array($this->batchlist) && count($this->batchlist) > 0) { 
+?>
+<ul id="department-list">  
+ <li class="heading"> <?=LNG_ASSIGN_NEW?> </li>   
+<? foreach($this->batchlist as $batchlist) { ?>       
+      <li class="listeven">
+        <div class="department-name"><?=$batchlist['name']?></div>        
+        
+          <div class="remove"><a href="#" onclick="getajax('<?=BASE_PATH?>employee/selectgrades/mode/assignbatch/emp_id/<?=$this->emp_id?>/?batch_id=<?=$batchlist['id']?>','','department-select')"><?=LNG_ASSIGN?></a></div>
+      </li>  
+ <? } ?>
+</ul>
+<? } else {  ?>
+<p class="flash-msg"> No class in this grade</p>
+<? 
+} ?>

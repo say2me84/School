@@ -1,0 +1,71 @@
+<?
+$sdetail = $this->sdetail[0];
+
+?>
+<link href="<?=CSS_URL?>user/profile.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<style>
+.profile_info_label2, .profile_info_label {
+	width:200px;
+}
+.profile_info_text, .profile_info_text2 {
+	width:450px;
+}
+</style>
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>admission/multiple_school_logo.png">
+  <h1>School Detail</h1>
+  <h3>School Information</h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+
+<div id="page-yield">
+
+  <div style="text-align:center"><img alt="Logo" src="<?=FILE_URL?>upload/school/<?=$sdetail['logo']?>?<?=UPDATE_KEY?>" height="50"></div>
+
+  <div id="profile_view">
+   
+	
+	<div class="profile_info_label"><?=LNG_SCHOOL_NAME?></div>
+    <div class="profile_info_text"><?=$sdetail['name']?></div>
+	
+    <div class="profile_info_label2"><?=LNG_SCHOOL_ADDRESS?></div>
+    <div class="profile_info_text2"><?=$sdetail['address']?></div>
+
+    <div class="profile_info_label"><?=LNG_SCHOOL_PHONE?></div>
+    <div class="profile_info_text"><?=$sdetail['phno']?> </div>
+	
+	<div class="profile_info_label2"><?=LNG_SCHOOL_FAX_NO?></div>
+    <div class="profile_info_text2"><?=$sdetail['mhno']?> </div>
+
+     <div class="extender"></div>
+  </div>
+
+  
+    <div class="submit-buttons">
+
+      
+        
+          <a href="<?=BASE_PATH?>school/edit/schoolid/<?=$sdetail['id']?>" class="user_button">Edit Information</a>
+        
+      
+   
+      
+        
+      
+      
+    </div>
+  
+</div> </div>
+
+      <div class="extender"></div>
+    

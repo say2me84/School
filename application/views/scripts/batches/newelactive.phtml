@@ -1,0 +1,53 @@
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="Exam" src="<?=IMAGES_URL?>examination/show_exam.png">
+  <h1>Batches</h1>
+  <h3>New Electives</h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li><a href="<?=BASE_PATH?>batches/1/electives/new">New</a></li>
+
+  </ul>
+</div>
+<div id="page-yield">
+
+  
+    
+<div class="bread_crumb">
+        <a href="<?=BASE_PATH?>grades">Grades</a> &raquo;
+        <a href="<?=BASE_PATH?>grades/1">BCA A</a> &raquo;
+        <a href="<?=BASE_PATH?>grades/1/batches/1"><?=LNG_BATCH?> B CA</a> &raquo;
+        <a href="<?=BASE_PATH?>batches/1/electives">Electives</a> &raquo;
+        New
+        </div>
+  <div class="box">
+
+
+    <form method="post" id="new_elective_group" class="new_elective_group" action="/batches/1/electives"><div style="margin: 0pt; padding: 0pt; display: inline;"><input type="hidden" value="CUtSeLh4SdGNFmZ9GNhydWp16hdm/rMgU7m82Uezd0k=" name="authenticity_token"></div>
+    
+    
+      <div class="label-field-pair">
+        <div class="label-container"> <label for="elective_group_name">Name</label></div>
+        <div class="input-container"><?php echo $this->form->elective_group_name ?></div>
+      </div>
+
+      <input type="submit" value="Save" name="commit" class="submit_button">
+
+    </form>
+
+    <div class="extender"></div>
+  </div>
+</div> </div>
+
+      <div class="extender"></div>

@@ -1,0 +1,123 @@
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+ <div id="side_bar">
+        <div id="sidebar_news_area">
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_ADMISSION?></h1>
+  <h3><?=LNG_FEES_REPORT?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;">
+	<img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li style="width:120px;">
+		<a href="<?=BASE_PATH?>student/profile/studentid/<?=$this->cb['id']?>">Student profile</a>
+	</li>
+  </ul>
+</div>
+
+<div id="page-yield">
+	<div id="student_profile_heading">
+    <div id="student_main_info">
+      <span class="name"> <? echo $this->cb['stname']; ?> </span>
+      <span class="class"> Class <? echo $this->cb['class_name']; ?> &amp; Batch: <? echo $this->cb['batch_name']; ?> </span>
+      <span class="adm"> Adm no : <? echo $this->cb['admission_no'];?> </span>
+    </div>
+    <div class="extender"> </div>
+  </div>
+  
+   <form action="<?=$this->url(array('controller'=>'student','action'=>'feesstructure'),null,true);?>" method="post">
+   <div style="margin:0;padding:0;display:inline"><input name="studentid" value="<?=$this->studentid?>" type="hidden"></div>
+	<div style="font-size:14px; padding:5px; font-weight:600; color:#41A6A6;">Paid Installment Detail</div>
+	<?
+  tframe_pre();
+  ?>
+	<table width="100%" id="class-timings-list"> 
+  <tr class="tr-head">
+    <td>Name</td>
+    <td>Installment Amount</td>
+	<td>Penalty Amount</td>
+	<td>Paid On</td>
+	<td>Receipt No.</td>
+  </tr>
+  	<? 
+		$i=1;
+	foreach($this->paidfees as $pdfees) {
+		$m=$i%2;
+		if($m==0){
+			$class="tr-even";
+		}else{
+			$class="tr-odd";
+		}
+	 ?>
+	 <tr class="<? echo $class; ?>" id="class-timing-1">
+		  <td class="col-2"><?=$pdfees['catname']?></td>
+		  <td class="col-3"><?=$pdfees['inst']?></td>
+		  <td class="col-3"><?=$pdfees['penalty']?></td>
+		  <td class="col-4"><?=$pdfees['payondt']?></td>		  
+		  <td class="col-1"><?=$pdfees['receipno']?></td>	
+		</tr>
+<? $i++; } ?>
+   </table>
+   <?
+  tframe_post();
+  ?>
+   <div style="font-size:14px; padding:5px; font-weight:600; color:#41A6A6;">Unpaid Installment Detail</div>
+   <?
+  tframe_pre();
+  ?>
+   <table width="100%" id="class-timings-list">
+
+  
+  
+  <tr class="tr-head">
+
+    <td>Name</td>
+    <td>Installment</td>
+	<td>Due On</td>
+  </tr>
+
+  <? 
+		$i=1;
+	foreach($this->stfees as $stfees) {
+		$m=$i%2;
+		if($m==0){
+			$class="tr-even";
+		}else{
+			$class="tr-odd";
+		}
+	 ?>
+
+	   <tr class="<? echo $class; ?>" id="class-timing-1">
+
+		  <td class="col-3"><?=$stfees['catname']?></td>   
+
+		  <td class="col-4"><?=$stfees['inst']?></td>
+
+		  <td class="col-1"><?=$stfees['dueondt']?></td>		  
+
+		</tr>
+
+	<? $i++; } ?>
+
+	  
+
+   </table>
+<?
+  tframe_post();
+  ?>
+   </form>
+
+  </div>
+
+ </div>
+
+<div id="modal-box" style="display: none;"></div>
+
+      <div class="extender"></div>

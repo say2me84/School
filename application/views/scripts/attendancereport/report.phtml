@@ -1,0 +1,81 @@
+<? 
+$db = new Db(); 
+
+//echo"<pre>";print_r($this->totalworking_day);exit;
+?>
+<script>
+function gotoprint()
+{
+	obj_win = window.open('about:blank', 'new_win','toolbars=no,maximize=no,scrollbars=yes,menubar=no,width=900,height=680,directories=no,resizable=0,screenX=0,screenY=0,left=0,top=0'  ) ; 
+ //alert obj_win;
+	obj_win.document.write('<html><title>My School</title><link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" rel="stylesheet" type="text/css" /><head>');
+
+	obj_win.document.write('</head>');
+	obj_win.document.write('<style type="text/css">   </style>');
+	obj_win.document.write('<body><div style="width:850px; " >');
+
+	obj_win.document.write(document.getElementById('printmiddiv').innerHTML);
+
+	obj_win.document.write("</div></body></html>");
+
+	obj_win.document.close();
+
+
+
+	obj_win.focus();
+
+	obj_win.print();
+
+	obj_win.close();
+}
+</script>
+ 
+  <div class="label-field-pair">
+    <label>
+        <?=LNG_TOTAL_NO_OF_WORK_DAYS?> <?=$this->totalworking_day?>      
+    </label>
+	
+  </div>
+  <div class="submit-button2">
+  <input type="button" value="Print" name="print" class="submit-button" onclick="gotoprint()" />
+  </div>
+<?
+  tframe_pre();
+  ?>
+  <div id="printmiddiv">
+  <table id="listing" align="center" width="100%">
+    <tbody>
+	<tr class="tr-head">
+      <td>
+        <?=LNG_NAME?>
+      </td>
+      <td>
+        <?=LNG_TOTAL_LEAVES?>
+      </td>
+      <td>
+        <?=LNG_PERCENTAGE?>
+      </td>
+    </tr>	
+    <tr class="blank"></tr>
+	<?
+	foreach($this->studentlist as $studentlist) { 
+		$qry = "select sum(forenoon) as fn, sum(afternoon) as an from attendances where period_table_entry_id in (".$this->periodid.") and student_id='".$studentlist['id']."' and (forenoon='1' or afternoon='1')";
+	$res = $db->runQuery($qry);
+	$abs = 0;
+	if(is_array($res) && count($res) > 0) {
+		$abs = ($res[0]['fn'] + $res[0]['an'])/2;
+	}
+	?>
+      <tr class="tr-odd">
+        <td class="col-2"><a href="<?=BASE_PATH?>attendancereport/studentdetails/profileid/<?=$studentlist['id']?>" target="_blank"><?=$studentlist['name']?></a></td>
+        <td class="col-3"><?=$abs?></td>
+        <td class="col-3"><?=round((($this->totalworking_day-$abs)/$this->totalworking_day)*100,2)?></td>
+      </tr>
+	<? 
+	} ?>
+          
+  </tbody></table>
+ 	</div>
+<?
+  tframe_post();
+  ?>

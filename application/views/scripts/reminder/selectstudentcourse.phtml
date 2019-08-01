@@ -1,0 +1,72 @@
+<?
+global $mySession;
+$viewrem = $this->viewrem;
+?>
+
+<div style="border:dotted 0px #3C9;height:150px;width:510px;margin:100px 0 0 0;padding:0;" >
+
+    <div class="text-area-bg">
+
+	<table width="500" border="1" cellpadding="5" cellspacing="0">
+
+<?
+	$cnt = 1;	
+	$nId = 1;
+	foreach($viewrem as $list)
+	{	
+		
+		if($viewrem[$cnt-2]['name'] != $viewrem[$cnt-1]['name'])
+		{
+			if($nId > 1) echo '</table></div><table width="500" border="1" cellpadding="5" cellspacing="0">';	
+		
+			echo '<tr bgcolor="#CCCCCC"><td width="10%"><strong>SNo.</strong></td><td width="80%"><div style="cursor:pointer;" onclick="return toggleMe(\'para'.$nId.'\')"><strong>'.$viewrem[$cnt-1]['name'].'</strong></div></td><td width="10%" style="width:10px;" ><input type="checkbox" name="CheckAll'.$nId.'" id="CheckAll'.$nId.'" onClick="checkAll(document.myform.stu_id'.$nId.',\''.$nId.'\');" checked="checked"/></td></tr></table>
+			<div id="para'.$nId.'" style="border:solid 1px #DDDDDD;" >
+			<table width="500" border="0" cellpadding="5" cellspacing="0">';
+			
+			$nId++;
+		}
+
+		echo '<tr bgcolor="#FFFFCC"><td width="10%"><strong>'.$cnt.')</strong></td><td width="80%">'.$list['first_name'].' '.$list['last_name'].' '.$list['middle_name'].'</td><td width="10%"><input type="checkbox" name="stu_id'.($nId-1).'[]" id="stu_id'.($nId-1).'"  checked="checked" value="'.$list['stu_id'].'" /></td></tr>';
+				
+		$cnt++;
+	}
+	
+	echo '<input type="hidden" name="totCls" value="'.($nId-1).'" /></table></div>';
+
+
+?>
+
+    </table>
+
+ 
+ 
+<script type="text/javascript" >
+function toggleMe(a){
+  var e=document.getElementById(a);
+  if(!e)return true;
+  if(e.style.display=="none"){
+    e.style.display="block"
+  } else {
+    e.style.display="none"
+  }
+  return true;
+}
+
+
+
+<!-- Begin
+function checkAll(field,cid)
+{
+for (var i = 0; i < field.length; i++)
+	if(document.getElementById('CheckAll'+cid).checked == false)
+		field[i].checked = false ;
+	else
+		field[i].checked = true;	
+}
+
+</script>
+	
+  </div>    
+</div>
+
+

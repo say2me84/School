@@ -1,0 +1,54 @@
+<link href="<?=CSS_URL?>user/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?=CSS_URL?>user/all.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/hr_detail.png">
+  <h1><?=LNG_MANAGE_SECRETARY?></h1>
+  <h3><?=LNG_DETAILS_ABOUT_SECRETARY?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img src="<?=IMAGES_URL?>buttons/back.png?369" alt="Back" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li><a href="<?=BASE_PATH?>user/all"><?=LNG_VIEW_ALL?></a></li>
+    <li><a href="<?=BASE_PATH?>user/create"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+</div>
+<div id="search-area">
+  
+    <div id="searchbox">
+      <form id="search-form" name="search-form">
+        <label for="query"><?=LNG_SEARCH_SECRETARY?>
+          <img style="display: none;" src="<?=IMAGES_URL?>load.gif?369" id="loader" alt="Loader" align="absmiddle" border="0">
+        </label>
+		<?php /*?> <input name="query" id="query" autocomplete="off" type="text" onchange="getajax('<?=BASE_PATH?>user/listuserbysearch/','?searchtext='+this.value,'user_information');"><?php */?>
+        <input name="query" id="query" autocomplete="off" type="text">
+      </form>
+    </div>
+  </div>
+<div id="page-yield">
+
+
+  
+
+  <script type="text/javascript">
+//&lt;![CDATA[
+new Form.Element.Observer('query', 0.5, function(element, value) {Element.show('loader'); new Ajax.Updater('user_information', '<?=BASE_PATH?>user/listuserbysearch', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query=' + encodeURIComponent(value)})})
+//]]&gt;
+</script>
+
+  <div id="user_information"> </div>
+
+  <div class="extender"> </div>
+
+</div> </div>
+
+      <div class="extender"></div>

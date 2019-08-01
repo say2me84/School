@@ -1,0 +1,54 @@
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/hr_detail.png">
+  <h1><?=LNG_ADMINISTRATOR?></h1>
+  <h3><?=LNG_UPDATE_DETAILS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img src="<?=IMAGES_URL?>buttons/back.png?369" alt="Back" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+<form method="post" enctype="multipart/form-data" action="<?=BASE_PATH?>admin/edit"><div style="margin: 0pt; padding: 0pt; display: inline;"></div>
+<div class="box">
+<div id="necessary-field-notification"> <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+
+	<div class="label-field-pair">
+		<label for="configuration_currency_type"><?=LNG_NAME?><span class="necessary-field">*</span></label>
+		<div class="text-input-bg"><?php echo $this->form->first_name?></div>
+		</div>
+		
+	<div class="label-field-pair">
+        <label for="user_last_name"><?=LNG_LAST_NAME?></label>
+        <div class="text-input-bg"> <?php echo $this->form->last_name?></div>
+      </div>
+	
+	<div class="label-field-pair">
+		<label for="configuration_currency_type"><?=LNG_USERNAME?> <span class="necessary-field">*</span></label>
+		<div class="text-input-bg">	<?php echo $this->form->username?></div>
+		</div>
+
+	<div class="label-field-pair">
+		<label for="configuration_currency_type"><?=LNG_EMAIL?> <span class="necessary-field">*</span></label>
+		<div class="text-input-bg"><?php echo $this->form->email?></div>
+		</div>
+
+
+
+
+
+<input class="submit_button" value="<?=LNG_SAVE?>" name="commit" type="submit">
+</div>
+
+</form></div>
+
+</div> 

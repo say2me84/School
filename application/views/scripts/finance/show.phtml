@@ -1,0 +1,133 @@
+<?
+
+$db= new Db();
+
+?>
+
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+<?
+
+$string = "<input type=\"hidden\" name=\"batchid\" id=\"batchid\" value=\"".$this->batchid."\" />
+
+  <div class=\"add_sub\">
+
+  <a href=\"#\" onclick=\"getajax('".BASE_PATH."finance/feescreate/batchid/".$this->batchid."','','modal-box',1)\">Add fees</a>
+
+  </div>
+
+  ".tframe1_pre()."<table id=\"class-timings-list\" width=\"100%\">
+
+  <tbody><tr class=\"tr-head\">
+
+    <td>Name</td>
+
+    <td>No. of Inst.</td>
+
+	<td>Installments</td>
+
+    <td>Operations</td>
+
+  </tr>";
+
+    
+
+	foreach($this->slist as $slist) {
+
+      /*$string .= "<li class=\"listeven\" id=\"subject-1\">
+
+        <div class=\"category-name\">".$slist['catname']."</div>
+
+        <div class=\"opt\">
+
+          <div class=\"category-code\">".$slist['noofinst']."</div>
+
+         <div class=\"category-edit\"><a onclick=\"getajax('".BASE_PATH."finance/feesedit/fsid/".$slist['id']."','?batchid=".$this->batchid."','modal-box',2);\" href=\"#\">Edit</a> </div>
+
+          <div class=\"category-delete\">            
+
+              <a onclick=\"if(confirm('Are you sure?')) { new getajax('".BASE_PATH."finance/show/mode/delete/fsid/".$slist['id']."', '?batchid=".$this->batchid."','feesstructurediv'); }\" href=\"#\">Delete</a>            
+
+          </div>
+
+          
+
+        </div>
+
+      </li>";*/
+
+	  
+
+	   $m=$i%2; 
+
+		if($m==0)
+
+		{
+
+			$class="tr-odd";	
+
+		}else{
+
+			$class="tr-even";
+
+		}
+
+		
+
+	  $string .= " <tr id=\"class-timing-1\" class=\"".$class."\">
+
+      <td class=\"col-1\">".$slist['catname']."</td>
+
+      <td class=\"col-3\">".$slist['noofinst']."</td>";
+
+	   $qry="select *, DATE_FORMAT(dueon, '%M %d, %Y') as dueondt from `fees_structuredetail` where fsid='".$slist['id']."'"; 
+
+	  	$installment=$db->runQuery("$qry");
+
+		
+
+		$string .=" <td class=\"col-4\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
+
+		$i=1;
+
+		foreach($installment as $inst){
+
+		
+
+	   $string .= 
+
+	   "<tr>
+
+	   <td>".$inst['inst']."</td>
+
+	   <td>".$inst['dueondt']."</td>
+
+	   </tr>";
+
+	   $i++; }
+
+	   
+
+	   $string .= "</table></td>     
+
+      <td class=\"col-3\">	<small>
+
+		<a onclick=\"getajax('".BASE_PATH."finance/feesedit/fsid/".$slist['id']."','?batchid=".$this->batchid."','modal-box',1);\" href=\"#\">Edit</a> 
+
+         |        
+
+              <a onclick=\"if(confirm('Are you sure?')) { new getajax('".BASE_PATH."finance/show/mode/delete/fsid/".$slist['id']."', '?batchid=".$this->batchid."','feesstructurediv'); }\" href=\"#\">Delete</a>            
+
+           </small></td>
+
+    </tr>";
+
+    
+
+	} 
+
+  $string .= "</tbody></table>".tframe1_post().""; 
+
+  echo $string;
+
+  ?>

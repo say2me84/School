@@ -1,0 +1,40 @@
+<?
+
+$string = "
+<div class=\"linker\"> <a href=\"#\" onclick=\"getajax('".BASE_PATH."classtimings/new/batch_id/'+document.getElementById('sel_batch_id').value,'', 'modal-box','2')\">Add</a> </div>
+<table id=\"class-timings-list\" width=\"100%\">
+  <tr class=\"tr-head\">
+    <td>Name</td>
+    <td>Start time</td>
+    <td>End time</td>
+    <td>Operations</td>
+  </tr>";
+  $i=1; 
+foreach($this->timings as $timings) { 
+	$m=$i%2; 
+	if($m==0)
+	{
+		$class="tr-odd";	
+	}else{
+		$class="tr-even";	
+	}
+ $string .= " <tr id=\"class-timing-32\" class=\"".$class."\">
+    <td class=\"col-1\">".$timings['name']."</td>
+    <td class=\"col-3\">".$timings['start_time']."</td>
+    <td class=\"col-3\">".$timings['end_time']."</td>
+    <td class=\"col-3\"><small><a href=\"#\" onclick=\"getajax('".BASE_PATH."classtimings/edit/batch_id/".$this->batchid."/id/".$timings['id']."', '','modal-box','2')\">Edit</a> |
+	 <a href=\"#\" onclick=\"if (confirm('This will delete all timetable entried assosciated with this class timing , proceed with deletion?')) { getajax('".BASE_PATH."classtimings/edit/mode/delete/batch_id/".$this->batchid."/id/".$timings['id']."', '','modal-box','2'); }\">Delete</a>
+
+              </small></td>
+
+    </tr>";
+
+  $i++; }  
+$string .= "</table>";
+
+$string = jschars($string);
+//Element.update("form-errors", "");
+?>
+
+Element.update("class-timings-list", "<?=$string?>");
+Modalbox.hide();

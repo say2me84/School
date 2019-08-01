@@ -1,0 +1,67 @@
+<link href="<?=CSS_URL?>student/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<script type="text/javascript"> function setOption(optn) {document.getElementById("option").value = optn;} </script>
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_STUDENT_DETAILS?></h1>
+  <h3><?=LNG_VIEW_DETAILS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li><a href="<?=BASE_PATH?>student/viewall"><?=LNG_VIEW_ALL?></a></li>
+    <li><a href="<?=BASE_PATH?>student/admission1"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+</div>
+
+<div id="page-yield">
+<div id="search_box_bg">
+      <form style="display: inline;" action="" name="search_form">
+        <input type="hidden" value="active" name="option" id="option">
+        <label for="user_name">Search
+        <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>load.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+        </label>
+        <div id="search_textbox">
+        <input type="text" name="query" id="query" autocomplete="off">
+
+        </div>
+		<div class="radio_button">
+		<input type="radio" onclick="setOption('active')" checked="checked" id="search_present_students_radio" name="setopt"><?=LNG_PRESENT_STUDENTS?>
+		<input type="radio" onclick="setOption('former')" id="search_former_students_radio" name="setopt"><?=LNG_FORMER_STUDENTS?>
+        </div>
+        <div class="extender"></div>
+      </form>
+    </div>
+  
+
+  <div id="view_all">
+    
+  </div>
+
+    
+
+    <script type="text/javascript">
+//&lt;![CDATA[
+new Form.Element.Observer('query', 0.5, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '<?=BASE_PATH?>student/searchajax', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&option='+escape($('option').value)})})
+//]]&gt;
+</script><script type="text/javascript">
+//&lt;![CDATA[
+new Form.Element.Observer('option', 0.5, function(element, value) {Element.show('loader'); new Ajax.Updater('information', '<?=BASE_PATH?>student/searchajax', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'query='+escape($('query').value) + '&option='+escape($('option').value)})})
+//]]&gt;
+</script>
+
+    <div id="information"></div>
+
+</div> </div>
+
+      <div class="extender"></div>

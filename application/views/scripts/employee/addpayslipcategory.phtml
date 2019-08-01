@@ -1,0 +1,56 @@
+<div id="content_wrapper">
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="" src="<?=IMAGES_URL?>HR/show_hr.png">
+  <h1>Payslip</h1>
+  <h3>Create</h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+  
+  <div id="box">
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>employee/select_department_employee">Select Employee</a></div>
+      <div class="link-descr">Generate payslip of an employee</div>
+    </div>
+    
+    <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>employee/rejected_payslip">Rejected payslip</a></div>
+      <div class="link-descr">Manage employee rejected payslips</div>
+    </div>
+
+
+    <div class="link-box">
+      <div class="link-heading"><a onclick="Element.show('loader'); new Ajax.Updater('message-div', '/employee/payslip_date_select', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'authenticity_token=' + encodeURIComponent('BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=')}); return false;" href="#">One click payslip generator</a></div>
+      <div class="link-descr">Generate payslip of an employee</div>
+
+    </div>
+
+    <div class="link-box">
+      <div class="link-heading"><a onclick="if (confirm('This will delete the entire payslip record of all the employees(of the month you select),  from the system. Are you sure ?')) { Element.show('loader'); new Ajax.Updater('message-div', '/employee/payslip_revert_date_select', {asynchronous:true, evalScripts:true, onSuccess:function(request){Element.hide('loader')}, parameters:'authenticity_token=' + encodeURIComponent('BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=')}); }; return false;" href="#">One click payslip revert</a></div>
+      <div class="link-descr">Generate payslip of an employee</div>
+
+    </div>
+    <div class="extender"></div>
+    <div class="loader-image">
+      <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>images/loader2.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader2">
+    </div>
+
+    <div id="message-div">
+      <div class="extender"></div>
+    </div>
+  </div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    </div>

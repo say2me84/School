@@ -1,0 +1,10 @@
+ <?
+	foreach($this->blist as $blist) { ?>
+	
+	 <div class="link-box">
+      <div class="link-heading"><a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$blist['id']?>"><?=$blist['grade_name']?></a> : <?=$blist['code']?> - <?=$blist['name']?> </div>
+  </div>
+  <? } ?>
+  
+
+

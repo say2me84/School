@@ -1,0 +1,114 @@
+<? 
+$db=new Db(); 
+//echo"<pre>";print_r($this->batch);exit;
+?> 
+
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+<div id="content">
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1>Student</h1>
+  <h3>Pay Fees</h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;">
+	<img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    <li style="width:120px;">
+		<a href="<?=BASE_PATH?>student/profile/studentid/<?=$this->cb['id']?>">Student profile</a>
+	</li>
+  </ul>
+</div>
+<div id="page-yield">
+	<div id="student_profile_heading">
+    <div id="student_main_info">
+      <span class="name"> <? echo $this->cb['stname']; ?> </span>
+      <span class="class"> Class <? echo $this->batch['grade_name']; ?> &amp; Batch: <? echo $this->batch['bname']; ?> </span>
+      <span class="adm"> Adm no : <? echo $this->cb['admission_no'];?> </span>
+    </div>
+    <div class="extender"> </div>
+  </div>
+	<form action="<?=$this->url(array('controller'=>'student','action'=>'payfees'),null,true);?>" method="post">		
+		<div style="margin:0;padding:0;display:inline"><input name="studentid" value="<?=$this->studentid?>" type="hidden"></div>
+	<div>
+	<?
+  tframe_pre();
+  ?>
+	<table width="100%" id="class-timings-list">
+
+	  <tr class="tr-head">
+
+		<td width="10">&nbsp;</td>
+
+		<td>Name</td>
+
+		<td>Installment Amount</td>
+
+		 <td>Due Date</td>		
+
+	  </tr>
+	<? 
+		$i=1;
+	foreach($this->stfees as $stfees) {
+		$m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";
+		}else{
+			$class="tr-odd";
+		}
+	 ?>
+	   <tr class="<? echo $class; ?>" id="class-timing-1">
+		  <td class="col-1"><input type="checkbox"  name="chk[]" value="<?=$stfees['id']?>" />
+		  <input type="hidden"  name="inst<?=$stfees['id']?>" value="<?=$stfees['inst']?>" />
+		  <input type="hidden"  name="fstid<?=$stfees['id']?>" value="<?=$stfees['fstid']?>" /></td>  
+		  
+		  <td class="col-3"><?=$stfees['catname']?></td>   
+
+		  <td class="col-4"><?=$stfees['inst']?></td>
+
+		  <td class="col-1"><?=$stfees['dueon']?></td>		  
+
+		</tr>
+
+	<? $i++; } ?>
+
+	  </table>
+<?
+  tframe_post();
+  ?>
+  </div>
+
+  <div style="margin:0 auto; padding-top:10px; width:450px;">
+
+  	<div class="label-field-pair">
+
+        <label for="student_grade">Local Reciept No. </label>
+
+        <div class="text-input-bg">
+
+			<input type="text" value="<?=@$_REQUEST['receiptno']?>" id="receiptno" name="receiptno"></div>
+
+      </div>	  
+
+	  <div class="label-field-pair">
+        <label for="student_grade">Penalty Amount </label>
+        <div class="text-input-bg">
+			<input type="text" value="<?=@$_REQUEST['panalty_amount']?>" id="panalty_amount" name="panalty_amount"></div>
+      </div>
+	  <input type="submit" class="submit_button" name="commit" value="Pay Fees">
+  </div>	
+
+  </form>
+
+  </div>
+
+ </div>
+
+
+
+      <div class="extender"></div>

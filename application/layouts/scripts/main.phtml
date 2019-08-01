@@ -1,0 +1,54 @@
+<?
+global $mySession;
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>My School</title>
+
+
+    <?php /*?><link href="<?=CSS_URL?>application.css" media="screen" rel="stylesheet" type="text/css" /><?php */?>
+<link href="<?=CSS_URL?>modalbox.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="<?=JS_URL?>jquery-1.5.js" type="text/javascript"></script>
+<script src="<?=JS_URL?>all.js" type="text/javascript"></script> 
+<script src="<?=JS_URL?>anylinkmenu.js" type="text/javascript"></script>
+    <?php /*?><script src="<?=JS_URL?>fckeditor/fckeditor.js" type="text/javascript"></script><?php */?>
+<script src="<?=JS_URL?>builder.js" type="text/javascript"></script>
+<script src="<?=JS_URL?>modalbox.js" type="text/javascript"></script>
+
+
+
+   
+
+
+	
+</head>
+<body id="bodyid" style="text-align:left">
+<center>
+<? include("header.phtml"); ?>
+
+<div id="content_wrapper">
+<div id="errorDiv" >
+<?php  
+	if(isset($mySession->errorMsg)){ 
+		echo errorMsg($mySession->errorMsg);
+		unset($mySession->errorMsg); 
+	} 
+	if(isset($mySession->sucMsg)){ 
+		echo sucessMsg($mySession->sucMsg);
+		unset($mySession->sucMsg); 
+	} 
+	if(isset($mySession->warningMsg)){ 
+		echo warningMsg($mySession->warningMsg);
+		unset($mySession->warningMsg); 
+	}
+	?>
+</div>
+<? echo $this->layout()->content; ?></div>
+<? include("footer.phtml"); ?>
+</center>
+</body>
+</html>

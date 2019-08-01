@@ -1,0 +1,96 @@
+<?
+if($this->mode==0 || $this->mode==2) {
+$string = "<label class=\"head_label\"> ".LNG_ADD_NEW_CLASSTIMINGS_FOR." <span>
+".$this->batchdetail[0]['batchname']."
+</span></label>
+<div id=\"ajax-create\">
+  <form action=\"\" method=\"post\" onsubmit=\"getajax('".BASE_PATH."classtimings/new/mode/add/','?'+Form.serialize(this),'form-errors','2'); return false;\">
+    <input id=\"class_timing_batch_id\" name=\"batch_id\" type=\"hidden\" value=\"".$this->batchdetail[0]['id']."\" />
+    <div id=\"form-errors\"></div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_NAME."</label>
+      <div class=\"input-field\">
+        ".$this->form->name."
+      </div>
+    </div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_START_TIME." </label>
+      <div class=\"time-select-field\">
+        ".$this->form->start_time_1."
+        :
+        ".$this->form->start_time_2."
+      </div>
+    </div>
+    <div class=\"label-field-pair\">
+      <label for=\"name\"> ".LNG_END_TIME." </label>
+      <div class=\"time-select-field\">
+       
+        ".$this->form->end_time_1."
+        :
+        ".$this->form->end_time_2."
+      </div>
+    </div>
+    <div class=\"label-checkbox-pair\">
+      <label>
+      <input name=\"is_break\" type=\"hidden\" value=\"0\" />
+      <input id=\"class_timing_is_break\" name=\"class_timing_is_break\" type=\"checkbox\" value=\"1\" />
+      ".LNG_IS_A_BREAK."</label>
+    </div>
+	<div class=\"label-checkbox-pair\">";
+	  $m=0;
+	  foreach($this->weekdayarray as $wdarray) {
+		  $chked = "checked=\"checked\"";
+		  $string .= "<label>
+		  <input id=\"selweekday".$m."\" name=\"selweekday[]\" type=\"checkbox\" value=\"".$wdarray['id']."\" ".$chked."  />
+		  ".getDayName($wdarray['weekday'])."</label>&nbsp;<label>";
+		 $m++;
+	  }
+    $string .= "</div>
+    <input class=\"submit-button\" id=\"class_timing_submit\" name=\"commit\" type=\"submit\" value=\"".LNG_SAVE."\" />
+  </form>
+</div>";
+
+/*$jstring = "<script>
+function getajax_n(urlval,param,elm_id,popupbox)
+{
+	urlval=urlval+param;
+	
+	if(urlval!='')
+	{
+		
+		document.getElementById(elm_id).innerHTML=\"<img src='".IMAGES_URL."load.gif' border='0'>\";
+		jQuery.ajax({ url: urlval,
+		type: \"POST\",
+		success: function(data){			
+			if(popupbox==2) {
+				eval(data);
+			} else if(popupbox==1) {
+				jQuery(\"#\"+elm_id).html(data);
+				Modalbox.show($(elm_id), {title: '', width: 500});
+			} else {
+				jQuery(\"#\"+elm_id).html(data);
+			}
+		}});
+	}
+}
+</script>";*/
+$string = jschars($string);
+//$jstring = jschars($jstring);
+?>
+Element.update("modal-box", "<?=$string?>");
+
+	<? if($this->mode==0) { ?>
+	Modalbox.show($('modal-box'), {title: '', width: 500});
+	<?
+	}
+} elseif($this->mode==1) {
+$string = $this->classtiminghtml;
+
+$string = jschars($string);
+//Element.update("form-errors", "");
+?>
+
+Element.update("class-timings-list", "<?=$string?>");
+Modalbox.hide();
+<?
+} ?>

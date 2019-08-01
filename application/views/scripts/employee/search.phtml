@@ -1,0 +1,100 @@
+<script>
+function gotoprint()
+{
+	obj_win = window.open('about:blank', 'new_win','toolbars=no,maximize=no,scrollbars=yes,menubar=no,width=900,height=680,directories=no,resizable=0,screenX=0,screenY=0,left=0,top=0'  ) ; 
+ //alert obj_win;
+	obj_win.document.write('<html><title>My School</title><link href="<?=CSS_URL?>student/view_all.css?<?=UPDATE_KEY?>" rel="stylesheet" type="text/css" /><head>');
+
+	obj_win.document.write('</head>');
+	obj_win.document.write('<style type="text/css">   </style>');
+	obj_win.document.write('<body><div style="width:850px; " >');
+
+	obj_win.document.write(document.getElementById('printmiddiv').innerHTML);
+
+	obj_win.document.write("</div></body></html>");
+
+	obj_win.document.close();
+
+
+
+	obj_win.focus();
+
+	obj_win.print();
+
+	obj_win.close();
+}
+</script>
+<link href="<?=CSS_URL?>employee/search.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMPLOYEE_SEARCH?></h1>
+  <h3><?=LNG_EMPLOYEE_DETAILS?></h3>
+  <div id="app-back-button">
+  <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+	<li style="width:125px;"><a href="<?=BASE_PATH?>employee/advancedsearch"><?=LNG_ADVANCE_SEARCH?></a></li>
+	<li><a href="<?=BASE_PATH?>employee/admission1"><?=LNG_ADD_NEW?></a></li>
+  </ul>
+
+</div>
+
+<div id="page-yield">
+    <div id="search_box_bg"> 
+	<form name="employee" action="" method="post" style="display: inline;" onsubmit="getajax('<?=BASE_PATH?>employee/searchajax/','?'+Form.serialize(this),'information'); return false">
+      <div id="form-content">
+     
+        <label for="name">
+          <?=LNG_SEARCH?>
+        </label>
+        <div id="search_textbox">
+          <input value="" id="search_keyword" name="search_keyword" type="text"><br>
+        </div>    
+      </div>
+        <div class="advanced_options">
+        <div class="advanced-options-select">
+		<select id="employee_department_id" name="employee_department_id">
+			<option value=""><?=LNG_SELECT_DEPARTMENT?></option>
+			<? foreach($this->department as $department) { ?>
+			<option value="<?=$department['id']?>"><?=$department['name']?></option>
+			<? } ?>			
+		</select>
+		</div>
+		        
+		<div class="advanced-options-select" style="margin-left:1px">
+		<select id="employee_category_id" name="employee_category_id" onchange="getajax('<?=BASE_PATH?>employee/positionlist/','?catid='+this.value,'positionlist');">
+			<option value=""><?=LNG_SELECT_CATEGORY?></option>
+			<? foreach($this->categories as $categories) { ?>
+			<option value="<?=$categories['id']?>"><?=$categories['name']?></option>
+			<? } ?>
+		</select>
+		</div>
+				
+        <div class="advanced-options-select" style="margin-left:1px" id="positionlist">
+		<select id="employee_position_id" name="employee_position_id">
+			<option value=""><?=LNG_SELECT_POSITION?></option>			
+		</select></div>
+			
+		<div class="submit-button" style="float:left; width:350px">
+			<input type="submit" class="submit-button" style="margin-left:5px;" name="commit" value="<?=LNG_FILTER?>">			
+			<input type="button" class="submit-button" style="margin-left:5px;" name="commit" onclick="this.form.action='<?=BASE_PATH?>employee/exportxls/'; this.form.submit()" value="<?=LNG_EXPORT?>">
+			<input type="button" value="Print" name="print" style="margin-left:5px;" class="submit-button" onclick="gotoprint()" />
+		</div>
+		
+		
+        <div class="extender"></div>
+        </div>
+		
+		</form>
+    </div>
+
+  <div class="extender"></div>
+    <div id="information"></div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

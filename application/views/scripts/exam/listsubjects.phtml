@@ -1,0 +1,8 @@
+  <select name="subject_id" id="subject_id"><option value=""><?=LNG_SELECT_A_SUBJECT?></option>
+  <?
+	foreach($this->elist as $elist) { ?>
+	<option value="<?=$elist['id']?>"><?=$elist['name']?></option>
+	<?
+	} 
+	?>
+</select>

@@ -1,0 +1,51 @@
+  <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1><?=LNG_CONFIGURATION?></h1>
+  <h3><?=LNG_CONFIGURATION_HOME?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <div id="box">
+
+    
+      <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>grades"><?=LNG_MANAGE_GRADES_BATCHES?></a></div>
+        <div class="link-descr"><?=LNG_ADDNEW_COURSE_OR_BATCH?></div>
+      </div>
+    
+      <?php /*?><div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>student/categories">Manage Student Categories</a></div>
+        <div class="link-descr">Add student category.</div>
+      </div><?php */?>
+    
+      <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>subjects"><?=LNG_MANAGE_SUBJECTS?></a></div>
+        <div class="link-descr"><?=LNG_MANAGE_SUBJECTS_CORRESPONDING_TO_GRADES?></div>
+      </div>
+    
+      <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>configuration/settings"><?=LNG_GENERAL_SETTINGS?></a></div>
+        <div class="link-descr"><?=LNG_SETTINGS_LINE3?></div>
+      </div>
+	  
+	  <div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>configuration/transferstudent"><?=LNG_TRANSFER_STUDENT?></a></div>
+        <div class="link-descr"><?=LNG_TRANSFER_STUDENT_LINE1?></div>
+      </div>
+      <?php /*?><div class="link-box">
+        <div class="link-heading"><a href="<?=BASE_PATH?>student/addadditionaldetails">Add admission additional details</a></div>
+        <div class="link-descr">Set some additional details for admission.</div>
+      </div><?php */?>
+    
+    </div>
+
+
+  </div>
+  </div>

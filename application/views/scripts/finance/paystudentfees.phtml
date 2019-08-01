@@ -1,0 +1,64 @@
+<form action="<?=$this->url(array('controller'=>'finance','action'=>'feessubmissionindex'),null,true);?>" method="post">		
+		<div style="margin:0;padding:0;display:inline">
+			<input name="studentid" value="<?=$this->studentid?>" type="hidden">
+			<input type="hidden" name="check" value="check" />
+		</div>
+	<div>
+	<?
+  tframe_pre();
+  ?>
+	<table width="100%" id="class-timings-list">
+
+	  <tr class="tr-head">
+		<td width="10">&nbsp;</td>
+		<td>Name</td>
+		<td>Installment Amount</td>
+		 <td>Due Date</td>
+	  </tr>
+	<? 
+		$i=1;
+	foreach($this->stfees as $stfees) {
+		$m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";
+		}else{
+			$class="tr-odd";
+		}
+	 ?>
+	   <tr class="<? echo $class; ?>" id="class-timing-1">
+		<td class="col-1">
+		<input type="checkbox" name="chk[]" value="<?=$stfees['id']?>" />
+		<input type="hidden" name="inst<?=$stfees['id']?>" value="<?=$stfees['inst']?>" />
+		<input type="hidden" name="fstid<?=$stfees['id']?>" value="<?=$stfees['fstid']?>" /></td>		  
+		<td class="col-3"><?=$stfees['catname']?></td>
+		<td class="col-4"><?=$stfees['inst']?></td>
+		<td class="col-1"><?=$stfees['dueon']?></td>
+
+		</tr>
+
+	<? $i++; } ?>
+
+	  </table>
+<?
+  tframe_post();
+  ?>
+  </div>
+
+  <div style="margin:0 auto; padding-top:10px; width:450px;">
+
+  	<div class="label-field-pair">
+        <label for="student_grade">Local Reciept No. </label>
+        <div class="text-input-bg">
+			<input type="text" value="<?=@$_REQUEST['receiptno']?>" id="receiptno" name="receiptno"></div>
+      </div>	  
+
+	  <div class="label-field-pair">
+        <label for="student_grade">Penalty Amount </label>
+        <div class="text-input-bg">
+			<input type="text" value="<?=@$_REQUEST['panalty_amount']?>" id="panalty_amount" name="panalty_amount"></div>
+      </div>
+	  <input type="submit" class="submit_button" name="commit" value="Pay Fees">
+  </div>	
+
+  </form>

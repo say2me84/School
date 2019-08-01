@@ -1,0 +1,78 @@
+<link href="<?=CSS_URL?>configuration/settings.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+     
+      <div id="content"> 
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1><?=LNG_CONFIGURATION?></h1>
+  <h3><?=LNG_GENERAL_SETTINGS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <form method="post" enctype="multipart/form-data" action="<?=BASE_PATH?>configuration/settings">
+  
+  
+    <div class="box">
+<div id="necessary-field-notification"> <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_SCHOOL_NAME?> <span class="necessary-field">*</span></label>
+<div class="text-input-bg">
+<?=$this->Form->institution_name?>
+</div>
+</div>
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_SCHOOL_ADDRESS?> <span class="necessary-field">*</span></label>
+<div class="text-input-bg">
+<?=$this->Form->institution_address?>
+</div>
+</div>
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_SCHOOL_PHONE?> <span class="necessary-field">*</span></label>
+<div class="text-input-bg">
+<?=$this->Form->institution_phone_no?></div>
+</div>
+
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_SCHOOL_FAX_NO?></label>
+<div class="text-input-bg">
+<?=$this->Form->institution_fax_no?>
+</div>
+</div>
+
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_UPLOAD_LOGO?></label>
+<div class="text-input-bg">
+<?=$this->Form->student_photo?>
+</div>
+</div>
+
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_TEACHER_LOGIN?></label>
+<div class="text-input-bg">
+<select name="emplogin" >
+<option value="1" selected="selected"><?=LNG_ENABLE?></option>
+<option value="0" <? if($this->detail['emplogin']==0) {?>selected="selected"<? } ?> ><?=LNG_DISABLE?></option>
+</select>
+</div>
+</div>
+
+<div class="label-field-pair">
+<label for="configuration_currency_type"><?=LNG_PARENT_LOGIN?></label>
+<div class="text-input-bg">
+<select name="parentlogin" >
+<option value="1" selected="selected"><?=LNG_ENABLE?></option>
+<option value="0" <? if($this->detail['parentlogin']==0) {?>selected="selected"<? } ?> ><?=LNG_DISABLE?></option>
+</select>
+</div>
+</div>
+<input class="submit_button" type="submit" value="<?=LNG_SAVE?>" name="commit">
+</div>
+</form></div> </div>
+
+      <div class="extender"></div>

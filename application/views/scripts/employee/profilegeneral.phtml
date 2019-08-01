@@ -1,0 +1,31 @@
+<?
+global $mySession;
+$detail = $this->detail; ?>
+<div class="profile_top_banner"><img alt="Topbanner" src="<?=IMAGES_URL?>master_student/profile/topbanner.png?1313586643"/></div>
+<table width="700">
+<tr class="odd left"><td><?=LNG_JOINING_DATE?></td><td class="right"><?=$detail['jdate']?></td></tr>
+<tr class="even left"><td><?=LNG_DEPT?></td><td class="right"><?=$detail['deptname']?></td></tr>
+<tr class="odd left"><td><?=LNG_CATEGORY?></td><td class="right"><?=$detail['catname']?> </td></tr>
+<tr class="even left"><td><?=LNG_POSITION?></td><td class="right"><?=$detail['posname']?></td></tr>
+<tr class="odd left"><td><?=LNG_GRADE?></td><td class="right"><?=$detail['gradename']?></td></tr>
+<?php /*?><tr class="even left"><td>Job title</td><td class="right"></td></tr>
+<tr class="odd left"><td>Manager</td><td class="right">
+<a href="<?=BASE_PATH?>employee/profilegeneral/11?url%5Baction%5D=profile&amp;url%5Bcontroller%5D=employee&amp;url%5Bid%5D=12">RANJITH</a>
+<a href="<?=BASE_PATH?>employee/changereportingmanager/11">Change</a>
+</td></tr><?php */?>
+<tr class="even left"><td><?=LNG_GENDER?></td><td class="right"><? if($detail['gender']=='F') { ?>Female<? } else {?>Male<? } ?></td></tr>
+<tr class="odd left"><td><?=LNG_STATUS?></td><td class="right"><? if($detail['status']=='1') { ?>Active<? } else {?>Deactive<? } ?></td></tr>
+<tr class="even left"><td><?=LNG_QUALIFICATION?></td><td class="right"><?=$detail['qualification']?></td></tr>
+<tr class="odd left"><td><?=LNG_TOTAL_EXP?></td><td class="right"><?=$detail['experience_year']?><?=LNG_YEARS?> <?=$detail['experience_month']?><?=LNG_MONTHS?></td></tr>
+<tr class="even left"><td><?=LNG_EXP_INFO?></td><td class="right"><?=$detail['experience_detail']?></td></tr>
+</table>
+<div class="edit-pdf-group">
+<? if($mySession->user['usertype']!='T') { ?>
+<div class="edit">
+<a href="<?=BASE_PATH?>employee/edit1/profileid/<?=$detail['id']?>"><?=LNG_EDIT?></a>
+</div>
+<? } ?>
+<?php /*?><div class="pdf">
+<a href="/employee/profile_pdf/11" class="user_button" target="_blank">PDF Report</a>
+</div><?php */?>
+</div>

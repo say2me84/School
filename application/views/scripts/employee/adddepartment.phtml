@@ -1,0 +1,90 @@
+<div id="content"> 
+<div id="content-header">
+ <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMPLOYEE_SETTINGS?></h1>
+  <h3><?=LNG_ADD_EMP_DEPT?></h3>
+  <div id="app-back-button">
+   <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+<form action="<?=BASE_PATH?>employee/adddepartment" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"></div>
+  
+
+    
+<div id="form-content">
+<div id="necessary-field-notification">  <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+    <div class="label-field-pair">
+      <label for="department_name"><?=LNG_NAME?> <span class="necessary-field">*</span></label>
+      <div class="text-input-bg"><?php echo $this->form->name?> </div>
+    </div>
+
+    <div class="label-field-pair">
+      <label for="department_code"><?=LNG_DEPT_CODE?> <span class="necessary-field">*</span></label>
+      <div class="text-input-bg"> <?php echo $this->form->code?>  </div>
+    </div>
+
+    <div class="label-checkbox-pair">
+      <label class="status" for="status"><?=LNG_STATUS?></label>
+      <div id="radio-buttons">
+     <?php echo $this->form->status?>
+    </div>
+    </div>
+
+    <div id="submit-button">
+      <input name="commit" value="<?=LNG_CREATE?>" type="submit">
+    </div>
+</div>
+
+</form>
+  <div id="department-list">
+    
+<ul id="department-list">
+  
+    <li class="listheading"><div class="department-name"><?=LNG_ACTIVE_DEPARTMENTS?></div></li>
+    
+	 <? if(is_array($this->departmentList) && !empty($this->departmentList))
+		{
+		foreach($this->departmentList as $depList)
+		{ //prd($depList); ?>
+	
+      <li class="listodd">
+        <div class="department-name"><?=$depList['name']?> (<?=$depList['code']?>)</div>
+        <div class="department-edit"><a href="<?=BASE_PATH?>employee/editdepartment/id/<?=$depList['id']?>"><?=LNG_EDIT?></a></div>
+        <div class="department-edit"><a href="<?=BASE_PATH?>employee/deletedepartment/id/<?=$depList['id']?>" onclick="return confirm('Are you sure?');"><?=LNG_DELETE?></a></div>
+      </li>
+    
+      <? 
+		 }
+	 } ?> 
+</ul>
+
+<ul id="department-list">
+  
+   <li class="listheading"><div class="department-name"><?=LNG_INACTIVE_DEPARTMENTS?></div></li>
+    
+	 <? if(is_array($this->departmentList2) && !empty($this->departmentList2))
+		{
+		foreach($this->departmentList2 as $depList)
+		{ //prd($depList); ?>
+	
+      <li class="listodd">
+        <div class="department-name"><?=$depList['name']?> (<?=$depList['code']?>)</div>
+        <div class="department-edit"><a href="<?=BASE_PATH?>employee/editdepartment/id/<?=$depList['id']?>"><?=LNG_EDIT?></a></div>
+        <div class="department-edit"><a href="<?=BASE_PATH?>employee/deletedepartment/id/<?=$depList['id']?>" onclick="return confirm('Are you sure?');"><?=DELETE?></a></div>
+      </li>
+    
+      <? 
+	 	}
+	 } ?> 
+</ul>
+
+
+  </div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

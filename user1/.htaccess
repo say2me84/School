@@ -1,0 +1,7 @@
+Options +FollowSymLinks
+   Options +Indexes
+   RewriteEngine On
+   RewriteBase /
+   RewriteCond %{HTTP_HOST} !www.domain.com$ [NC]
+   RewriteCond %{HTTP_HOST} ^(www.)?([a-z0-9-]+).domain.com [NC]
+   RewriteRule (.*) %2/$1 [L]

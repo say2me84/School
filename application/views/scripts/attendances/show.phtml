@@ -1,0 +1,157 @@
+<?
+global $mySession;
+?>
+<?
+
+$db = new Db();
+function checkabsent($stid,$prid)
+{
+	$db = new Db();
+	
+	$qry="select * from `attendances` where student_id='".$stid."' and period_table_entry_id='".$prid."'";
+	$checkabsent = $db->runQuery("$qry");
+	if($stid==1 and $prid==28) {
+		//echo "<pre>";
+		//print_r($checkabsent);
+	}
+	if(is_array($checkabsent) && count($checkabsent) > 0)
+	{
+		
+		return $checkabsent[0];
+		
+	} else {
+		$at['id'] = 0;
+		return $at;
+	}
+}
+ ?>
+<?
+  tframe_pre();
+  ?>
+<div class="header">
+  <table width="100%" border="0" cellpadding="0" align="center">
+  <tr>
+    <td>
+    <div class="prev">
+      <a href="#" onclick="getajax('<?=BASE_PATH?>attendances/show?batch_id=<?=$this->batch_id?>&amp;nextmonth=<?=date('Y-m-d',mktime(0,0,0,$this->m-1,1,$this->y))?>','','register'); return false;">&lt;</a>
+    </div>
+    <div class="month">
+      <?=date('F',mktime(0,0,0,$this->m,1,$this->y))?> <?=$this->y?>
+    </div>
+    <div class="next">
+      <a href="#" onclick="getajax('<?=BASE_PATH?>attendances/show?batch_id=<?=$this->batch_id?>&amp;nextmonth=<?=date('Y-m-d',mktime(0,0,0,$this->m+1,1,$this->y))?>','','register'); return false;">&gt;</a>
+    </div>
+  </td></tr></table>
+<div class="extender"></div>
+</div>
+<div class="box-1" >
+<? if(isset($this->attend) && count($this->attend) > 0) { ?>
+<table class="" align="center" width="100%">
+
+  <tr class="tr-head">
+    <td class="head-td-name"><?=LNG_NAME?></td>
+    
+    
+      <? 
+	  foreach($this->register as $register){
+	  $a = $register['day'];
+	  
+	   	$var=date('D', mktime(0, 0, 0, $this->m, $a, $this->y));
+		
+		$var2=date('w', mktime(0, 0, 0, $this->m, $a, $this->y));
+		
+		$fd=$this->y.'-'.str_pad($this->m,2,0,STR_PAD_LEFT).'-'.str_pad($a,2,0,STR_PAD_LEFT);
+			$qry = "SELECT *, DATE_FORMAT(start_date, '%M %d, %Y') as sdate, DATE_FORMAT(end_date, '%M %d, %Y') as edate FROM `events` WHERE `start_date` <= '".$fd." 23:59:59' and `end_date`>='".$fd." 00:00:00' and is_holiday='1' and schoolid='".$mySession->user['schoolid']."'";
+			$e_eventdetail = $db->runQuery($qry);
+			if(is_array($e_eventdetail) && count($e_eventdetail) > 0){
+				$akey = $this->y.str_pad($this->m,2,0,STR_PAD_LEFT).str_pad($a,2,0,STR_PAD_LEFT);
+				$leavearray[$akey] = $e_eventdetail[0]['title'];
+			}
+		
+		?>
+      <td class="head-td-date"><div class="day"><? echo $var; ?></div> <div class="date"> 
+	  <? echo str_pad($a,2,0,STR_PAD_LEFT); ?></div></td>
+      <? } ?>
+    
+
+  </tr>
+
+  <? $i=1; 
+	foreach($this->attend as $attend) { 
+	$m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+	
+	?>
+    <tr class="<? echo $class; ?>">
+      <td class="td-name">
+       <?=$attend['first_name']?>
+        <div class="date">
+          <span><div><?=$attend['first_name']?> <?=$attend['middle_name']?> <?=$attend['last_name']?></div></span>
+        </div>
+        
+      </td>
+      
+        
+      <? 
+	   foreach($this->register as $register){
+	   	$t=$register['day'];
+	  	$var=date('D', mktime(0, 0, 0, $this->m, $t, $this->y));
+		
+		$var2=date('w', mktime(0, 0, 0, $this->m, $t, $this->y));
+		?>
+			 <td id="attendance-student-<?=$attend['id']?>-periodid-<?=$register['id']?>" class="td-mark">
+			<?
+		
+		$akey = $this->y.str_pad($this->m,2,0,STR_PAD_LEFT).str_pad($t,2,0,STR_PAD_LEFT);
+		if(@$leavearray[$akey]) {
+			?>
+			L
+			<div class="date"><span><? echo $var; ?> <? echo str_pad($t,2,0,STR_PAD_LEFT); ?> <div><?=$leavearray[$akey]?></div></span>
+			  </div>
+			<?
+		} else {
+		
+			$absent = checkabsent($attend['id'],$register['id']);
+			
+			if($absent['id']) { ?>
+			
+			 <a onclick="getajax('<?=BASE_PATH?>attendances/edit/attid/<?=$absent['id']?>','','modal-box',2)" href="#" class="absent">X</a>
+			  <div class="date"><span><? echo $var; ?> <? echo str_pad($t,2,0,STR_PAD_LEFT); ?>  <div> <?=$attend['first_name']?> <?=$attend['middle_name']?> <?=$attend['last_name']?></div></span>
+	</div>
+			<?
+			} else { ?>
+			
+		   
+			  
+			   <a class="present" href="#" onclick="getajax('<?=BASE_PATH?>attendances/new/profileid/<?=$attend['id']?>/periodid/<?=$register['id']?>','','modal-box',2)">O</a>
+			  
+			  <div class="date"><span><? echo $var; ?> <? echo str_pad($t,2,0,STR_PAD_LEFT); ?> <div><?=$attend['first_name']?> <?=$attend['middle_name']?> <?=$attend['last_name']?></div></span>
+			  </div>
+			
+			<?
+			}
+		}
+		?>  
+		 
+        </td>
+      
+        <? } ?>
+		    
+    </tr>
+  <? $i++; } ?>
+ 
+  
+</table>
+<? } ?>
+  </div>
+  
+   <?
+  tframe_post();
+  ?>
+  
+  <div style="display:none" id="modal-box"></div>

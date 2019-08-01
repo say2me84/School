@@ -1,0 +1,350 @@
+<?
+	//echo "<pre>";
+	//print_r($this->form);
+	//echo "</pre>";
+?>
+<link href="<?=CSS_URL?>student/edit_guardian.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+<script><?
+if($this->viewalreadyform==1) { ?>
+function parentalready()
+{
+
+	if(document.getElementById("alradyparent").checked==true) {
+		jQuery('#new_parent_div').addClass('cls_hide');
+		jQuery('#new_parent_div').removeClass('cls_show');
+		
+		jQuery('#already_parent_div').addClass('cls_show');
+		jQuery('#already_parent_div').removeClass('cls_hide');
+		
+	} else {
+		jQuery('#new_parent_div').removeClass('cls_hide');
+		jQuery('#new_parent_div').addClass('cls_show');
+		
+		jQuery('#already_parent_div').addClass('cls_hide');
+		jQuery('#already_parent_div').removeClass('cls_show');
+	}
+}
+<? } ?>
+</script>
+
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>admission/admission_page_logo.jpg">
+  <h1><?=LNG_PARENTS_INFO?></h1>
+  <h3><?=LNG_EDIT_PARENT_DETAIL?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+  <form action="<?=BASE_PATH?>student/editguardian/studentid/<?=$this->StudentID?>" method="post" enctype="multipart/form-data">
+  <div style="margin:0;padding:0;display:inline">
+  <input name="studentid" value="<?=$this->StudentID?>" type="hidden">
+  <?php echo $this->form->hid_userid; ?>
+  <?php echo $this->form->hid_id; ?>
+  </div>
+
+
+    <div id="admission1_form">
+
+      <div id="admission1_form_vertical_block_left">
+        <div class="label-field-pair">
+
+          <label for="parent_detail_student_id"><?=LNG_STUDENT_ADMISSION_NO?></label>
+
+          <div class="text_display"><?=$this->detail['admission_no']?></div>
+
+        
+
+        </div>
+
+
+
+        <br>
+
+        <span class="span-sub-heading"><?=LNG_PARENT_PERSONAL_DETAIL?></span><? if($this->viewalreadyform==1) { ?>&nbsp;&nbsp;<span><input type="checkbox" name="alradyparent" id="alradyparent" value="1" onclick="parentalready()" <? if($this->showalreadyform==1) {?> checked="checked"<? } ?> />&nbsp;Please check if parent's already have account</span><? } ?>
+
+        <hr class="sub-heading">
+		<? if($this->viewalreadyform==1) { ?>
+		<div id="already_parent_div" <? if($this->showalreadyform==0) {?> class="cls_hide"<? } ?>>
+			<div class="label-field-pair">
+			  <label for="parent_detail_income"><?=LNG_PARENT_USERNAME?> <span class="necessary-field">*</span></label>	
+			  <div class="text-input-bg"><?php echo $this->formalready->parent_already_username?></div>	
+			</div>
+		</div>
+		<? } ?>
+		<div id="new_parent_div" <? if($this->viewalreadyform==1 && $this->showalreadyform==1) {?> class="cls_hide"<? } ?>>
+        <div class="label-field-pair">
+
+          <label for="parent_detail_name"><?=LNG_FIRST_NAME?> <span class="necessary-field">*</span></label>
+
+          <div class="text-input-bg"><?php echo $this->form->first_name?></div>
+
+        </div>
+
+
+
+        <hr class="label-underline">
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_name"><?=LNG_LAST_NAME?> <span class="necessary-field">*</span></label>
+
+          <div class="text-input-bg"><?php echo $this->form->last_name?></div>
+
+        </div>
+        <hr class="label-underline">
+
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_relation"><?=LNG_RELATIONSHIP?> <span class="necessary-field">*</span></label>
+
+          <div class="text-input-bg"><?php echo $this->form->relation?></div>
+
+        </div>
+
+        <?php /*?><hr class="label-underline">
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_dob">Date of birth</label>
+
+          <div class="text-input-bg">
+		 <?php echo $this->form->date_of_birth?>
+		   <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-50))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-3))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar">
+		   </div>
+
+        </div>
+
+
+
+        <hr class="label-underline">
+
+
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_education">Education</label>
+
+          <div class="text-input-bg"><?php echo $this->form->education?></div>
+
+        </div>
+
+
+
+        <hr class="label-underline">
+
+
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_occupation">Occupation</label>
+
+          <div class="text-input-bg"><?php echo $this->form->occupation?></div>
+
+        </div><?php */?>
+        <hr class="label-underline">
+
+		
+		 <div class="label-field-pair">
+          <label for="student_image_file"><?=LNG_UPLOAD_PARENT_ID_CARD?> </label>
+          <div class="text-input-bg"><input type="file" size="30" name="parent_id_card" id="parent_id_card"></div>
+
+        </div>
+
+		 <hr class="label-underline">
+
+        <div class="label-field-pair">
+
+          <label for="parent_detail_income"><?=LNG_PARENT_USERNAME?><span class="necessary-field">*</span></label>
+
+          <div class="text-input-bg"><?php echo $this->form->parent_username?></div>
+
+        </div>
+
+			<?php /*?>
+				
+						<br>
+				
+				
+				
+						<span class="span-sub-heading">Parent - Contact Details</span>
+				
+				
+				
+						<hr class="sub-heading">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="parent_detail_email">Email</label>
+				
+						  <div class="text-input-bg"><?php echo $this->form->email?></div>
+				
+						</div>
+				
+				
+				
+						<hr class="label-underline">
+				
+					 
+				
+				
+				
+					  <div id="admission1_form_vertical_block_right">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="master_student_city">Address Line 1</label>
+				
+						  
+				
+							<div class="text-input-bg"><?php echo $this->form->office_address_line1?></div>
+				
+						  
+				
+						</div>
+				
+				
+				
+						<hr class="label-underline">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="master_student_city">Address Line 2</label>
+				
+						  
+				
+							<div class="text-input-bg"><?php echo $this->form->office_address_line2?></div>
+				
+						  
+				
+						</div>
+				
+				
+				
+						<hr class="label-underline">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="parent_detail_city">City</label>
+				
+						  
+				
+							<div class="text-input-bg"><?php echo $this->form->city?></div>
+				
+						  
+				
+						</div>
+				
+				
+				
+						<hr class="label-underline">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="parent_detail_state">State</label>
+				
+						  
+				
+							<div class="text-input-bg"><?php echo $this->form->state?></div>
+				
+						  
+				
+						</div>
+				
+				
+				
+						<hr class="label-underline">
+				
+				
+				
+						<div class="label-field-pair">
+				
+						  <label for="parent_detail_country">Country</label>
+				
+						  
+				
+							<div class="text-input-bg"> <?php echo $this->form->country_id?> </div>
+				
+						</div>
+				
+						  <hr class="label-underline">
+				
+				
+				
+						  <div class="label-field-pair">
+				
+							<label for="parent_detail_office_phone1">Phone 1</label>
+				
+							<div class="text-input-bg"><?php echo $this->form->office_phone1?></div>
+				
+						  </div>
+				
+				
+				
+						  <hr class="label-underline">
+				
+				
+				
+						  <div class="label-field-pair">
+				
+							<label for="parent_detail_office_phone2">Phone 2</label>
+				
+							<div class="text-input-bg"><?php echo $this->form->office_phone2?></div>
+				
+						  </div><?php */?>
+
+
+          <hr class="label-underline">
+
+
+
+          <div class="label-field-pair">
+
+            <label for="parent_detail_mob_phone"><?=LNG_PARENT_PASSWORD?></label>
+
+            <div class="text-input-bg"><?php echo $this->form->parent_password?></div>
+
+          </div>
+		  </div>
+          <hr class="label-underline">
+        </div>
+        <div class="extender">
+
+          <input class="submit_button3" name="commit" value="<?=LNG_SUBMIT?>" type="submit">
+
+        </div>
+
+       
+</div>
+      
+
+    </form>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

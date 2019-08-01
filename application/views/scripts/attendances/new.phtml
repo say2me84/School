@@ -1,0 +1,60 @@
+<?
+
+if($this->anew==0 || $this->anew==2) {
+$string = '<label class="head_label">'.LNG_ATTENDANCE_FOR.' <span>'.$this->studentdetail[0]['name'].'</span></label>
+
+<div id="ajax-edit">
+  </br>
+<form action="" class="new_attendance" id="new_attendance" method="post" onsubmit="if(chkvali()) { getajax(\''.BASE_PATH.'attendances/new/profileid/'.$this->profileid.'/periodid/'.$this->periodid.'\',\'?\'+Form.serialize(this),\'modal-box\',2); } else { return false; } return false" >
+  <div style="margin:0;padding:0;"></div>
+   <div id="form-errors"></div>
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+			<td><div class="label-field-pair">
+				  <label for="reason"> '.LNG_REASON_FOR_ABSENCE.'</label>
+				  <div class="text-input-bg">'.$this->form->attendance_reason.'</div>
+				</div></td>
+		  </tr>
+		  <tr>
+			<td><div class="label-checkbox-pair">
+				<label for="forenoon">'.$this->form->forenoon.'</label>
+		
+			  </div>
+			  </td>
+		  </tr>
+		  <tr>
+			<td><div class="label-checkbox-pair">
+				<label for="forenoon">'.$this->form->afternoon.'</label>
+		
+			  </div>
+			 </td>
+		  </tr>
+		  <tr>
+			<td><input class="submit-button" id="attendance_submit" name="commit" type="submit" value="Add" /></td>
+		  </tr>
+		</table>	  
+     
+  <div class="extender"></div>
+    <input class="submit-button" id="attendance_submit" name="commit" type="submit" value="Add" style="display:none" />
+   </form>
+  
+</div>';
+$string = jschars($string);
+?>
+Element.update("modal-box", "<?=$string?>");
+
+	<? if($this->anew==0) { ?>
+	Modalbox.show($('modal-box'), {title: '', width: 500});
+	<?
+	}
+ /*?><div class="label-checkbox-pair">
+        <label for="afternoon"><?php echo $this->form->afternoon?>Afternoon</label>
+      </div><?php */
+} 
+
+if($this->anew==1) { ?>
+Element.update("attendance-student-<?=$this->profileid?>-periodid-<?=$this->periodid?>", "\n\n\n\n\n  <a class=\"absent\" href=\"#\" onclick=\"getajax('<?=BASE_PATH?>attendances/edit/attid/<?=$this->instid?>','','modal-box',2)\">X</a>\n\n<div class=\"date\"><span><?=getDayName($this->perioddetail[0]['day']).' '.$this->perioddetail[0]['daydigit']?>  <div> <?=$this->studentdetail[0]['name']?></div></span>\n</div>");
+Modalbox.hide();
+<? } ?>
+
+

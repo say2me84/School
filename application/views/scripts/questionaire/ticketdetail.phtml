@@ -1,0 +1,114 @@
+<?
+global $mySession;
+$db = new Db();
+/*echo"<pre>";
+print_r($this->comments);*/
+?>
+<link href="<?=CSS_URL?>ticket/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>reminder/reminder_small.png">
+  <h1><?=LNG_QUESTIONAIRE?></h1>
+  <h3><?=LNG_GENERAL?></h3>
+  <div id="app-back-button">
+  <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<? if($mySession->user['usertype']=='A' || $mySession->user['usertype']=='S') { ?>
+<div id="inner-tab-menu">
+  <ul>
+        <li><a href="<?=BASE_PATH?>questionaire"><?=LNG_GENERAL_LIST?></a></li>
+		<li><a href="<?=BASE_PATH?>questionaire/archive"><?=LNG_ARCHIVE_LIST?></a></li>
+		<li><a href="<?=BASE_PATH?>questionaire/create"><?=LNG_CREATE?></a></li>
+     
+  </ul>
+</div>
+<? }else{
+?>
+<div id="inner-tab-menu">
+  <ul>
+        <li><a href="<?=BASE_PATH?>questionaire"><?=LNG_GENERAL_LIST?></a></li>
+		<li><a href="<?=BASE_PATH?>questionaire/archive"><?=LNG_ARCHIVE_LIST?></a></li>     
+  </ul>
+</div>
+<?
+} ?>
+
+
+
+	<div id="page-yield">
+
+		<?php /*?><div id="student_profile_heading">
+			<div id="student_main_info">
+			  <span class="name"> <?=$ticketlist['title']?> </span>
+			  <span class="course">  </span>
+			  <span class="adm">  </span>
+			</div>
+		<div class="extender"> </div>
+	  </div><?php */?>
+	
+	<div id="reminder-body">
+		<div id="reminder-from"><?=LNG_FROM?> Administrator&nbsp;</div>
+	
+		<div id="reminder-date"><?=LNG_SENT_ON?><?=LNG_SEPERATOR_1?> <?=$this->ticketdetail['0']['dt']?></div>
+	
+		<div id="reminder-subject"><?=LNG_TITLE?><?=LNG_SEPERATOR_1?> <?=$this->ticketdetail['0']['title']?></div>
+		
+		<div id="reminder-desc"><?=LNG_DESCRIPTION?><?=LNG_SEPERATOR_1?> <?=$this->ticketdetail['0']['description']?></div>
+	
+		
+	</div>
+	
+	 <div class="ticket-comment"><?=LNG_COMMENTS?></div>
+	 <? foreach($this->comments as $comments){ 
+	 $username = $comments['username'];
+	 if($comments['usertype']=='P') {
+	 	$qry = "select concat(first_name,' ',last_name) as username from guardians where userid='".$comments['userid']."'";
+		$getusername = $db->runQuery($qry);
+		$username = $getusername[0]['username'];
+	 }
+	 if($comments['usertype']=='T') {
+	 	$qry = "select concat(first_name,' ',last_name) as username from employees where userid='".$comments['userid']."'";
+		$getusername = $db->runQuery($qry);
+		$username = $getusername[0]['username'];
+	 }
+	 ?>
+		<div id="reminder-message1" style="border-bottom:1px dashed #CCCCCC; margin-bottom:5px;">
+			<div style="font-size:14px; color:#838383;"> <strong><?=$username?></strong> <span style="font-size:12px">said on <?=$comments['dt']?></span></div>
+			<div style="font-size:13px; color:#909090;"> <?=$comments['usercomment']?></div>				 
+			
+				<br />
+		</div>
+	<? } ?>
+	
+	<div id="reply-form" align="center" style="padding-top:20px;">
+      <form method="post" action="<?=BASE_PATH?>questionaire/ticketdetail/ticketid/<?=$this->ticketdetail[0]['id']?>">
+        <input type="hidden" name="mode" value="addcomment" />
+        <div class="message" style="width:700px;">
+	        <div class="label-field-pair">           
+				<div class="text-area-bg">
+					<textarea name="usercomment" id="usercomment" style="width:550px;"></textarea>
+				</div>
+    	    </div>
+          <div class="extender"></div>
+          <div>
+			<input type="submit" value="<?=LNG_COMMENT?>" name="commit" class="button">
+        </div>
+        </div>
+        
+      </form>
+    </div>
+	
+	</div> 
+
+</div>
+
+      <div class="extender"></div>
+    

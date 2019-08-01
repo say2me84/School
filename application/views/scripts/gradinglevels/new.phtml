@@ -1,0 +1,45 @@
+<?
+if($this->mode==1) {
+$string = $this->listhtml;
+$string = jschars($string);
+?>
+Element.update("grading-levels", "<?=$string?>");
+Modalbox.hide();
+<?
+} else {
+$string = '<label class="head_label">'.LNG_ADD_NEW_GRADING_LEVEL.' <span>
+</span></label><div id="grading-levels-form">
+  <h4></h4>
+
+    <form onsubmit="getajax(\''.BASE_PATH.'gradinglevels/new/mode/add/\',\'?\'+Form.serialize(this),\'form-errors\',\'2\'); return false;" method="post" id="new_grading_level" class="new_grading_level" action="">
+      <div id="form-errors"></div>
+    
+    <input type="hidden" name="batch_id" id="batch_id" value="'.$this->batch_id.'">
+
+    <div class="label-field-pair">
+      <label for="grading_level_name">'.LNG_NAME.'</label>
+      <div class="input-field">'.$this->form->name.'</div>
+    </div>
+
+    <div class="label-field-pair">
+      <label for="grading_level_min_score">'.LNG_MIN_SCORE_FOR_THIS_GRADE.'</label>
+      <div class="input-field">'.$this->form->min_score.'</div>
+    </div>
+
+  <input type="submit" value="Save" name="commit" id="grading_level_submit" class="submit_button MB_focusable">
+    
+
+
+
+  </form>
+</div>';
+
+$string = jschars($string);
+?>
+Element.update("modal-box", "<?=$string?>");
+<?
+	if($this->mode==0) { ?>
+Modalbox.show($('modal-box'), {title: '', width: 500});
+	<? } ?>
+<?
+}?>

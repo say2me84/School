@@ -1,0 +1,71 @@
+<link href="<?=CSS_URL?>exams/new.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_EDIT_EXAM?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+
+    <div class="bread_crumb">
+      <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->blist['grade_id']?>"><?=$this->blist['grade_name']?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->blist['id']?>/batchid/<?=$this->blist['id']?>"><?=LNG_BATCH?> <?=$this->blist['name']?></a> &raquo;
+        <a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$this->blist['id']?>/"><?=LNG_EXAMS?></a> &raquo;
+		<a href="<?=BASE_PATH?>examgroups/show/examgroupid/<?=$this->examgroupid?>"><?=$this->examgroupdetail['name']?></a> &raquo;
+      Edit
+    </div>
+
+    <h5><?=LNG_FOR_EXAM_GROUP?> <?=LNG_SEPERATOR_2?> <?=$this->examgroupdetail['name']?></h5>
+    
+      <form action="<?=BASE_PATH?>exams/edit/examgroupid/<?=$this->examgroupid?>/examid/<?=$this->examid?>" class="new_exam" id="new_exam" method="post">
+	          
+        <div class="label-field-pair">
+          <label for="subject_id"><?=LNG_SUBJECT?></label>
+          <div class="text-input-bg"><?php echo $this->form->exam_subject?></div>
+        </div>
+        <div class="label-field-pair">
+          <label for="subject_start_time"><?=LNG_START_TIME?></label>
+          <div class="text-input-bg"> <?php echo $this->form->exam_start_time?> <img alt="Calendar" class="calendar_date_select_popup_icon" onclick="new CalendarDateSelect( $(this).previous(), {time:true, year_range:10} );" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" style="border:0px; cursor:pointer;"></div>
+        </div>
+        <div class="label-field-pair">
+          <label for="subject_end_time"><?=LNG_END_TIME?></label>
+          <div class="text-input-bg"><?php echo $this->form->exam_end_time?> <img alt="Calendar" class="calendar_date_select_popup_icon" onclick="new CalendarDateSelect( $(this).previous(), {time:true, year_range:10} );" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" style="border:0px; cursor:pointer;"></div>
+        </div>
+        <?
+		if($this->exam_type!='Grades') { ?>
+		<div class="label-field-pair">
+          <label for="subject_maximum_marks"><?=LNG_MAXIMUM_MARKS?></label>
+          <div class="text-input-bg"><?php echo $this->form->maximum_marks?></div>
+        </div>
+        <div class="label-field-pair">
+          <label for="subject_minimum_marks"><?=LNG_MINIMUM_MARKS?></label>
+          <div class="text-input-bg"><?php echo $this->form->minimum_marks?></div>
+        </div>
+		<? } 
+		?>
+        <input class="submit_button" name="commit" value="<?=LNG_SAVE?>" type="submit">
+
+      </form>
+
+    
+    <div class="extender"></div>
+
+</div>
+ </div>
+
+      <div class="extender"></div>
+    

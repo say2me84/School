@@ -1,0 +1,102 @@
+<link href="<?=CSS_URL?>class_timings/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+   
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_timetable.png">
+  <h1><?=LNG_TIMETABLE?></h1>
+  <h3><?=LNG_SET_CLASS_TIMINGS?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<script>
+var editrecid = 0;
+var deleterecid = 0;
+function checktoedit() {
+	totalrec = document.getElementById("totalrec").value;
+	totalcheck = 0;
+	editrecid = 0;
+	for(x=1; x <= totalrec; x++) {
+		if(document.getElementById("chkperiod"+x).checked==true) {
+			totalcheck = parseInt(totalcheck)+1;
+			editrecid = document.getElementById("chkperiod"+x).value;
+		}
+	}
+	
+	if(totalcheck==0) {
+		
+		alert("Please select a record to edit");
+		return false;
+	}
+	if(totalcheck > 1) {
+	
+		alert("Please select only one record to edit");
+		return false;
+	}
+	return true;
+}
+function checktodelete() {
+	totalrec = document.getElementById("totalrec").value;
+	totalcheck = 0;
+	deleterecid = 0;
+	
+	for(x=1; x <= totalrec; x++) {
+		if(document.getElementById("chkperiod"+x).checked==true) {
+			totalcheck = parseInt(totalcheck)+1;
+			if(deleterecid==0) {
+				deleterecid = document.getElementById("chkperiod"+x).value;
+			} else {
+				deleterecid = deleterecid+','+document.getElementById("chkperiod"+x).value;
+			}
+		}
+	}
+	
+	if(totalcheck==0) {
+		
+		alert("Please select a record to delete");
+		return false;
+	}
+	
+	return true;
+}
+</script>
+<div id="page-yield">
+
+  
+    
+    <div class="label-field-pair">
+   <label><?=LNG_SELECT_A_BATCH?><?=LNG_SEPERATOR_1?></label>
+ <div class="text-input-bg">
+  <select onchange="getajax('<?=BASE_PATH?>classtimings/show','?batch_id='+this.value,'class-timings-list');" name="sel_batch_id" id="sel_batch_id">		
+		<? 
+		foreach($this->cblist as $cblist) {?>
+		<option value="<?=$cblist['id']?>" <? if(@$this->batchid==$cblist['id']) { ?> selected="selected"<? } ?>><?=$cblist['grade_name']?> - <?=$cblist['name']?></option>
+		<? } ?>
+	</select>
+  <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+</div></div>
+
+<div id="class-timings-list">
+
+<div class="linker">
+  <a onclick="getajax('<?=BASE_PATH?>classtimings/new','','modal-box',2); return false;" href="#"><?=LNG_ADD?></a>
+</div>
+
+
+<h4><?=LNG_SET_IN_COMMON?></h4>
+
+</div>
+<div style="display: none;" id="modal-box"></div>
+
+<div class="extender"></div>
+ </div>
+ &nbsp;
+ &nbsp;
+
+ </div>
+ <div class="extender"></div>
+ <script>
+ 
+ getajax('<?=BASE_PATH?>classtimings/show','?batch_id='+document.getElementById("sel_batch_id").value,'class-timings-list');
+ 
+ </script>

@@ -1,0 +1,85 @@
+<link href="<?=CSS_URL?>batches/show.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_settings.png">
+  <h1>Grades</h1>
+  <h3>Batches</h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="inner-tab-menu">
+  <ul>
+    
+      <?php /*?><li><a href="<?=BASE_PATH?>examgroup/index/batchid/1">Exams</a> </li><?php */?>
+    
+
+    <li><a href="<?=BASE_PATH?>batches/edit/gradeid/<?=$this->batchdetail['grade_id']?>/batchid/<?=$this->batchdetail['id']?>">Edit</a></li>
+    <li><a onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;); f.appendChild(s);f.submit(); };return false;" href="<?=BASE_PATH?>grades/batchedelete/gradeid/<?=$this->batchdetail['grade_id']?>/batchid/<?=$this->batchdetail['id']?>">Delete</a></li>
+
+
+    <li style="width:120px;">
+      <a id="link_one" class="drops" href="<?=BASE_PATH?>subject/index/batchid/<?=$this->batchdetail['id']?>">Manage Subjects</a>
+     <?php /*?> <ul style="display:none;" class="scriptaculously" id="box_one">
+        <li><a href="<?=BASE_PATH?>batch_transfers/subject_transfer/batchid/1"></a></li>
+        <li><a href="<?=BASE_PATH?>batches/electives/batchid/1">Electives</a></li>
+        <li><a href="<?=BASE_PATH?>batches/assign_tutor/batchid/1">Assign Tutor</a></li>
+      </ul><?php */?>
+    </li>
+  </ul>
+</div>
+<div id="page-yield">
+
+  
+
+  
+
+  
+
+  
+
+  <div class="box">
+    <div class="bread_crumb">
+      <a href="<?=BASE_PATH?>grades">Grades</a> &raquo;
+      <a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->batchdetail['grade_id']?>"><?=$this->batchdetail['grade_name']?></a> &raquo;
+      <?=LNG_BATCH?> <?=$this->batchdetail['name']?>
+    </div>
+
+<? if(isset($this->studentlist) && count($this->studentlist) > 0) { ?>
+    <table width="100%" id="listing">
+	
+		<tr class="tr-head">
+        	<td>Sl.no</td>
+        	<td>Name</td>
+        	<td>Admission Number</td>
+      </tr>
+      
+      <? $i=1; 
+	  foreach($this->studentlist as $studentlist) {
+	   $m=$i%2;
+			if($m==0)
+			{
+				$class="tr-even";	
+			}else{
+				$class="tr-odd";	
+			}
+
+   		?>
+        
+        <tr class="<? echo $class; ?>">
+          <td class="col-1"><? echo $i; ?></td>
+          <td class="col-2">
+		  		<a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>">
+		  			<?=$studentlist['first_name']?> <?=$studentlist['middle_name']?> <?=$studentlist['last_name']?>
+		  		</a>
+			</td>
+        	<td class="col-3"><?=$studentlist['admission_no']?></td>
+        </tr>
+		<? $i++; } ?>
+     
+	</table>
+ <? } ?>
+    <div id="extender"></div>
+  </div>
+</div>

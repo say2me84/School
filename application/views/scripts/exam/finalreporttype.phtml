@@ -1,0 +1,45 @@
+<link href="<?=CSS_URL?>exam/exam_wise_report.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="Exam" src="<?=IMAGES_URL?>examination/show_exam.png">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_EXAM_WISE_REPORT?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<div id="page-yield">
+
+    
+
+ <div class="box">
+<form method="post" action="<?=BASE_PATH?>exam/generatedreport4/">
+
+
+<div class="text-input-bg">
+<select   name="batch_id" id="batch_id">
+<option value=""><?=LNG_SELECT_A_BATCH?></option>
+<?
+foreach($this->batcheslist as $batcheslist) { ?>
+<option value="<?=$batcheslist['id']?>"><?=$batcheslist['grade_name']?> - <?=$batcheslist['name']?></option>
+<? } ?>
+</select>
+</div>
+
+ 
+    <input type="submit" value="<?=LNG_VIEW?>" name="commit" class="submit_button">
+  </form>
+
+  <div class="extender">
+
+      </div>
+ </div>
+    </div> </div>
+
+      <div class="extender"></div>

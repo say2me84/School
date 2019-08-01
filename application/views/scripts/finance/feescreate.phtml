@@ -1,0 +1,345 @@
+<?
+	$db= new Db();
+?>
+
+<link href="<?=CSS_URL?>finance/index.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+
+
+
+<?
+
+if($this->mode==0) { ?>
+
+<label class="head_label">Add new fees for <span>
+
+<?=$this->batchdetail[0]['batchname']?>
+
+</span></label>
+
+<div id="ajax-create" >
+
+<script>
+
+gl_no = 1;
+
+
+
+function setinst(no)
+
+{
+
+	if(parseInt(gl_no) < parseInt(no)) {
+
+
+
+		t = parseInt(gl_no) +1;
+
+		
+
+		for(i=t; i <= no; i++)
+
+		{
+
+			//alert(document.getElementById("installmentdiv").innerHTML);
+
+			
+
+			jQuery('#installmentdiv').append('<div id="instrow_'+i+'" style="clear:both"><div style="float:left; width:30px" class="add_new_text">'+i+'. </div><div style="float:left; width:210px"><input type="text" class="addfees" name="inst_'+i+'" id="inst_'+i+'" value="" /></div><div style="float:left"><input type="text" class="addfees" name="duedate_'+i+'" id="duedate_'+i+'" /> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-1))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')+1))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div></div>');
+
+		}
+
+	} else {
+
+		t = parseInt(no) + 1;
+
+		
+
+		for(i=t; i <= gl_no; i++)
+
+		{
+
+			//alert(document.getElementById("installmentdiv").innerHTML);
+
+			
+
+			jQuery('#instrow_'+i).remove();
+
+		}
+
+	}
+
+	gl_no = no;
+
+	if(parseInt(no) > 7) {
+
+		jQuery('#installmentdiv').height(200);
+
+	}
+
+	
+
+}
+
+</script>
+
+  <form action="" method="post" onsubmit="getajax('<?=BASE_PATH?>finance/feescreate/','?'+Form.serialize(this),'modal-box','2')">
+
+    <input id="batchid" name="batchid" value="<?=$this->batchid?>" type="hidden">
+
+	<input id="mode" name="mode" value="add" type="hidden">
+
+    <div id="form-errors"></div>
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+		<td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+			<td class="add_new_text">Categories</td>
+
+			<td><div class="input-field">
+
+				<select name="catlist" id="catlist">
+				<?
+				foreach($this->clist as $clist) { ?>
+					<option value="<?=$clist['id']?>"><?=$clist['name']?></option>
+				<? } ?>
+				</select>
+			  </div>
+
+			 </td>
+
+			<td class="add_new_text">No of Inst.</td>
+
+			<td><select name="noofinst" id="noofinst" onchange="setinst(this.value)">
+
+			<? for($i=1; $i<25; $i++) { ?>
+
+				<option value="<?=$i?>"><?=$i?></option>	
+
+			<? } ?>
+
+			</select>
+
+		   </td>
+
+		  </tr>
+
+		</table>
+
+		</td>
+
+	  </tr>
+
+	  <tr>
+
+		<td>&nbsp;</td>
+
+	  </tr>
+
+	</table>
+
+	
+
+	 <?php /*?><div class="label-field-pair">
+
+      <label for="name" style="width:100px;">Categories</label>
+
+      <div class="time-select-field">
+
+				<select name="catlist" id="catlist" style="width:120px;">
+
+				<?
+
+				foreach($this->clist as $clist) { ?>
+
+					<option value="<?=$clist['id']?>"><?=$clist['name']?></option>
+
+				<? } ?>
+
+				</select>
+
+				
+
+			<select name="noofinst" id="noofinst" onchange="setinst(this.value)">
+
+			<? for($i=1; $i<25; $i++) { ?>
+
+				<option value="<?=$i?>"><?=$i?></option>	
+
+			<? } ?>
+
+			</select>
+
+	  </div>
+
+	</div><?php */?>
+
+	<div id="installmentdiv" style="overflow:auto">
+
+		<div id="instrow_1" style="clear:both">
+		<div style="float:left; width:30px" class="add_new_text">
+		</div>
+			
+			<div style="float:left; width:210px">
+
+				<input type="text" name="inst_1" class="addfees" id="inst_1" value="" />
+
+			</div>
+
+			<div style="float:left"><input type="text" class="addfees" name="duedate_1" id="duedate_1" /> 
+
+			<img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[<?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')-1))?>, <?=date('Y',mktime(0,0,0,date('m'),date('d'),date('Y')+1))?>]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+
+		</div>
+
+		
+
+	</div>
+
+    <input class="submit-button MB_focusable" id="submit" name="commit" value="Save" type="submit">
+
+  </form>
+
+</div>
+
+<?
+
+} elseif($this->mode==1) { ?>
+
+<?
+
+	$string = "<input type=\"hidden\" name=\"batchid\" id=\"batchid\" value=\"".$this->batchid."\" />
+
+  <div class=\"add_sub\">
+
+  <a href=\"#\" onclick=\"getajax('".BASE_PATH."finance/feescreate/batchid/".$this->batchid."','','modal-box',1)\">Add fees</a>
+
+  </div>
+
+ ".tframe1_pre()."<table id=\"class-timings-list\" width=\"100%\">
+
+  <tbody><tr class=\"tr-head\">
+
+    <td>Name</td>
+
+    <td>No. of Inst.</td>
+
+	<td>Installments</td>
+
+    <td>Operations</td>
+
+  </tr>";
+
+    
+
+	$i=1;
+
+	foreach($this->slist as $slist) {
+
+     /* $string .= "<li class=\"listeven\" id=\"subject-1\">
+
+        <div class=\"category-name\">".$slist['catname']."</div>
+
+        <div class=\"opt\">
+
+          <div class=\"category-code\">".$slist['noofinst']."</div>
+
+          <div class=\"category-edit\"><a onclick=\"getajax('".BASE_PATH."finance/feesedit/fsid/".$slist['id']."','?batchid=".$this->batchid."','modal-box',2);\" href=\"#\">Edit</a> </div>
+
+          <div class=\"category-delete\">            
+
+              <a onclick=\"if(confirm('Are you sure?')) { new getajax('".BASE_PATH."finance/show/mode/delete/fsid/".$slist['id']."', '?batchid=".$this->batchid."','feesstructurediv'); }\" href=\"#\">Delete</a>            
+
+          </div>
+
+          
+
+        </div>
+
+      </li>"*/
+
+	  $m=$i%2; 
+
+		if($m==0)
+
+		{
+
+			$class="tr-even";	
+
+		}else{
+
+			$class="tr-odd";
+
+		}
+
+	  $string .= " <tr id=\"class-timing-1\" class=\"".$class."\">
+
+      <td class=\"col-1\">".$slist['catname']."</td>
+
+	  <td class=\"col-3\">".$slist['noofinst']."</td>";
+
+	   
+
+	  $qry="select *, DATE_FORMAT(dueon, '%M %d, %Y') as dueondt from `fees_structuredetail` where fsid='".$slist['id']."'"; 
+
+	  	$installment=$db->runQuery("$qry");
+
+		
+
+		$string .=" <td class=\"col-4\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
+
+		$i=1;
+
+		foreach($installment as $inst){
+
+		
+
+	   $string .= 
+
+	   "<tr>
+
+	   <td>".$inst['inst']."</td>
+
+	   <td>".$inst['dueondt']."</td>
+
+	   </tr>";
+
+	   $i++; }
+
+	   
+
+	   $string .= "</table></td>
+
+      
+
+      <td class=\"col-3\">	<small>
+
+		<a onclick=\"getajax('".BASE_PATH."finance/feesedit/fsid/".$slist['id']."','?batchid=".$this->batchid."','modal-box',2);\" href=\"#\">Edit</a> 
+
+         |        
+
+              <a onclick=\"if(confirm('Are you sure?')) { new getajax('".BASE_PATH."finance/show/mode/delete/fsid/".$slist['id']."', '?batchid=".$this->batchid."','feesstructurediv'); }\" href=\"#\">Delete</a>            
+
+           </small></td>
+
+    </tr>";
+
+	  
+
+    
+
+	} 
+
+  $string .= "</tbody></table>".tframe1_post().""; 
+
+$string = jschars($string);
+
+?>
+
+
+
+Element.update("feesstructurediv", "<?=$string?>");
+
+Modalbox.hide();
+
+<? } ?>

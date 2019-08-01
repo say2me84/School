@@ -1,0 +1,188 @@
+<?
+global $mySession;
+//	echo"<pre>";print_r($this->olddetail);exit;
+//echo"<pre>";print_r($this->studentdetail);exit;
+//echo $this->studentdetail['sem1_start'];exit;
+$examscore = $this->examscore ;
+
+?>
+<link href="<?=CSS_URL?>exam/generated_report.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_MARKS?></h1>
+  <h3><?=LNG_STUDENT_MARKS?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+	
+	<? if(count($mySession->user['userstudentid']) > 1) {		
+		?>
+			<form method="post" action="<?=BASE_PATH?>student/studentmarks">
+				<div style="margin: 0pt; padding: 0pt; display: inline;"><input type="hidden" value="BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=" name="authenticity_token"></div>
+				<div class="label-field-pair">
+				  <label for="timetable_entry_class_id"><?=LNG_SELECT_A_STUDENT?></label>
+				   <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+				  <div class="text-input-bg">
+				  <select onchange="window.location='<?=BASE_PATH?>student/studentmarks/studentid/'+this.value;" name="timetable_entry[grade_id]" id="timetable_entry_class_id">					
+					<? foreach($this->studentlist as $studentlist) { ?>
+						<option value="<?=$studentlist['id']?>"<? if(@$studentlist['id']==$this->studentid) { ?> selected="selected"<? } ?>><?=$studentlist['first_name']?> <?=$studentlist['middle_name']?></option>
+					<? } ?>
+				
+				</select>
+				  </div>
+				</div>
+			  </form>
+			  <div class="extender"> </div>
+		  <div id="student_marks_view"> </div>
+		<? 		
+	}else{ ?>
+	<div id="student_profile_heading">
+		<div id="student_main_info">
+		  <span class="name"> <? echo $this->studentdetail['stname']; ?>  </span>
+		  <span class="course"> <?=LNG_GRADE?> <?=$this->studentdetail['grade_name']?>; <?=LNG_BATCH?>: <?=$this->studentdetail['batchname']?> </span>&nbsp;
+		  <span class="adm"> <?=LNG_ADM_NO?> : <? echo $this->studentdetail['admission_no'];?> </span>
+		</div>
+    <div class="extender"> </div>
+  </div>
+  
+    <?
+  	}
+  ?>
+  
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="vertical-align:top;">
+		<div id="sidebar_news_area">
+            <div class="sidebar_head">
+				<?=LNG_SEMESTER?>
+			</div>
+			<div>
+			<ul>
+				<?
+					if($this->studentdetail['secondsem']<=time()){
+					?>
+					<li><a href="<?=BASE_PATH?>student/studentmarks/year/<?=$this->studentdetail['sem1_start']?>/studentid/<?=$this->studentdetail['stuid']?>/batchid/<?=$this->studentdetail['batchid']?>/semno/2">
+						<?=$this->studentdetail['sem1_start']?> Sem 2</a></li>
+					<?
+					}
+				?>
+					<li><a href="<?=BASE_PATH?>student/studentmarks/year/<?=$this->studentdetail['sem1_start']?>/studentid/<? echo $this->studentdetail['stuid']; ?>/batchid/<? echo $this->studentdetail['batchid']; ?>/semno/1">
+						<?=$this->studentdetail['sem1_start']?> Sem 1</a></li>
+				
+					
+				<?
+					foreach($this->olddetail as $olddetail){
+					?>
+						<li><a href="<?=BASE_PATH?>student/studentmarks/year/<?=$olddetail['sem1_start']?>/studentid/<? echo $this->studentdetail['stuid']; ?>/batchid/<?=$olddetail['batchid']?>/semno/2">
+							<?=$olddetail['sem1_start']?> Sem 2</a></li>
+						<li><a href="<?=BASE_PATH?>student/studentmarks/year/<?=$olddetail['sem1_start']?>/studentid/<? echo $this->studentdetail['stuid']; ?>/batchid/<?=$olddetail['batchid']?>/semno/1">
+							<?=$olddetail['sem1_start']?> Sem 1</a></li>			
+					<?
+					}
+				?>
+			</ul>
+			</div>
+        </div>
+	</td>
+    <td style="padding-top:15px;">
+	<div class="box">   
+		<div id="score-table">
+		<?
+  tframe_pre();
+  ?>
+		<table id="listing" width="100%">
+		  <tr class="tr-head">
+			<td><?=LNG_SUBJECT?></td>
+			<? foreach($this->examgroup as $examgroup){ ?>
+			  <td style="display:none;"><?=$examgroup['name']?></td>
+			<? } ?>
+					  
+			<td><?=LNG_TOTAL_MARKS_SCORES?></td>
+			<td><?=LNG_MAX_MARKS?></td>
+		  </tr>
+		  <?
+		  $i=1;
+		  $markstotal = 0;
+		  $maxtotal = 0;
+		  foreach($this->subjects as $subjects) {
+		  if($i%2) { $class = 'tr-odd';} else { $class = 'tr-even'; }
+		  ?>
+			<tr class="<?=$class?>">
+			  <td class="col-2"><?=$subjects['name']?></td>
+				
+			   <?
+				$subjecttotal = 0;
+				$subjectmaxtotal = 0;
+				foreach($this->examgroup as $examgroup){ 
+				$subjecttotal = $subjecttotal+$examscore[$subjects['id']][$examgroup['id']]['marks'];
+				$subjectmaxtotal = $subjectmaxtotal+$examscore[$subjects['id']][$examgroup['id']]['maxmarks'];
+				$maxtotal = $maxtotal + $examscore[$subjects['id']][$examgroup['id']]['maxmarks'];
+				$markstotal = $markstotal + $examscore[$subjects['id']][$examgroup['id']]['marks'];
+			   ?>
+				<td class="col-3" style="display:none"><?=$examscore[$subjects['id']][$examgroup['id']]['marks']?> / <?=$examscore[$subjects['id']][$examgroup['id']]['maxmarks']?></td>
+				<? } ?>
+				<td class="col-4"><?=$subjecttotal?></td>
+				<td class="col-4"><?=$subjectmaxtotal?></td>
+			</tr>
+		  <? $i++; 
+		  } ?>
+		   
+		</tbody></table>
+	<?
+  tframe_post();
+  ?>
+		</div>
+		
+		  <div id="student_total">
+		  	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<?
+					if($this->score_total['id']){
+					?>
+					<tr>
+						<td class="type"><?=LNG_TOTAL_MARKS?></td>
+						<td class="marks"><?=$this->score_total['stu_obt_marks'].'/'.$this->score_total['stu_max_marks']?></td>
+					 </tr>
+					  <tr>
+						<td class="type"><?=LNG_AGGREGATE_PERCENT?></td>
+						<td class="marks"><?=$this->score_total['percentage']?></td>
+					  </tr>
+					  <tr>
+						<td class="type"><?=LNG_CLASS_RANK?></td>
+						<td class="marks"><?=($this->stu_rank['cnt']+1)?></td>
+					  </tr>
+					<?
+					} else {
+						?>
+						<tr>
+							<td class="type"><?=LNG_TOTAL_MARKS?></td>
+							<td class="marks"><?=$markstotal?>/<?=$maxtotal?></td>
+						</tr>
+						<?
+					}
+				?>			  
+			</table>
+
+			
+		  </div>
+			
+			<div class="extender"></div> 
+		  </div>
+			</td>
+		  </tr>
+		</table>
+   
+      
+	
+	 
+	 
+  
+</div>
+ </div>
+
+      <div class="extender"></div>
+    

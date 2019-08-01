@@ -1,0 +1,12 @@
+<h4 align="center"><?=LNG_ACTIVE_BATCHES?></h4>
+
+<ul id="category-list">    
+	<?
+	foreach($this->batchlist as $batchlist) { ?>
+      <li class="listodd">
+        <div class="category-name"><a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->gradeid?>/batchid/<?=$batchlist['id']?>"><?=$batchlist['grade_name']?> - <?=$batchlist['name']?></a></div>
+      </li> 
+   <? 
+    }
+   ?>   
+</ul>

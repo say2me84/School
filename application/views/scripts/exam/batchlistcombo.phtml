@@ -1,0 +1,8 @@
+<select name="search_batchid" id="search_batchid">
+<option value=""><?=LNG_SELECT_A_BATCH?></option>
+<? if(isset($this->batchlist) && count($this->batchlist) > 0) { ?>
+	<? foreach($this->batchlist as $batchlist) { ?>
+		<option value="<?=$batchlist['id']?>"><?=$batchlist['name']?></option>
+	<? } ?>
+<? } ?>
+</select>

@@ -1,0 +1,11 @@
+ <div class="label-field-pair">
+      <label for="subject_name"><?=LNG_SUBJECT?></label>
+        <div class="text-input-bg">
+		<select onchange="getajax('<?=BASE_PATH?>employee/selectdepartment','?subject_id='+this.value,'department-select');" name="subject_assignment[subject_id]" id="subject_assignment_subject_id">
+		<option value=""><?=LNG_SELECT_A_SUBJECT?></option>
+		 <?
+		foreach($this->subject as $subject) { ?>
+		<option value="<?=$subject['id']?>"><?=$subject['code']?> - <?=$subject['name']?></option>
+	  <? } ?>
+		</select>
+</div>

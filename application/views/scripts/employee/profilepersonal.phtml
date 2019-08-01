@@ -1,0 +1,34 @@
+<?
+global $mySession;
+$detail = $this->detail; 
+
+$blood_group[1]='Unknown';
+$blood_group[2]='A+';
+$blood_group[3]='A-';
+$blood_group[4]='B+';
+$blood_group[5]='B-';
+$blood_group[6]='O+';
+$blood_group[7]='O-';
+$blood_group[8]='AB+';
+$blood_group[9]='AB-';
+				?>
+<table width="700">
+<tr class="odd left"><td><?=LNG_DOB?></td><td class="right"><?=$detail['dob']?></td></tr>
+<tr class="even left"><td><?=LNG_MARTIAL_STATUS?></td><td class="right"><?=$detail['marital_status']?></td></tr>
+<tr class="odd left"><td><?=LNG_NO_OF_CHILD?></td><td class="right"><?=$detail['children_count']?></td></tr>
+<tr class="even left"><td><?=LNG_FATHER_NAME?></td><td class="right"><?=$detail['father_name']?></td></tr>
+<tr class="odd left"><td><?=LNG_MOTHER_NAME?></td><td class="right"><?=$detail['mother_name']?></td></tr>
+<tr class="even left"><td><?=LNG_SPOUSE_NAME?></td><td class="right"><?=$detail['husband_name']?></td></tr>
+<tr class="odd left"><td><?=LNG_BLOOD_GROUP?></td><td class="right"><?=$blood_group[$detail['blood_group']]?></td></tr>
+<tr class="even left"><td><?=LNG_NATIONALITY?></td><td class="right"><?=$detail['countryname']?></td></tr>
+</table>
+<div class="edit-pdf-group">
+<? if($mySession->user['usertype']!='T') { ?>
+<div class="edit">
+<a href="<?=BASE_PATH?>employee/editpersonal/profileid/<?=$detail['id']?>"> <?=LNG_EDIT?></a>
+</div>
+<? } ?>
+<?php /*?><div class="pdf">
+<a href="/employee/profile_pdf/11" class="user_button" target="_blank"> PDF Report</a>
+</div><?php */?>
+</div>

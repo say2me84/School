@@ -1,0 +1,8 @@
+<select name="employee_position_id" id="employee_position_id">
+<option value=""><?=LNG_SELECT_POSITION?></option>
+<? if(isset($this->rlist) && count($this->rlist) > 0) { ?>
+	<? foreach($this->rlist as $rlist) { ?>
+		<option value="<?=$rlist['id']?>"><?=$rlist['name']?></option>
+	<? } ?>
+<? } ?>
+</select>

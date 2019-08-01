@@ -1,0 +1,178 @@
+<link href="<?=CSS_URL?>exam_groups/new.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<script>
+function setminmax(cls,vl)
+{
+	jQuery('.'+cls).val(vl);
+}
+</script>
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>examination/show_exam.png" alt="Exam">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_NEW_EXAM?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  
+
+<div class="bread_crumb" style="text-align:left;">
+        <a href="<?=BASE_PATH?>grades"><?=LNG_GRADES?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>grades/show/gradeid/<?=$this->blist['grade_id']?>"><?=$this->blist['grade_name']?></a> &raquo;
+	  	<a href="<?=BASE_PATH?>batches/show/gradeid/<?=$this->blist['grade_id']?>/batchid/<?=$this->blist['id']?>"><?=LNG_BATCH?> <?=$this->blist['name']?></a> &raquo;
+        <a href="<?=BASE_PATH?>examgroups/index/batchid/<?=$this->blist['id']?>/"><?=LNG_EXAMS?></a> &raquo;
+       <?=LNG_NEW_EXAM?>
+        </div>
+    
+  <?
+if(count($this->cblist))
+{
+	?> 
+    <div class="box" style="width:780px;">
+	<div class="label-field-pair">
+   <label><?=LNG_SELECT_A_BATCH?><?=LNG_SEPERATOR_1?></label>
+ <div class="text-input-bg">
+  <select onchange="document.location='<?=BASE_PATH?>exam/updateexamform/batchid/'+this.value" name="sel_batch_id" id="sel_batch_id">		
+		<? 
+		foreach($this->cblist as $cblist) {?>
+		<option value="<?=$cblist['id']?>" <? if(@$this->batchid==$cblist['id']) { ?> selected="selected"<? } ?>><?=$cblist['grade_name']?> - <?=$cblist['name']?></option>
+		<? } ?>
+	</select>
+  <img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>loader.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+</div></div>
+   <div id="flash"></div>
+    
+	<div id="exam-form" style="text-align:left;">
+	<form method="post" id="new_exam_group" class="new_exam_group" action="<?=BASE_PATH?>exam/updateexamform/batchid/<?=$this->batchid?>/">
+  <div class="label-field-pair">
+    <label for="exam_group_name"><?=LNG_NAME?></label>
+    <div class="text-input-bg"><?=$this->form->name?></div>
+  </div>
+  <div class="label-field-pair" style="display:none">
+    <label for="exam_group_exam_type"><?=LNG_EXAM_TYPE?></label>
+    <input type="hidden" value="<?=$this->exam_type?>" name="exam_type" id="exam_group_exam_type">
+    <div class="text-input-bg">
+	<input type="text" value="<?=$this->exam_type?>" size="30" name="exam_type" id="exam_group_exam_type" disabled="disabled">
+    </div><a class="type_link" href="<?=BASE_PATH?>examgroups/new/batchid/<?=$this->batchid?>/?name=<?=$this->name?>">Change Type</a>
+  </div>
+  <?
+  if($this->exam_type!='Grades') { ?>
+  <div class="label-field-pair">
+    <label for="exam_group_maximum_marks"><?=LNG_MAXIMUM_MARKS?></label>
+    <div class="text-input-bg"><?=$this->form->maximum_marks?></div>
+  </div>
+  <div class="label-field-pair">
+    <label for="exam_group_minimum_marks"><?=LNG_MINIMUM_MARKS?></label>
+    <div class="text-input-bg"> <?=$this->form->minimum_marks?></div>
+  </div>
+  <? 
+  }
+  ?>
+<h4><?=LNG_ENTER_EXAM_RELATED_DETAIL?></h4>
+<?
+  tframe_pre();
+  ?>
+  <table width="100%" id="listing">
+    <tbody><tr class="tr-head">
+      <td><?=LNG_SUBJECT_NAME?></td>
+      <?
+  	  if($this->exam_type!='Grades') { ?>
+  	  <td><?=LNG_MAX_MARKS?></td>
+      <td><?=LNG_MIN_MARKS?></td>
+	  <? } ?>
+      <td><?=LNG_START_TIME?></td>
+      <td><?=LNG_END_TIME?></td>
+      <td><?=LNG_DO_NOT_CREATE?></td>
+    </tr>
+	<? $i=0;
+	  foreach($this->slist as $slist) { 
+	  $m=$i%2; 
+		if($m==0)
+		{
+			$class="tr-even";	
+		}else{
+			$class="tr-odd";	
+		}
+		?>
+      <tr class="<?=$class?>">
+        <td class="col-2"><?=$slist['name']?>
+		<input type="hidden" value="<?=$slist['id']?>" name="exam_group_<?=$i?>_subject_id" id="exam_group_<?=$i?>_subject_id">
+        </td>
+        <?
+  	  	if($this->exam_type!='Grades') { ?>
+	    <td class="col-1"><div class="label-field-pair2">
+        <div class="text-input-bg2">
+        <input type="text" size="4" name="exam_group_<?=$i?>_maximum_marks" id="exam_group_<?=$i?>_maximum_marks" class="max_marks">
+        </div>
+        </div>
+        </td>
+        <td class="col-1">
+        <div class="label-field-pair2">
+        <div class="text-input-bg2">
+        <input type="text" size="4" name="exam_group_<?=$i?>_minimum_marks" id="exam_group_<?=$i?>_minimum_marks" class="min_marks">
+        </div>
+        </div>
+        </td>
+		<? } ?>
+        <td class="col-1">
+         <div class="label-field-pair3">
+        <div class="text-input-bg3">
+        <input type="text" size="30" name="exam_group_<?=$i?>_start_time" id="exam_group_<?=$i?>_start_time"> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?1313631718" onclick="new CalendarDateSelect( $(this).previous(), {time:true, year_range:10} );" class="calendar_date_select_popup_icon" alt="Calendar">
+        </div>
+        </div>
+        </td>
+        <td class="col-1">
+         <div class="label-field-pair3">
+        <div class="text-input-bg3">
+        <input type="text" size="30" name="exam_group_<?=$i?>_end_time" id="exam_group_<?=$i?>_end_time"> <img style="border: 0px none; cursor: pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?1313631718" onclick="new CalendarDateSelect( $(this).previous(), {time:true, year_range:10} );" class="calendar_date_select_popup_icon" alt="Calendar">
+        </div>
+        </div></td>
+        <td class="col-1">
+         <div class="label-field-pair2">
+        <div class="text-input-bg2">
+        <input type="checkbox" value="1" name="exam_group_<?=$i?>_delete" id="exam_group_<?=$i?>_delete">
+        </div>
+        </div>
+        </td>
+      </tr>
+    
+      <? $i++; } ?>
+    
+  </tbody></table>
+  <?
+  tframe_post();
+  ?>
+  
+      <input type="hidden" value="<?=$i?>" name="totalsubject" id="totalsubject" />
+	  <input id="mode" name="mode" size="30" value="add" type="hidden">
+  <input type="submit" value="<?=LNG_SAVE_CHANGES?>" name="commit" class="submit_button2">
+
+
+</form>
+</div>
+	
+
+    <div class="extender"></div>
+
+
+  </div>
+  <?
+  } else {
+  ?>
+  	<div class="validate"><?=LNG_NO_RIGHT_TO_CREATE_EXAM?></div>
+  <?
+  }
+  ?>
+  </div> </div>
+
+      <div class="extender"></div>
+    

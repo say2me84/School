@@ -1,0 +1,97 @@
+
+<div id="header_bg">
+	<table width="1000" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color:transparent">
+	  <tr>
+		<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:transparent">
+			  <tr>
+				<td height="40">
+					<div id="school_name">&nbsp;</div>
+					<div style="float:right; font-size:13px; font-weight:600; width:500px;">
+        
+		 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="-moz-border-radius:0px; background:none; padding:0px;">
+		 <tr>
+			<td style="color:#fff;">
+			<?
+			if($mySession->setlanguage=='1'){
+			?>
+			 <?=LNG_WELCOME_MESSAGE1?><?=LNG_SEPERATOR_1?>
+			 <a class="welcome_msg" href="<?=BASE_PATH?>admin/profile"><?=$mySession->user['fname']?></a> &nbsp;|&nbsp;
+			 <?
+			 }else{
+			 ?>
+				<a class="welcome_msg" href="<?=BASE_PATH?>admin/profile"><?=$mySession->user['fname']?></a>
+				<?=LNG_SEPERATOR_1?><?=LNG_WELCOME_MESSAGE1?>
+	 &nbsp;|&nbsp;
+			 <?
+			 }
+			 ?>
+			</td>
+			
+			<td class="header_txt">
+			<div style="float:left" title="<?=LNG_MESSAGES?>"><a class="welcome_msg" href="<?=BASE_PATH?>reminder" title="<?=LNG_MESSAGES?>"><img src="<?=IMAGES_URL?>message.gif" border="0" alt="<?=LNG_MESSAGES?>" /></a></div><div style="float:left">(<?=$mySession->msgcont?>)</div>&nbsp;|&nbsp;
+			</td>
+			
+		<?php /*?>	<td>
+		<div style="float:left" title="<?=LNG_QUESTIONAIRE?>"><a href="<?=BASE_PATH?>questionaire" title="<?=LNG_QUESTIONAIRE?>">
+			 <img src="<?=IMAGES_URL?>Icon_Question.gif" border="0" alt="<?=LNG_QUESTIONAIRE?>" /></a></div><div style="float:left">(<?=$mySession->msgcont?>)</div>&nbsp;|&nbsp;
+			</td><?php */?>
+			<td class="header_txt">
+			<a class="welcome_msg" href="<?=BASE_PATH?>user/changepassword"><?=LNG_CHANGE_PASSWORD?></a>&nbsp;|&nbsp;
+			</td>
+			<td class="header_txt"><a class="welcome_msg" href="<?=BASE_PATH?>index/logout"><?=LNG_LOGOUT?></a> 
+			  &nbsp;|&nbsp;
+			</td>
+			
+			<td style="width:50px">
+			<div style="position:absolute; top:0px">
+			<?
+			if($mySession->setlanguage=='2'){
+			?>
+					<a href="#" style="color:#000000; text-decoration:none;" onclick="getajax('<?=BASE_PATH?>index/changelanguage/lngid/1','','school_name',2)">
+					<img src="<?=IMAGES_URL?>lng_en.png" border="0" /></a>
+			<?
+			} else {
+			?>
+					<a href="#" style="color:#000000; text-decoration:none;" onclick="getajax('<?=BASE_PATH?>index/changelanguage/lngid/2','','school_name',2)">
+					<img src="<?=IMAGES_URL?>lng_ar.png" border="0" /></a>
+			<?
+			}
+			?>
+			</div>
+			</td>
+				  </tr>
+			</table>
+		  <?php /*?><?=LNG_WELCOME_MESSAGE1?><?=LNG_SEPERATOR_1?>
+          <a href="<?=BASE_PATH?>admin/profile"><?=$mySession->user['fname']?></a> &nbsp;|&nbsp;
+           <a href="<?=BASE_PATH?>reminder"><?=LNG_MESSAGES?></a>(0)&nbsp;|&nbsp;
+		   <a href="<?=BASE_PATH?>questionaire"><?=LNG_QUESTIONAIRE?></a>(0)&nbsp;|&nbsp;
+         	<a href="<?=BASE_PATH?>index/logout"><?=LNG_LOGOUT?></a>  &nbsp; |&nbsp;
+		  		<?
+			 	if($mySession->setlanguage=='2'){
+				?>
+					<a href="#" onclick="getajax('<?=BASE_PATH?>index/changelanguage/lngid/1','','school_name',2)">E</a>
+				<?
+				} else {
+				?>
+					<a href="#" onclick="getajax('<?=BASE_PATH?>index/changelanguage/lngid/2','','school_name',2)">A</a>
+				<?
+				}
+			 ?> 
+			  &nbsp;&nbsp;<?php */?>
+			 </div>
+				</td>
+			  </tr>
+			  <tr>
+				<td><div id="header">
+        <div id="main-menu">
+          <? include("amenu.phtml"); ?>
+	    </div>
+        
+      </div></td>
+			  </tr>
+			</table>
+		</td>
+	  </tr>
+	</table>
+</div>

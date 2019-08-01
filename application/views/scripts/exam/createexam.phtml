@@ -1,0 +1,36 @@
+
+      <div id="side_bar">
+        <div id="sidebar_news_area">
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="Exam" src="<?=IMAGES_URL?>examination/show_exam.png">
+  <h1><?=LNG_EXAMS?></h1>
+  <h3><?=LNG_CREATE_EXAM?></h3>
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+<div id="page-yield">
+    
+<div>
+     <div class="label-field-pair">
+   <label for="student_class"><?=LNG_SELECT_GRADE?>
+<img border="0" align="absmiddle" style="display: none;" src="<?=IMAGES_URL?>load.gif?<?=UPDATE_KEY?>" id="loader" alt="Loader">
+   </label>
+   <div class="text-input-bg">
+  <select onchange="getajax('<?=BASE_PATH?>exam/updatebatch', '?grade_id='+this.value,'update_batch')" name="classes[name]" id="classes_name">
+  	<option value=""><?=LNG_SELECT_A_GRADE?></option>
+  <? 
+	foreach($this->glist as $glist) { ?>
+	<option value="<?=$glist['id']?>"><?=$glist['code']?> - <?=$glist['grade_name']?></option>
+  <? } ?>
+  </select>
+</div></div>
+
+<div style="float: left; width: 800px;" id="update_batch"></div>
+<div class="extender"></div>
+ </div></div> </div>
+
+      <div class="extender"></div>

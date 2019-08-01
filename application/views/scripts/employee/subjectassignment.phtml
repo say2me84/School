@@ -1,0 +1,53 @@
+<link href="<?=CSS_URL?>employee/subject_assignment.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img alt="" src="<?=IMAGES_URL?>HR/show_hr.png">
+  <h1><?=LNG_EMPLOYEE_SUBJECT?></h1>
+  <h3><?=LNG_ASSOCIATE?></h3>
+  <div id="app-back-button">
+ <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <div id="form-content">
+    <div class="label-field-pair">
+      <label for="course_name"><?=LNG_GRADES?></label>
+        <div class="text-input-bg">
+          <select onchange="getajax('<?=BASE_PATH?>employee/updatesubjects', '?grade_id='+value,'subjects1')" name="subject_assignment_grade_id" id="subject_assignment_grade_id"><option value=""><?=LNG_SELECT_GRADE?></option>
+ 	  <?
+		foreach($this->cblist as $cblist) { ?>
+		<option value="<?=$cblist['id']?>"><?=$cblist['grade_name']?> - <?=$cblist['batch_name']?></option>
+	  <? } ?>
+	  </select>
+        </div>
+    </div>
+
+    <div id="subjects1"> 
+
+   <div class="label-field-pair">
+      <label for="subject_name"><?=LNG_SUBJECT?></label>
+        <div class="text-input-bg">
+		<select onchange="getajax('<?=BASE_PATH?>employee/selectdepartment','?subject_id='+this.value,'department-select');" name="subject_assignment[subject_id]" id="subject_assignment_subject_id">
+		<option value=""><?=LNG_SELECT_A_SUBJECT?></option>
+		</select>
+</div>
+   </div>
+
+
+
+
+</div>
+  </div>
+   <div id="department-select"></div>
+
+</div> </div>
+
+      <div class="extender"></div>

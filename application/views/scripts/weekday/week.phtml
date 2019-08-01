@@ -1,0 +1,52 @@
+<? if($this->batchid){ ?>
+<form method="post" action="<?=BASE_PATH?>weekday/create">
+  <ul id="category-list">    
+    <input type="hidden" value="<?=$this->batchid?>" name="batch_id" id="weekday_batch_id">
+    
+      <li class="listodd">
+        
+        <div class="category-name"><?=LNG_SUNDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="0" name="weekdays[]" id="weekdays_" <? if(in_array('0',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listeven">
+        
+        <div class="category-name"><?=LNG_MONDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="1" name="weekdays[]" id="weekdays_" <? if(in_array('1',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listodd">
+        
+        <div class="category-name"><?=LNG_TUESDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="2" name="weekdays[]" id="weekdays_" <? if(in_array('2',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listeven">
+        
+        <div class="category-name"><?=LNG_WEDNESDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="3" name="weekdays[]" id="weekdays_" <? if(in_array('3',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listodd">
+        
+        <div class="category-name"><?=LNG_THURSDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="4" name="weekdays[]" id="weekdays_" <? if(in_array('4',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listeven">
+        
+        <div class="category-name"><?=LNG_FRIDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="5" name="weekdays[]" id="weekdays_" <? if(in_array('5',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+      <li class="listodd">
+        
+        <div class="category-name"><?=LNG_SATURDAY?></div>
+        <div class="category-edit"><input type="checkbox" value="6" name="weekdays[]" id="weekdays_" <? if(in_array('6',$this->weekday)) { ?> checked="checked"<? } ?>></div>
+      </li>
+    
+
+  </ul>
+  <input type="submit" value=" Save" onclick="if (!confirm('This will delete all timetable entries and Attendance entries for the weekdays, Proceed with changing weekdays ?')) return false; return true;" name="commit" class="submit_button">
+</form>
+<? } ?>

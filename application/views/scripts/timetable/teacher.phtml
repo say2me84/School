@@ -1,0 +1,92 @@
+<? global $mySession;
+$db = new Db();
+?><link href="<?=CSS_URL?>timetable/teacher.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+<div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_timetable.png">
+  <h1><?=LNG_TIMETABLE?></h1>
+  <h3><?=LNG_TEACHER_TIMETABLE?></h3>
+  
+    <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+  
+</div>
+
+<div id="page-yield">
+<?
+	$layout = '
+				<div id="box3">
+				  <table align="center" border="0" cellspacing="2" width="100%">
+					<tbody><tr>';
+					  
+					   for($w=0; $w < 7; $w++) { 
+							$layout .= '<td class="teacherperiodtop">'.strtoupper(getDayName($w)).'</td>';
+					   }
+					  $layout .= '</tr> 
+					<tr class="blank">';
+					/*$ttent_name = 'ttent_'.time().rand(100,900);
+					//$t_qry = "CREATE [TEMPORARY] TABLE [IF NOT EXISTS] ".$ttent_name." ( id int, name char(100) ) ";
+					$t_qry = "CREATE TABLE IF NOT EXISTS `weekdays12` (
+							  `id` int(11) NOT NULL auto_increment,
+							  `batch_id` int(11) default NULL,
+							  `weekday` varchar(255) collate utf8_unicode_ci default NULL
+							)";
+					//$t_qry = "CREATE TEMPORARY TABLE ".$ttent_name." ( id int, name char(100) ) ";
+					$db->runQuery($t_qry);
+					
+					$data['id'] = '3';
+					$data['name'] = 'aa bb';
+					$modelobj->insertThis($ttent_name,$data);
+					
+					$qry="select * from ".$ttent_name;
+					$asd = $db->runQuery($qry);
+					
+					pr($asd);*/
+					$gradcolor = array();
+					$subjectcolor = subjectcolor();
+					   for($w=0; $w < 7; $w++) { 
+							$qry = "select b.name as bname, s.name as sname, s.code as scode, TIME_FORMAT(c.start_time,'%h:%i%p') as sttime, TIME_FORMAT(c.end_time,'%h:%i%p') as entime, b.grade_id, g.grade_name from timetable_entries as t inner join weekdays as w on (w.id=t.weekday_id) left join subjects as s on (s.id=t.subject_id) left join class_timings as c on (c.id=t.class_timing_id) left join batches as b on (b.id=t.batch_id) left join grades as g on (g.id=b.grade_id) where t.employee_id='".$mySession->user['userownid']."' and w.weekday='".$w."' order by c.start_time";
+							
+							$detail = $db->runQuery($qry);
+							
+							$layout .= '<td class="teacherperiodbox" style="width:'.(100/7).'%; vertical-align:top"><div>';
+							if(is_array($detail) && count($detail) > 0) {
+							$layout .= '';
+								foreach($detail as $d)
+								{
+									////--- Set color
+									if(isset($gradcolor[$d['grade_id']])) {
+										$bgcolor = $gradcolor[$d['grade_id']];
+									} else {
+										if(count($subjectcolor) > 0) {
+											$bgcolor = $subjectcolor[0];
+											$subjectcolor = array_slice($subjectcolor,1);
+											$gradcolor[$d['grade_id']] = $bgcolor;
+										} else {
+											$bgcolor = rand_colorCode();
+											$gradcolor[$d['grade_id']] = $bgcolor;
+										}
+									}
+									////---- end color
+									$layout .= '<div class="teacherperiod" style="background-color:'.$bgcolor.'"><span class="time">'.$d['sttime'].' - '.$d['entime'].'</span><br><strong>'.$d['grade_name'].'-'.$d['bname'].'</strong><br>'.$d['sname'].'</div>';
+								}
+							} else {
+								$layout .= '&nbsp;';
+							}
+							$layout .= '</div></td>';
+					   }
+					  $layout .= '</tr>
+				  </tbody></table>
+				</div>';
+	echo $layout;
+
+?></div> </div>
+
+      <div class="extender"></div>

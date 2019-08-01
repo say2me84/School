@@ -1,0 +1,172 @@
+<?
+global $mySession;
+?>
+ <link href="<?=CSS_URL?>_layouts/dashboard.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+ <link href="<?=CSS_URL?>user/dashboard.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />    
+      <div id="content"> 
+<div id="content_header">
+  <? if(@$mySession->user['schoollogo']!='' && file_exists('upload/school/'.$mySession->user['schoollogo'])) { ?>		 
+		<div style="position:relative; margin:-18px 5px 0 0; float:left;"><img src="<?=BASE_PATH.'upload/school/'.$mySession->user['schoollogo']?>" height="92" /></div>
+	<? } ?>
+	<h1 id="main_heading"><?=LNG_WELCOME_MESSAGE1?></h1>
+	<h3 id="sub_heading"><?=LNG_WELCOME_MESSAGE2?></h3>
+</div>
+<?
+if($mySession->setlanguage=='1'){
+?>
+ 	<p class="flash-msg"> <?=LNG_WELCOME?> <?=$mySession->user['fname']?> <?=$mySession->user['lname']?> </p> 
+<?
+}else{
+?>
+	<p class="flash-msg"> <?=$mySession->user['fname']?> <?=$mySession->user['lname']?> <?=LNG_WELCOME?></p> 
+<?
+}
+?>
+<? if(count($mySession->user['userstudentid']) > 1) {
+	 if(isset($this->studentlist) && count($this->studentlist) > 0) { 
+		
+		?>        
+        <div id="sidebar_news_area">
+            <div class="sidebar_head">
+				<?=LNG_STUDENTS?>
+			</div>
+			<div>
+			<?
+				$i=1; 
+			  	foreach($this->studentlist as $studentlist) {
+			?>
+				<ul>
+					<li>
+						<a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>">
+							<?=$studentlist['first_name']?> <?=$studentlist['middle_name']?> <?=$studentlist['last_name']?>
+						</a>
+					</li>
+				</ul>
+			<?
+				$i++; }
+			?>
+			</div>
+        </div>
+<?
+		
+	}
+ }?>
+<div id="user_options" style="clear:both;
+	<? if($mySession->user['usertype']=='T') { ?>
+		padding-left:100px;
+	<? } ?>
+	<? if(count($mySession->user['userstudentid']) > 1) {		
+		?>
+			clear:none; float:right; width:660px; margin-right:50px; padding-left:80px;
+		<? 		
+	}
+		if($mySession->user['usertype']=='P' && count($mySession->user['userstudentid'])==1){
+			?>
+				padding-left:120px;
+			<?
+		}
+	 ?>
+">
+<? if($mySession->user['usertype']=='A') { ?>
+	<div class="button-box">
+      <a title="Enter a Students admission details into the school records" id="school_button" class="option_buttons" href="<?=BASE_PATH?>school/admission1"><div class="button-label"><p><?=LNG_ADD_SCHOOL?></p></div></a>
+    </div>
+    <div class="button-box">
+      <a title="Search for an existing and former student records" id="school_detail_button" class="option_buttons" href="<?=BASE_PATH?>school/viewall"><div class="button-label"><p><?=LNG_SCHOOL_DETAILS?></p></div></a>
+    </div>
+     
+    <div class="button-box">
+      <a title="Add Secretary module"id="hr_detail"  class="option_buttons" href="<?=BASE_PATH?>user/create"><div class="button-label"><p><?=LNG_ADD_SECRETARY?></p></div></a>
+    </div>
+    
+	<div class="button-box">
+      <a title="Manage Secretary" id="hr_button" class="option_buttons" href="<?=BASE_PATH?>user/manage"><div class="button-label"><p><?=LNG_MANAGE_SECRETARY?></p></div></a>
+    </div>
+<? } elseif($mySession->user['usertype']=='T') { ?>
+	<div class="button-box">
+      <a title="Enter a Students admission details into the school records" id="admission_button" class="option_buttons" href="<?=BASE_PATH?>employee/profile/profileid/<?=$mySession->user['userownid']?>"><div class="button-label"><p><?=LNG_MY_PROFILE?></p></div></a>
+    </div>
+
+    <div class="button-box">
+      <a title="Search for an existing and former student records" id="timetable_button" class="option_buttons" href="<?=BASE_PATH?>timetable/teacher"><div class="button-label"><p><?=LNG_TIMETABLE?></p></div></a>
+    </div>
+	
+	 <div class="button-box">
+      <a title="Manage the attendance for the students" id="student_attendance_button" class="option_buttons" href="<?=BASE_PATH?>attendances"><div class="button-label"><p><?=LNG_ATTENDANCE?></p></div></a>
+    </div>
+	
+	<div class="button-box">
+      <a title="See examination details and results" id="examinations_button" class="option_buttons" href="<?=BASE_PATH?>exam"><div class="button-label"><p><?=LNG_EXAMINATIONS?></p></div></a>
+     </div>
+
+<? } elseif($mySession->user['usertype']=='P') { ?>
+
+<div class="button-box">
+	<? if(count($mySession->user['userstudentid']) > 1) { ?>
+      <a title="Enter a Students admission details into the school records" id="admission_button" class="option_buttons" href="<?=BASE_PATH?>student/parentliststudent/studentid/<?=$mySession->user['userstudentid'][0]?>"><div class="button-label"><p><?=LNG_STUDENT_PROFILE?></p></div></a>
+	<? } else { ?>
+	  <a title="Enter a Students admission details into the school records" id="admission_button" class="option_buttons" href="<?=BASE_PATH?>student/profile/studentid/<?=$mySession->user['userstudentid'][0]?>"><div class="button-label"><p><?=LNG_STUDENT_PROFILE?></p></div></a>
+	<? } ?>
+    </div>
+
+    <div class="button-box">
+      <a title="Search for an existing and former student records" id="student_details_button" class="option_buttons" href="<?=BASE_PATH?>attendancereport/reportforparent">
+	  	<div class="button-label"><p><?=LNG_ATTENDANCE_REPORT?></p></div>
+	</a>
+    </div>
+	
+	<div class="button-box">
+      <a title="Timetable management module" id="timetable_button" class="option_buttons" href="<?=BASE_PATH?>timetable/studentview"><div class="button-label"><p><?=LNG_TIMETABLE?></p></div></a>
+    </div>
+	
+	<div class="button-box">
+      <a title="See examination details and results" id="examinations_button" class="option_buttons" href="<?=BASE_PATH?>student/studentmarks"><div class="button-label"><p><?=LNG_EXAM_REPORT?></p></div></a>
+     </div>
+	 
+	 <div class="button-box">
+      <a title="Reminder management module" id="reminders_button" class="option_buttons" href="<?=BASE_PATH?>reminder/sendtoteacher"><div class="button-label"><p><?=LNG_SEND_MESSAGE_TEACHER?></p></div></a>
+    </div>
+<? } else { ?>
+	
+    <div class="button-box">
+      <a title="Enter a Students admission details into the school records" id="admission_button" class="option_buttons" href="<?=BASE_PATH?>student/admission1">
+	  	<div class="button-label"><?=LNG_ADMISSION?></div>
+		</a>
+    </div>
+
+    <div class="button-box">
+      <a title="Search for an existing and former student records" id="student_details_button" class="option_buttons" href="<?=BASE_PATH?>student/viewall"><div class="button-label"><?=LNG_STUDENT_DETAILS?></div></a>
+    </div>
+	
+	<div class="button-box">
+      <a title="Configure the basic school settings" id="settings_button" class="option_buttons" href="<?=BASE_PATH?>configuration"><div class="button-label"><?=LNG_SETTINGS?></div></a>
+    </div>
+	
+	<div class="button-box">
+      <a title="Manage Important dates and events " id="calender_button" class="option_buttons" href="<?=BASE_PATH?>calendar"><div class="button-label"><?=LNG_CALENDER?></div></a>
+    </div>
+	
+	<div class="button-box">
+        <a title="Human Resource Department" id="hr_button" class="option_buttons" href="<?=BASE_PATH?>employee/hr"><div class="button-label"><?=LNG_MANAGE_EMPLOYEE?></div></a>
+      </div>
+	
+    <div class="button-box">
+      <a title="Timetable management module" id="timetable_button" class="option_buttons" href="<?=BASE_PATH?>timetable"><div class="button-label"><?=LNG_TIMETABLE?></div></a>
+    </div>
+	
+    <div class="button-box">
+      <a title="Manage the attendance for the students" id="student_attendance_button" class="option_buttons" href="<?=BASE_PATH?>studentattendance"><div class="button-label"><p><?=LNG_ATTENDANCE?></p></div></a>
+    </div>
+	
+	 <div class="button-box">
+      <a title="See examination details and results" id="examinations_button" class="option_buttons" href="<?=BASE_PATH?>exam"><div class="button-label"><?=LNG_EXAMINATIONS?></div></a>
+     </div>
+    
+    
+<? } ?>
+</div>
+
+<div id="option_description"> </div>
+ </div>
+
+      <div class="extender"></div>

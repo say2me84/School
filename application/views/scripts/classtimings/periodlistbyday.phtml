@@ -1,0 +1,18 @@
+<?
+
+$i=1; 
+foreach($this->timings as $timings) { 
+	$m=$i%2; 
+	if($m==0)
+	{
+		$class="tr-odd";	
+	}else{
+		$class="tr-even";	
+	}
+	
+	$layout .= '<div class="periodname" style="text-align:left;"><input type="checkbox" name="chkperiod" id="chkperiod'.$i.'" value="'.$timings['id'].'"  /><span class="name">'.$timings['name'].'</span><br /><span class="time">'.$timings['start_time'].'-'.$timings['end_time'].'</span></div>';
+	$i++;
+}
+$layout .= '<input type="hidden" name="totalrec" id="totalrec" value="'.count($this->timings).'" />';
+echo $layout;
+?>

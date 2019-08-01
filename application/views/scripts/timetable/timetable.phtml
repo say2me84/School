@@ -1,0 +1,127 @@
+<link href="<?=CSS_URL?>timetable/timetable.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>show_timetable.png">
+  <h1>Timetable</h1>
+  <h3>Institutional Timetable</h3>
+  <div id="app-back-button">
+  <a onclick="history.back(); return false;" href="#"><img border="0" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" alt="Back"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+  <div id="timetable">
+    
+<div id="register">
+      <div class="header">
+        <div class="prev">
+          <a onclick="new Ajax.Request('/timetable/timetable?next=2011-09-05', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=')}); return false;" href="#">&lt;</a>
+        </div>
+        <div class="month">
+           06 September 2011
+        </div>
+        <div class="next">
+        <a onclick="new Ajax.Request('/timetable/timetable?next=2011-09-07', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('BwVDJkXp81PzRlHDNPgqE8xs3LgnL4IH+G5vEg+zGBk=')}); return false;" href="#">&gt;</a>
+        </div>
+        <div class="extender"></div>
+      </div>
+    </div>
+
+<div class="table">
+  
+    
+    
+
+      
+      
+    <table width="100%" cellspacing="0" border="0" align="center" id="timing">
+      <tbody><tr>
+        <td class="head">
+          <div class="top">
+            Time
+          </div>
+          <div class="bottom">
+            <div class="class">
+              001 - BCA
+            </div>
+          </div>
+        </td>
+        <td class="td-blank"> </td>
+        
+          
+          <td>
+            <div class="top">
+              09:30AM-10:00AM
+            </div>
+            <div class="bottom">
+              <div class="subject">
+                
+              </div>
+              
+                
+              
+            </div>
+          </td>
+        
+          
+          <td>
+            <div class="top">
+              10:00AM-10:30AM
+            </div>
+            <div class="bottom">
+              <div class="subject">
+                
+              </div>
+              
+                
+              
+            </div>
+          </td>
+        
+          
+          <td>
+            <div class="top">
+              11:30AM-12:30PM
+            </div>
+            <div class="bottom">
+              <div class="subject">
+                
+              </div>
+              
+                
+              
+            </div>
+          </td>
+        
+          
+          <td>
+            <div class="top">
+              12:30PM-01:00PM
+            </div>
+            <div class="bottom">
+              <div class="subject">
+                
+              </div>
+              
+                
+              
+            </div>
+          </td>
+        
+
+      </tr>
+    </tbody></table>
+      
+  
+  
+</div>
+</div>
+</div> </div>
+
+      <div class="extender"></div>

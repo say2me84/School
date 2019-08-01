@@ -1,0 +1,44 @@
+<? if(isset($this->studentlist) && count($this->studentlist) > 0) { ?>
+<table id="listing" align="center" cellpadding="1" cellspacing="1" width="100%">
+        
+          <tbody><tr class="tr-head">
+            <td>
+              Sl no.
+            </td>
+            <td>
+              First Name
+            </td>
+            <td> <?=LNG_BATCH?></td>
+            <td> Adm no</td>
+
+          </tr>
+          <tr class="tr-blank"></tr>
+          
+          <? $i=1; 
+		  foreach($this->studentlist as $studentlist) {
+		   $m=$i%2; 
+				if($m==0)
+				{
+					$class="tr-even";	
+				}else{
+					$class="tr-odd";	
+				}
+		   ?>
+		    <tr class="<?=$class?>">
+              <td class="col-1"><?=$i?></td>
+                <td class="col-2"><a href="<?=BASE_PATH?>student/profile/studentid/<?=$studentlist['id']?>"><?=$studentlist['name']?></a></td>
+              <td class="col-2"><?=$studentlist['batchname']?></td>
+              <td class="col-2"><?=$studentlist['admission_no']?></td>
+            </tr>
+          
+            <? $i++; } ?>
+          
+        
+      </tbody></table>
+<? } else { ?>
+<table id="listing" align="center" cellpadding="1" cellspacing="1" width="100%">
+  <tbody><tr class="tr-odd">
+	<td class="col-2">No students found</td>
+  </tr>
+</tbody></table>
+<? } ?>

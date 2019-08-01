@@ -1,0 +1,19 @@
+<?
+$detail = $this->detail; 
+?>
+<table width="700">
+<tr class="odd left"><td>Office phone1</td><td class="right"><?=$detail['office_phone1']?></td></tr>
+<tr class="even left"><td>Office phone2</td><td class="right"><?=$detail['office_phone2']?></td></tr>
+<tr class="odd left"><td>Mobile</td><td class="right"><?=$detail['mobile_phone']?></td></tr>
+<tr class="even left"><td>Home phone</td><td class="right"><?=$detail['home_phone']?></td></tr>
+<tr class="odd left"><td>Email</td><td class="right"><?=$detail['email']?></td></tr>
+<tr class="even left"><td>Fax</td><td class="right"><?=$detail['fax']?></td></tr>
+</table>
+<div class="edit-pdf-group">
+<div class="edit">
+<a href="<?=BASE_PATH?>employee/editcontact/profileid/<?=$detail['id']?>">Edit</a>
+</div>
+<?php /*?><div class="pdf">
+<a href="/employee/profile_pdf/11" class="user_button" target="_blank">PDF Report</a>
+</div><?php */?>
+</div>

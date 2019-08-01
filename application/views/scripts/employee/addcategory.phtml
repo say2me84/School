@@ -1,0 +1,97 @@
+<div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>HR/show_hr.png" alt="">
+  <h1><?=LNG_EMPLOYEE_SETTINGS?></h1>
+  <h3><?=LNG_ADD_EMP_CATEGORY?></h3>
+  <div id="app-back-button">
+    <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?<?=UPDATE_KEY?>" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+<form action="<?=BASE_PATH?>employee/addcategory" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"></div>
+    
+    <div id="form-content">
+	<div id="necessary-field-notification"> <?=LNG_FIELDS_MARKED_WITH?> <span class="necessary-field">*</span> <?=LNG_MUST_BE_FILLED?></div>
+      <div class="label-field-pair">
+        <label for="category_name"><?=LNG_NAME?> <span class="necessary-field">*</span></label>
+        <div class="text-input-bg"><?php echo $this->form->student_category_name?></div>
+      </div>
+
+      <div class="label-field-pair">
+        <label for="category_prefix"><?=LNG_PREFIX?></label>
+        <div class="text-input-bg"><?php echo $this->form->prefix?> </div>
+      </div>
+
+      <div class="label-checkbox-pair">
+        <label class="status" for="status"><?=LNG_STATUS?></label>
+        <div id="radio-buttons">
+		<?php echo $this->form->status?>
+        
+        </div>
+      </div>
+
+      <div id="submit-button">
+        <input name="commit" value="<?=LNG_CREATE?>" type="submit">
+      </div>
+    </div>
+
+
+</form>
+  <div id="category-list" style="text-align:left;">
+    
+
+
+<ul id="category-list">
+
+  <li class="listheading"> <div class="category-name"><?=LNG_ACTIVE_CATEGORIES?> </div> </li>
+  
+  <?
+  	if(is_array($this->categoryList) && !empty($this->categoryList))
+	{
+		foreach($this->categoryList as $catList)
+		{
+  ?>
+       <li class="listodd">
+        <div class="category-name"><?=$catList['name']?> (<?=$catList['prefix']?>)</div>
+        <div class="category-edit"><a href="<?=BASE_PATH?>employee/editcategory/id/<?=$catList['id']?>"><?=LNG_EDIT?></a></div>
+        <div class="category-edit"><a href="<?=BASE_PATH?>employee/deletecategory/id/<?=$catList['id']?>" onclick="return confirm('Are you sure?');"><?=LNG_DELETE?></a></div>
+      </li>
+	 <? 
+	 	}
+	 } ?>
+	</ul>
+	<ul id="category-list"> 
+	 <li class="listheading"><div class="category-name"> <?=LNG_INACTIVE_CATEGORIES?></div></li>
+	 
+	 <?
+	 	if(is_array($this->categoryList2) && !empty($this->categoryList2))
+		{
+		
+			foreach($this->categoryList2 as $catList)
+			{
+		?>
+		<li class="listodd">
+			<div class="category-name"><?=$catList['name']?> (<?=$catList['prefix']?>)</div>
+			<div class="category-edit"><a href="<?=BASE_PATH?>employee/editcategory/id/<?=$catList['id']?>"><?=LNG_EDIT?></a></div>
+			<div class="category-edit"><a href="<?=BASE_PATH?>employee/deletecategory/id/<?=$catList['id']?>" onclick="return confirm('Are you sure?');"><?=LNG_DELETE?></a></div>
+     	</li>
+		<?
+			}
+		}
+	 ?> 
+
+     
+     
+  
+</ul>
+
+ 
+
+  </div>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

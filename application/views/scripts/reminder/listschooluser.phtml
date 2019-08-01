@@ -1,0 +1,84 @@
+ <input id="recipients" name="recipients" value="" type="hidden">
+     	<div class="to-options">
+          <a href="#"><?=LNG_CREATE_REMINDER_TO_STAFF?></a>
+        </div>
+      <div class="extender"></div>
+      
+        <div id="select-employee-department">
+          
+			<div class="label-field-pair">
+			<label for="department"><?=LNG_SELECT_MANAGEMENT?></label>
+			 <div class="text-area-bg">
+				<select multiple="multiple"  class="text-mul-bg" name="staff">
+					<option value="1"><?=LNG_SUPER_ADMIN?></option>
+					<? foreach($this->slist as $slist) { ?>
+						<option value="<?=$slist['id']?>"><?=$slist['name']?></option>
+					<? } ?>				
+				</select>			
+			  </div>
+			</div> 
+        	 <div class="extender"></div>
+			
+			<div class="label-field-pair">
+			 <label for="department"><?=LNG_SELECT_STAFF_NAME?></label>
+			  <div class="text-area-bg">
+				<select multiple="multiple"  class="text-mul-bg" name="staff">
+					<? foreach($this->elist as $elist) { ?>
+					<option value="<?=$elist['id']?>"><?=$elist['name']?></option>
+					<? } ?>
+				</select>
+			  </div>
+			</div>
+
+        </div>
+      	<div class="extender"></div>
+
+
+	<? if($mySession->user['usertype']!='P'){ ?>
+    	<div class="to-options">
+        <a href="#"><?=LNG_CREATE_REMINDER_TO_GUARDIAN?></a>
+      </div>
+      <div class="extender"></div>
+      <div id="select-student-course">
+		<div class="label-field-pair">
+		  <label for="department"><?=LNG_SELECT_A_BATCH?></label>
+		  <div class="text-area-bg">
+		  
+		<script>
+		function slst()
+		{
+		oSelect = document.getElementById ('stulst');
+		var iNumSelected = 0;
+		
+		var mnycls = '';
+		   for (var iCount=0; oSelect.options[iCount]; iCount++) {
+				if (oSelect.options[iCount].selected == true) {
+					iNumSelected ++;
+					mnycls = mnycls +'|'+ oSelect[iCount].value; 
+				}
+		   }
+		   document.getElementById('stuvals').value = mnycls;
+		}
+		</script>
+		<input type="hidden" name="stuvals" id="stuvals"  />
+		
+			<select multiple="multiple"  class="text-mul-bg" id="stulst" onchange="slst();getajax('<?=BASE_PATH?>reminder/selectstudentcourse','?cls_id='+document.getElementById('stuvals').value,'student-list');" >
+		
+		<?	if(is_array($detail) && count($detail) > 0)
+			{
+				foreach($detail as $list)
+				{
+				echo '<option value="'.$list['id'].'" > '.$list['code'].'-'.$list['name'].' </option>';
+				}
+			}
+		?>
+			</select>
+		  </div>
+		</div>
+
+		<div id="student-list"></div>
+      </div>
+    <? } ?>
+	  <div class="label-field-to">
+        <div id="to_users2"></div>
+      </div>

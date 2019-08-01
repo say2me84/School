@@ -1,0 +1,287 @@
+
+.link-box {
+    margin:10px 40px;
+    width:270px;
+    float:left;
+    height:80px;
+}
+.link-heading a {
+    font-weight:bold;
+    color:#900;
+}
+.link-descr {
+    margin-top:5px;
+    color:#666;
+    text-align:justify;
+}
+.box{
+    width:750px;
+    margin:0px auto;
+}
+
+input.addfees {
+    background : #eee;
+    border : 1px solid #c6c6c6;
+    margin : 5px 0 0 10px;
+    width : 145px;
+    height:17px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    padding: 5px;
+}
+
+input.addfees:focus{
+    background: #fff;
+    border: 1px solid #158686;
+}
+
+/* Modalbox styles */
+
+#MB_frame #MB_header {
+    background: transparent url(../images/modalbox/header-underline.png) bottom center no-repeat;
+    height: 55px;
+}
+#MB_frame #MB_caption {
+    padding: 15px 0 0 10px;
+}
+#MB_frame .label-field-pair { margin: 5px 0; width: 450px; }
+#MB_frame .label-checkbox-pair { width: 450px; }
+#MB_frame .submit-button {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background: #27292B;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 0 0 200px;
+    padding: 5px;
+    float:left;
+    cursor:pointer;
+}
+#MB_frame .submit-button:hover { background: #373b3f; }
+#MB_frame .time-select-field {
+    float: left;
+    margin: 0 0 0 5px;
+}
+#MB_frame .label-field-pair select {
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    background : #eee;
+    border : 1px solid #c6c6c6;
+    margin : 5px 10px 0 5px;
+    padding: 5px;
+    width: 80px;
+}
+#MB_frame .head_label{
+    position:absolute;
+    top:18px;
+    left:18px;
+    color:#2d2b2b;
+    font-weight:bold;
+    font-size:16px;
+}
+#MB_frame .head_label span{
+    color:#B3D5D4800;
+}
+#MB_frame #delete-button{
+    float:left;
+}
+#MB_frame #delete-button a{
+    text-decoration:none;
+    margin:0px 20px 0 20px;
+    padding: 7px 10px;
+    color: #fff;
+    background: #27292B;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    font-weight: bold;
+    font-size: 14px;
+    border:none;
+    font-family: arial;
+    float:left;
+}
+
+/* Hacks for specific input types */
+
+.caledar_date_select { z-index: 10001; } /* to prevent calendar from appearing below modalbox */
+
+.fee_category_scroll{
+    height:76px;
+    margin-left:146px;
+    margin-top:-53px;
+    overflow:auto;
+    width:156px;
+}
+
+.add_new_text {
+    color : #444;
+    /*display : block;*/
+    font-size: 14px;
+    margin : 0 0 10px 0;
+    float:left;
+    padding-top: 10px;
+    font-weight: 600;
+	width:100px;
+}
+.label-field-pair input {
+    background : #eee;
+    border : 1px solid #c6c6c6;
+    margin : 5px 0 0 10px;
+    width : 205px;
+    height:17px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    padding: 5px;
+}
+
+select {
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    background : #eee;
+    border : 1px solid #c6c6c6;
+    margin : 5px 10px 0 5px;
+    padding: 5px;
+    width: 120px;
+}
+
+table#class-timings-list{
+    background: #c3d9ff;
+}
+
+table#class-timings-list tr.tr-head{
+    background: #fff;
+    color:#158686;
+    font-weight:bold;
+    text-align:left;
+}
+
+table#class-timings-list .tr-head td{
+    padding:5px;
+    padding-left:10px;
+}
+
+table#class-timings-list .tr-odd{
+    background: #fff;
+    text-align:left;
+    padding:50px;
+    color:#27292b;
+    font-weight:600;
+    font-size:14px;
+}
+
+table#class-timings-list .tr-even{
+    background: #f1f6ff;
+    text-align:left;
+    padding:50px;
+    color:#27292b;
+    font-weight:600;
+    font-size:14px;
+
+}
+
+table#class-timings-list .tr-read-odd{
+    background: #fff;
+    text-align:left;
+    padding:50px;
+    color:#27292b;
+    font-weight:normal;
+    font-size:14px;
+}
+
+table#class-timings-list .tr-read-even{
+    background: #f1f6ff;
+    text-align:left;
+    padding:50px;
+    color:#27292b;
+    font-weight:normal;
+    font-size:14px;
+}
+
+table#class-timings-list td.col-1{
+   
+    padding: 5px;
+    padding-left:10px;
+}
+
+table#class-timings-list td.col-2{
+    
+    text-align:left;
+    padding: 5px;
+    padding-left:10px;
+}
+
+table#class-timings-list td a{
+    text-decoration:none;
+    color:#27292b;
+}
+
+table#class-timings-list td a:hover{
+    color:#990a10;
+    text-decoration:underline;
+}
+
+table#class-timings-list td.col-3{
+   
+    padding: 5px;
+    padding-left:10px;
+}
+
+table#class-timings-list td.col-4{
+   
+    padding: 5px;
+    padding-left:10px;
+}
+
+table#class-timings-list td.col-5{
+    width:5%;
+    padding: 5px;
+    padding-left:10px;
+}
+
+table#class-timings-list td.col-6{
+    text-align: right;
+    width:13%;
+    padding: 5px;
+    padding-left:10px;
+
+}
+
+#student_profile_heading {
+    background-color: #FFF1AB;
+    border: 1px solid #EFDF95;
+    clear: both;
+    height: 25px;
+    margin: 0 0 40px;
+    padding: 2px 0 0 190px;
+}
+
+#student_main_info  {
+    float: left;
+    text-align: center;
+}
+
+#student_main_info span.name {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 30px 0 0;
+    padding-right: 20px;
+}
+
+#student_main_info span.class {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0 0;
+    padding-right: 20px;
+}
+
+#student_main_info span.adm {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px 0 0;
+    padding: 0;
+}

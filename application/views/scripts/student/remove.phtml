@@ -1,0 +1,65 @@
+<link href="<?=CSS_URL?>student/remove.css?<?=UPDATE_KEY?>" media="screen" rel="stylesheet" type="text/css" />
+      <div id="side_bar">
+
+        <div id="sidebar_news_area">
+          
+        </div>
+      </div>
+      <div id="content"> 
+<div id="content-header">
+  <img src="<?=IMAGES_URL?>student_details/student_details_logo.png">
+  <h1><?=LNG_STUDENTS?></h1>
+  <h3><?=LNG_REMOVE_STUDENT?></h3>
+  <div id="app-back-button">
+     <a href="#" onclick="history.back(); return false;"><img alt="Back" src="<?=IMAGES_URL?>buttons/back.png?1313631718" border="0"></a>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <div id="student-details">
+    <h3><? echo $this->studentdetail['stname']; ?> </h3>
+    <h4><?=LNG_ADM_NO?> : <? echo $this->studentdetail['admission_no'];?></h4>
+    <h4><?=LNG_GRADE?> : <?=$this->studentdetail['grade_name']?></h4>
+  </div>
+
+  <div class="extender"> </div>
+  
+  <div class="link-box">
+    <div class="link-heading"> <a href="<?=BASE_PATH?>student/changetoformer/studentid/<?=$this->studentdetail['id']?>"><?=LNG_STUDENT_LEAVING_INSTITUTE?></a> </div>
+    <div class="link-descr"><?=LNG_REMOVE_STUDENT_TEXT1?></div>
+  </div>
+  
+  <div class="link-box">
+    <div class="link-heading"> <a href="<?=BASE_PATH?>student/delete/studentid/<?=$this->studentdetail['id']?>"><?=LNG_REMOVE_STUDENT_RECORDS?></a> </div>
+    <div class="link-descr"><?=LNG_REMOVE_STUDENT_TEXT2?></div>
+  </div>
+
+   <?php /*?> 
+
+  <div id="remove-student">
+    <h4><a href="/student/remove/2">Student leaving school</a></h4>
+    <p>For students leaving the school, use this option to remove them from the list of active students and place them in the former students list.</p>
+    <form action="/student/remove/2" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="LIcJh9RViGJbke08dKm5meXBtwJwRvkXW96cgSZC9S8=" /></div>
+      <div class="label-field-pair">
+        <label for="remove_descr">Reason for leaving</label>
+        <div class="text-input-bg"><input id="remove_description" name="remove[description]" size="30" type="text" /></div>
+      </div>
+      <div class="extender"> </div>
+      <input src="/images/buttons/remove.png?1313631718" type="image" />
+    </form>
+  </div>
+
+  <div id="delete-student">
+    <h4>Delete student</h4>
+    <p>Completely delete student's records from the school's databases. Use this option only if you created the student record by accident and want to remove it completely.</p>
+
+    <p class="warning">(Warning: All records will be deleted for the student and cannot be recovered.)</p>
+    <a href="/student/destroy/2" onclick="return confirm('Are you completely sure?');"><img alt="Delete" border="0" src="/images/buttons/delete.png?1313631718" /></a>
+  </div>
+    <?php */?>
+
+</div> </div>
+
+      <div class="extender"></div>
+    

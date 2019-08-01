@@ -1,0 +1,41 @@
+<?
+if($this->batchid) { ?><div>
+	
+	
+	<div class="label-field-pair"><label for="employee_qualification">Weekday : </label></div>
+		
+		<?
+		foreach($this->weekdayarray as $weekday)
+		{
+			echo getDayName($weekday).' ';
+		}
+		?>
+		
+	
+<script>
+function gotosubmit() {
+	getajax('<?=BASE_PATH?>attendances/publishattendancesregister','?batch_id='+document.getElementById("batch_id").value+'&fdate='+document.getElementById("fdate").value+'&tdate='+document.getElementById("tdate").value,'register');
+}
+</script>
+<hr class="sub-heading">
+<div>
+ <div class="label-field-pair">
+        <label for="employee_qualification"><?=LNG_FROM?></label>
+        <div class="text-input-bg"><input name="fdate" id="fdate" value="<?=date('F d, Y')?>" type="text">
+		<img style="border:0px; cursor:pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[2011, 2012]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+      </div>
+ 
+		<div class="label-field-pair">
+        <label for="employee_qualification"><?=LNG_TO?> </label>
+        <div class="text-input-bg"><input name="tdate" id="tdate" value="<?=date('F d, Y')?>" type="text">
+		<img style="border:0px; cursor:pointer;" src="<?=IMAGES_URL?>calendar_date_select/calendar.gif?<?=UPDATE_KEY?>" onclick="new CalendarDateSelect( $(this).previous(), {year_range:[2011, 2012]} );" class="calendar_date_select_popup_icon" alt="Calendar"></div>
+      </div>
+			
+		
+
+            
+
+     <input type="button" class="submit_button" name="commit" value="<?=LNG_PUBLISH_REGISTER?>" onclick="gotosubmit()">     
+          </div>
+</div>
+<? } ?>

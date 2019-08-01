@@ -1,0 +1,44 @@
+
+<?
+	 if(is_array($this->emp_subject_list) && count($this->emp_subject_list) > 0)
+	 { ?>
+<ul id="department-list">
+  
+    <li class="heading"> <?=LNG_CURRENTLY_ASSIGNED?> </li>
+  
+     
+	 <? 
+	 foreach($this->emp_subject_list as $emp_subject_list) { ?>
+	  <li class="listeven">
+        <div class="department-name"><?=$emp_subject_list['ename']?>
+          (<?=$emp_subject_list['deptname']?>)</div>
+        <div class="remove"><a href="#" onclick="getajax('<?=BASE_PATH?>employee/removeemployee/subject_id/<?=$this->subject_id?>/?id=<?=$emp_subject_list['id']?>', '','department-select')"><?=LNG_REMOVE?></a></div>
+      </li>
+	 <? } ?>
+	 
+	
+	 
+	 
+ 
+</ul>
+<?
+	 } else { ?>
+	<p class="flash-msg"><?=LNG_NO_EMPLYEES_ASSIGNED?></p>
+<? } ?>
+<div class="label-field-pair">
+  <label for="department_name"><?=LNG_DEPT?></label>
+  <div class="text-input-bg"><select id="subject_assignment_department_id" name="subject_assignment[department_id]" onchange="getajax('<?=BASE_PATH?>employee/updateemployees', '?department_id='+this.value+'&amp;subject_id=<?=$this->subject_id?>','employee-list')"><option value=""><?=LNG_SELECT_DEPARTMENT?></option>
+
+		<?
+		foreach($this->deptlist as $deptlist) { ?>
+		<option value="<?=$deptlist['id']?>"><?=$deptlist['name']?></option>
+	  <? } ?>
+	  </select>
+  </div>
+</div>
+<div id="employee-list"></div>
+<div class="extender"></div>
+
+
+
+

@@ -1,0 +1,46 @@
+
+
+ <div id="login_area_bg">
+
+    <form action="" method="post">
+
+      <div id="login_area">
+        <label for="username">Username</label>
+        <div id="username_textbox_bg">
+          <?php echo $this->loginform->login_id?>
+        </div>
+
+        <label for="password">Password</label>
+        <div id="password_textbox_bg">
+          
+		  <?php echo $this->loginform->login_password?>		  
+        </div>
+
+       <?php /*?> <div id="checkbox_area">
+          <input type="checkbox" id="remember" />
+
+          <label for="remember">Remember me</label>
+        </div><?php */?>
+
+        <div id="submit_area">
+          <input class="submit" name="commit" type="submit" value="Login" />
+        </div>
+
+
+        
+          <?php /*?><div id="notice">Logged out</div><?php */?>
+
+        
+
+      </div>
+	   </form>
+	   </div>
+	   
+    </div>
+ 
+ <?php /*?> <div id="help_forgot_pw">
+    <a href="<?=BASE_PATH?>user/forgot_password">Help! I've Forgotten my Password?</a>
+
+</div><?php */?>
+<div class="clearfooter"></div>
+</div>
